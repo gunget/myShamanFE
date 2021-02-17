@@ -1565,6 +1565,7 @@ input[type="email"],
 input[type="tel"],
 input[type="search"],
 input[type="url"],
+input[type="file"],
 select,
 textarea {
   -moz-appearance: none;
@@ -1576,11 +1577,11 @@ textarea {
   border: none;
   border: solid 1px rgba(210, 215, 217, 0.75);
   color: inherit;
-  display: block;
+  display: inline-block;
   outline: 0;
   padding: 0 1em;
   text-decoration: none;
-  width: 100%;
+  width: 30%;
 }
 input[type="text"]:invalid,
 input[type="password"]:invalid,
@@ -1588,6 +1589,7 @@ input[type="email"]:invalid,
 input[type="tel"]:invalid,
 input[type="search"]:invalid,
 input[type="url"]:invalid,
+input[type="file"],
 select:invalid,
 textarea:invalid {
   box-shadow: none;
@@ -1630,8 +1632,14 @@ input[type="email"],
 input[type="tel"],
 input[type="search"],
 input[type="url"],
+input[type="file"],
 select {
   height: 2.75em;
+}
+
+input[type="file"] {
+  position: relative;
+  top: -5px;
 }
 
 textarea {
@@ -2466,11 +2474,14 @@ button:disabled,
 }
 .posts article .image {
   display: block;
+  overflow: hidden;
   margin: 0 0 2em 0;
 }
 .posts article .image img {
   display: block;
-  width: 100%;
+  height: 300px;
+  width: auto;
+  margin: 0 auto;
 }
 @media screen and (min-width: 1681px) {
   .posts article:nth-child(3n + 1):before {
@@ -2632,6 +2643,8 @@ button:disabled,
 /* Sidebar */
 #search form {
   text-decoration: none;
+  width: 50%;
+  margin: 10px auto;
   position: relative;
 }
 #search form:before {
@@ -2667,6 +2680,7 @@ button:disabled,
 }
 #search form input[type="text"] {
   padding-right: 2.75em;
+  text-align: center;
 }
 
 #sidebar {

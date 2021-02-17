@@ -1,13 +1,16 @@
 # 해결해야할 과제
 
-> DB에 이미지 영역 필드 만들기
->
-> > 저장할 때 번호와 랜덤이미지 저장 - 예술작품 혹은 명화가 표현되면 좋을 듯
-> > 부르면 그게 이미지로 등장함
+---
 
-> 검색기능 FE에 수용하기
+1. 검색기능 FE에 수용하기
 
-> authorization 기능 만들기
->
-> > 감독DB를 UserDB에 1:N으로 엮어줘야 함
-> > jwt를 활용한 login logout 구현
+- 검색부분 카드형식으로 디자인 하는 것 검토. Material Design 검토.
+
+1. 타이틀 부분의 그림 carousel? 적용하기
+
+1. router를 통해 작가파트로 넘어가기
+
+1. authorization 기능 만들기
+
+- 전체DB를 UserDB에 1:N으로 엮어줘야 함
+- jwt를 활용한 login logout 구현

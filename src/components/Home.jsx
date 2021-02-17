@@ -85,8 +85,8 @@ const Home = () => {
                   무엇을 보고 무엇을 들을 것인가. 콘텐츠가 많아질수록 '타고난
                   이야기꾼'은 사라진다. 졸작의 숲에서 느꼈던 낯 뜨거움과 분노를
                   몰아내고자, 여기 그들의 발자취를 기록한다. 부디 그들을 따라
-                  걸으며 더 이상의 막막함은 없기를. 또 한번의 전율이 걸음에 함께
-                  하기를.
+                  걸으며 더이상의 막막함은 없기를. 또 한번의 전율이 이 걸음에
+                  함께 하기를.
                 </p>
               </div>
               <span className="image object">
@@ -102,6 +102,12 @@ const Home = () => {
               <div className="posts">
                 <DirectorsList fetchDirectorInfo={fetchDirectorInfo} />
               </div>
+            </section>
+            <section>
+              <header className="major">
+                <h2>Search & Add New Director</h2>
+              </header>
+              <SearchDirector fetchDirectorInfo={fetchDirectorInfo} />
             </section>
             {/* <!-- Section Movie Director--> */}
             <section>
@@ -157,12 +163,11 @@ const Home = () => {
             </section>
           </div>
         </div>
-
         {/* <!-- Sidebar --> */}
         <div id="sidebar">
           <div className="inner">
             {/* <!-- Search --> */}
-            <section id="search" className="alt">
+            {/* <section id="search" className="alt">
               <form method="post" action="#">
                 <input
                   type="text"
@@ -171,7 +176,7 @@ const Home = () => {
                   placeholder="Search"
                 />
               </form>
-            </section>
+            </section> */}
 
             {/* <!-- Menu --> */}
             <nav id="menu">
@@ -318,7 +323,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <SearchDirector fetchDirectorInfo={fetchDirectorInfo} />
     </div>
   );
 };

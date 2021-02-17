@@ -2,26 +2,25 @@ import React, { useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
 
-import pic01 from "../images/pic01.jpg";
-
 const DirectorsList = ({ fetchDirectorInfo }) => {
   const states = useContext(StateContext);
 
   const delPeopleCode = (e) => {
     e.preventDefault();
 
-    //지우는 것 맞는지 컨펌한 후 진행
-
-    axios
-      .delete(
-        `http://localhost:8000/api/directorInfo/${e.target.parentNode.dataset.id}/`
-      )
-      .then(() => {
-        fetchDirectorInfo();
-      })
-      .catch((err) => console.log("삭제실패:", err));
+    const confirm = window.confirm("정말 삭제하시겠습니까?");
+    if (confirm) {
+      axios
+        .delete(
+          `http://localhost:8000/api/directorInfo/${e.target.dataset.id}/`
+        )
+        .then(() => {
+          fetchDirectorInfo();
+        })
+        .catch((err) => console.log("삭제실패:", err));
+    }
   };
-
+  const url = "https://mdl.artvee.com/ft/902103il.jpg";
   let list = states.loadings.initLoading
     ? "loading..."
     : states.directors.map((data) => {
@@ -31,18 +30,24 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
             data-id={data.id}
             data-peoplecode={data.peopleCode}
           >
-            <a href="#" className="image">
-              <img src={pic01} alt="" />
+            <a
+              href={`https://movie.naver.com/movie/bi/pi/filmo.nhn?code=${data.peopleCode}#tab`}
+              className="image"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img src={data.image} alt="from artvee.com" />
             </a>
-            <h2 className="korean">
+            <h2 className="korean" style={{ textAlign: "center" }}>
               {data.name}&nbsp;
               <i class="fas fa-film"></i>
             </h2>
-            <p></p>
             <p>
-              <h4 className="korean">네이버 무비 필모그래피 링크 :</h4>
-              https://movie.naver.com/movie/bi/pi/filmo.nhn?code=$
-              {data.peopleCode}#tab
+              <h4>
+                {data.wisesaying}&nbsp; &nbsp;
+                <i class="far fa-grin-squint-tears"></i>
+              </h4>
+              <p className="korean">네이버무비 필모그래피 보러가기 :</p>
             </p>
             <ul className="actions">
               <li>
@@ -53,11 +58,11 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
                   className="button"
                 >
                   <i class="fas fa-sign-in-alt"></i>
-                  &nbsp;&nbsp;go get filmo
+                  &nbsp;&nbsp;go filmo
                 </a>
               </li>
               <li>
-                <button onClick={delPeopleCode}>
+                <button data-id={data.id} onClick={delPeopleCode}>
                   <i class="fas fa-trash-alt"></i>&nbsp;&nbsp;delete
                 </button>
               </li>

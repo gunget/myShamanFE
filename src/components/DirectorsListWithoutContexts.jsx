@@ -50,3 +50,21 @@ const DirectorsList = ({ directors, loading, fetchDirectorInfo }) => {
 };
 
 export default DirectorsList;
+
+            {/* <li
+              key={data.id}
+              data-id={data.id}
+              data-peoplecode={data.peopleCode}
+            >
+              <div>{data.name}</div>
+              <a
+                href={`https://movie.naver.com/movie/bi/pi/filmo.nhn?code=${data.peopleCode}#tab`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                네이버영화 필모그래프로
+                이동:https://movie.naver.com/movie/bi/pi/filmo.nhn?code=
+                {data.peopleCode}#tab
+              </a>
+              <button onClick={delPeopleCode}>delete</button>
+            </li> */}
