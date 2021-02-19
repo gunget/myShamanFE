@@ -1546,6 +1546,14 @@ header.main > :last-child {
   margin: 0 0 1em 0;
 }
 
+div .container.search2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 /* Form */
 form {
   margin: 0 0 2em 0;
@@ -1581,7 +1589,7 @@ textarea {
   outline: 0;
   padding: 0 1em;
   text-decoration: none;
-  width: 30%;
+  width: 100%;
 }
 input[type="text"]:invalid,
 input[type="password"]:invalid,
@@ -2643,7 +2651,7 @@ button:disabled,
 /* Sidebar */
 #search form {
   text-decoration: none;
-  width: 50%;
+  width: 100%;
   margin: 10px auto;
   position: relative;
 }
@@ -2678,8 +2686,7 @@ button:disabled,
   top: 0;
   width: 2em;
 }
-#search form input[type="text"] {
-  padding-right: 2.75em;
+#search2 form input[type="text"] {
   text-align: center;
 }
 

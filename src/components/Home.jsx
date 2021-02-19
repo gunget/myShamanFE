@@ -103,13 +103,16 @@ const Home = () => {
                 <DirectorsList fetchDirectorInfo={fetchDirectorInfo} />
               </div>
             </section>
+            {/* <!-- Section Search and Add --> */}
             <section>
               <header className="major">
                 <h2>Search & Add New Director</h2>
               </header>
-              <SearchDirector fetchDirectorInfo={fetchDirectorInfo} />
+              <div className="searchNadd">
+                <SearchDirector fetchDirectorInfo={fetchDirectorInfo} />
+              </div>
             </section>
-            {/* <!-- Section Movie Director--> */}
+            {/* <!-- Section Footer--> */}
             <section>
               <header className="major">
                 <h2>Contets</h2>

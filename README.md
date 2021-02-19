@@ -1,9 +1,5 @@
 # 해결해야할 과제
 
----
-
-1. gitHub repository 만들고 upload하기
-
 1. 검색기능 FE에 수용하기
 
 - 검색부분 카드형식으로 디자인 하는 것 검토. Material Design 검토.
