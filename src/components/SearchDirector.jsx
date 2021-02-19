@@ -4,7 +4,7 @@ import axios from "axios";
 const SearchDirector = ({ fetchDirectorInfo }) => {
   const [peopleCode, setPeopleCode] = useState();
   const [ranAdvice, setRanAdvice] = useState(
-    "Life is the combinations of 'Accidents and Variables and Irony "
+    "Life is the accumlations of 'Accidents and Variables and Irony "
   );
   const inputRef = useRef();
   let pickedFile = null;
