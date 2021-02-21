@@ -1,4 +1,6 @@
 import React, { useEffect, useContext } from "react";
+import Carousel from "re-carousel";
+
 import axios from "axios";
 import DirectorsList from "./DirectorsList";
 import SearchDirector from "./SearchDirector";
@@ -6,13 +8,10 @@ import { DispatchContext } from "../contexts/Contexts.jsx";
 import "../assets/css/main.css";
 import "../assets/css/fontawesome-all.min.css";
 
-import pic10 from "../images/pic10.jpg";
+import frtImg1 from "../images/frontImage1.jpg";
+import frtImg2 from "../images/frontImage2.jpg";
+import frtImg3 from "../images/frontImage3.jpg";
 import pic01 from "../images/pic01.jpg";
-import pic02 from "../images/pic02.jpg";
-import pic03 from "../images/pic03.jpg";
-import pic04 from "../images/pic04.jpg";
-import pic05 from "../images/pic05.jpg";
-import pic06 from "../images/pic06.jpg";
 import pic07 from "../images/pic07.jpg";
 import pic08 from "../images/pic08.jpg";
 import pic09 from "../images/pic09.jpg";
@@ -90,7 +89,11 @@ const Home = () => {
                 </p>
               </div>
               <span className="image object">
-                <img src={pic10} alt="대문그림"></img>
+                <Carousel loop="true" auto interval="5000" duration="500">
+                  <img src={frtImg1} alt="대문그림"></img>
+                  <img src={frtImg2} alt="대문그림"></img>
+                  <img src={frtImg3} alt="대문그림"></img>
+                </Carousel>
               </span>
             </section>
 
