@@ -21,11 +21,12 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
     }
   };
   const url = "https://mdl.artvee.com/ft/902103il.jpg";
-  let list = states.loadings.initLoading
+  const list = states.loadings.initLoading
     ? "loading..."
     : states.directors.map((data) => {
         return (
           <article
+            id={data.name}
             key={data.id}
             data-id={data.id}
             data-peoplecode={data.peopleCode}

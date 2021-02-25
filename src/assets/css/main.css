@@ -142,6 +142,9 @@ body {
 body .korean {
   font-family: "Nanum Gothic Coding";
 }
+body .korean.title {
+  font-size: 17px;
+}
 
 mark {
   background-color: transparent;
@@ -3107,17 +3110,26 @@ button:disabled,
 #menu > ul > li > ul {
   color: #9fa3a6;
   display: none;
-  margin: 0.5em 0 1.5em 0;
+  padding: 0;
   padding-left: 1em;
 }
 #menu > ul > li > ul a,
 #menu > ul > li > ul span {
-  font-size: 0.8em;
+  margin-top: -7px;
+  margin-bottom: -7px;
+  font-weight: 600;
+  font-size: 12px;
 }
-#menu > ul > li > ul > li {
+#menu > ul > li > ul a:first-child {
+  margin-top: 0px;
+}
+#menu > ul > li > ul a:last-child {
+  margin-bottom: 0px;
+}
+/* #menu > ul > li > ul > li {
   margin: 0.125em 0 0 0;
   padding: 0.125em 0 0 0;
-}
+} */
 #menu > ul > li:first-child {
   border-top: 0;
   margin-top: 0;

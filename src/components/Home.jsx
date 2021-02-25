@@ -1,9 +1,11 @@
 import React, { useEffect, useContext } from "react";
 import Carousel from "re-carousel";
+import ScrollUpButton from "react-scroll-up-button";
 
 import axios from "axios";
 import DirectorsList from "./DirectorsList";
 import SearchDirector from "./SearchDirector";
+import MenuDirectorList from "./MenuDirectorList";
 import { DispatchContext } from "../contexts/Contexts.jsx";
 import "../assets/css/main.css";
 import "../assets/css/fontawesome-all.min.css";
@@ -11,7 +13,6 @@ import "../assets/css/fontawesome-all.min.css";
 import frtImg1 from "../images/frontImage1.jpg";
 import frtImg2 from "../images/frontImage2.jpg";
 import frtImg3 from "../images/frontImage3.jpg";
-import pic01 from "../images/pic01.jpg";
 import pic07 from "../images/pic07.jpg";
 import pic08 from "../images/pic08.jpg";
 import pic09 from "../images/pic09.jpg";
@@ -76,10 +77,10 @@ const Home = () => {
                     Storyteller&nbsp;&nbsp;<i class="fas fa-feather-alt"></i>
                   </h1>
                   <h2 className="korean">
-                    이야기꾼은 만들어지지 않는다 <br /> 다만 타고날 뿐
+                    이야기꾼은 만들어지지 않는다. <br /> 다만 타고날 뿐
                   </h2>
                 </header>
-                <p className="korean">
+                <p className="korean title">
                   쉴새없이 쏟아지는 콘텐츠는 우리에게 '선택'이란 짐을 안겼다.
                   무엇을 보고 무엇을 들을 것인가. 콘텐츠가 많아질수록 '타고난
                   이야기꾼'은 사라진다. 졸작의 숲에서 느꼈던 낯 뜨거움과 분노를
@@ -99,7 +100,7 @@ const Home = () => {
 
             {/* <!-- Section Director --> */}
             <section>
-              <header className="major">
+              <header id="DirectorList" className="major">
                 <h2>Movie Director</h2>
               </header>
               <div className="posts">
@@ -108,7 +109,7 @@ const Home = () => {
             </section>
             {/* <!-- Section Search and Add --> */}
             <section>
-              <header className="major">
+              <header id="searchNadd" className="major">
                 <h2>Search & Add New Director</h2>
               </header>
               <div className="searchNadd">
@@ -173,7 +174,7 @@ const Home = () => {
         <div id="sidebar">
           <div className="inner">
             {/* <!-- Search --> */}
-            {/* <section id="search" className="alt">
+            <section id="search" className="alt">
               <form method="post" action="#">
                 <input
                   type="text"
@@ -182,7 +183,7 @@ const Home = () => {
                   placeholder="Search"
                 />
               </form>
-            </section> */}
+            </section>
 
             {/* <!-- Menu --> */}
             <nav id="menu">
@@ -191,16 +192,22 @@ const Home = () => {
               </header>
               <ul>
                 <li>
-                  <a href="index.html">Homepage</a>
+                  <a href="#DirectorList">Movie Directors</a>
                 </li>
                 <li>
-                  <a href="generic.html">Generic</a>
+                  <span className="opener">Movie Directors Lists</span>
+                  <ul>
+                    <MenuDirectorList />
+                    <li>
+                      <a href="#searchNadd">➕ ADD NEW</a>
+                    </li>
+                  </ul>
                 </li>
                 <li>
-                  <a href="elements.html">Elements</a>
+                  <a href="generic.html">Fiction Writers</a>
                 </li>
                 <li>
-                  <span className="opener">Submenu</span>
+                  <span className="opener">Fiction Writers Lists</span>
                   <ul>
                     <li>
                       <a href="#">Lorem Dolor</a>
@@ -217,13 +224,10 @@ const Home = () => {
                   </ul>
                 </li>
                 <li>
-                  <a href="#">Etiam Dolore</a>
+                  <a href="elements.html">Nonfiction Writers</a>
                 </li>
                 <li>
-                  <a href="#">Adipiscing</a>
-                </li>
-                <li>
-                  <span className="opener">Another Submenu</span>
+                  <span className="opener">Nonfiction Writers Lists</span>
                   <ul>
                     <li>
                       <a href="#">Lorem Dolor</a>
@@ -238,15 +242,6 @@ const Home = () => {
                       <a href="#">Feugiat Veroeros</a>
                     </li>
                   </ul>
-                </li>
-                <li>
-                  <a href="#">Maximus Erat</a>
-                </li>
-                <li>
-                  <a href="#">Sapien Mauris</a>
-                </li>
-                <li>
-                  <a href="#">Amet Lacinia</a>
                 </li>
               </ul>
             </nav>
@@ -326,6 +321,22 @@ const Home = () => {
                 <a href="https://html5up.net">HTML5 UP</a>.
               </p>
             </footer>
+            <ScrollUpButton
+              StopPosition={0}
+              // 버튼을 누르면 멈출 y축 높이값
+              ShowAtPosition={500}
+              EasingType="easeOutCubic"
+              AnimationDuration={400}
+              // ContainerClassName="ScrollUpButton__Container"
+              // TransitionClassName="ScrollUpButton__Toggled"
+              style={{
+                backgroundColor: "#f56a6a",
+                borderRadius: "4px",
+                height: "30px",
+                width: "30px",
+              }}
+              ToggledStyle={{}}
+            />
           </div>
         </div>
       </div>
