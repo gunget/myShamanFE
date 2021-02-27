@@ -6,6 +6,7 @@ import axios from "axios";
 import DirectorsList from "./DirectorsList";
 import SearchDirector from "./SearchDirector";
 import MenuDirectorList from "./MenuDirectorList";
+import PageSearch from "./PageSearch";
 import { DispatchContext } from "../contexts/Contexts.jsx";
 import "../assets/css/main.css";
 import "../assets/css/fontawesome-all.min.css";
@@ -35,6 +36,15 @@ const Home = () => {
         console.log("DB에러:", error);
       });
   };
+
+  // const handleFind = (e) => {
+  //   e.preventDefault();
+  //   const element = document.createElement("a");
+  //   console.log(e.target.value);
+  //   element.setAttribute("href", `#${e.target.value}`);
+  //   element.click();
+  //   // console.log(window.find("봉준호"));
+  // };
 
   // const handleChange = (e) => {
   //   setSearchWord(e.target.value);
@@ -81,12 +91,12 @@ const Home = () => {
                   </h2>
                 </header>
                 <p className="korean title">
-                  쉴새없이 쏟아지는 콘텐츠는 우리에게 '선택'이란 짐을 안겼다.
-                  무엇을 보고 무엇을 들을 것인가. 콘텐츠가 많아질수록 '타고난
-                  이야기꾼'은 사라진다. 졸작의 숲에서 느꼈던 낯 뜨거움과 분노를
-                  몰아내고자, 여기 그들의 발자취를 기록한다. 부디 그들을 따라
-                  걸으며 더이상의 막막함은 없기를. 또 한번의 전율이 이 걸음에
-                  함께 하기를.
+                  &nbsp;쉴새없이 쏟아지는 콘텐츠는 우리에게 '선택'이란 짐을
+                  안겼다. 무엇을 보고 무엇을 들을 것인가. 콘텐츠가 많아질수록
+                  '타고난 이야기꾼'은 사라진다. <br />
+                  &nbsp;졸작의 숲에서 느꼈던 낯 뜨거움과 분노를 몰아내고자, 여기
+                  그들의 발자취를 기록한다. 부디 그들을 따라 걸으며 더이상의
+                  답답함은 사라지기를. 또 한번의 전율이 이 걸음에 함께 하기를.
                 </p>
               </div>
               <span className="image object">
@@ -173,18 +183,8 @@ const Home = () => {
         {/* <!-- Sidebar --> */}
         <div id="sidebar">
           <div className="inner">
-            {/* <!-- Search --> */}
-            <section id="search" className="alt">
-              <form method="post" action="#">
-                <input
-                  type="text"
-                  name="query"
-                  id="query"
-                  placeholder="Search"
-                />
-              </form>
-            </section>
-
+            {/* <!-- Search bar --> */}
+            <PageSearch />
             {/* <!-- Menu --> */}
             <nav id="menu">
               <header className="major">
@@ -192,19 +192,25 @@ const Home = () => {
               </header>
               <ul>
                 <li>
-                  <a href="#DirectorList">Movie Directors</a>
+                  <a href="#DirectorList">
+                    Movie Directors&nbsp;&nbsp;
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
                 </li>
                 <li>
                   <span className="opener">Movie Directors Lists</span>
                   <ul>
-                    <MenuDirectorList />
                     <li>
                       <a href="#searchNadd">➕ ADD NEW</a>
                     </li>
+                    <MenuDirectorList />
                   </ul>
                 </li>
                 <li>
-                  <a href="generic.html">Fiction Writers</a>
+                  <a href="generic.html">
+                    Fiction Writers&nbsp;&nbsp;
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
                 </li>
                 <li>
                   <span className="opener">Fiction Writers Lists</span>
@@ -224,7 +230,10 @@ const Home = () => {
                   </ul>
                 </li>
                 <li>
-                  <a href="elements.html">Nonfiction Writers</a>
+                  <a href="elements.html">
+                    Nonfiction Writers&nbsp;&nbsp;
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
                 </li>
                 <li>
                   <span className="opener">Nonfiction Writers Lists</span>

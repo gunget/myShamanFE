@@ -91,29 +91,9 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
   const responsedCode = peopleCode || "You don't seach anything yet.";
 
   return (
-    <div
-      className="container search2"
-      style={{
-        backgroundColor: "rgba(190,211,195, 0.2)",
-        height: "30em",
-        // border: "0px solid rgba(0,0,0, 0.2)",
-        borderRadius: "10px",
-        boxShadow: "5px 5px 2px rgba(0,0,0, 0.1)",
-      }}
-    >
-      <section
-        id="search2"
-        className="alt"
-        style={{ width: "70%", marginBottom: "20px" }}
-      >
-        <form
-          method="post"
-          action="#"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
+    <div className="container search2">
+      <section id="search2" className="alt">
+        <form method="post" action="#">
           <input
             type="text"
             name="query"
@@ -121,9 +101,7 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
             placeholder="감독 이름을 입력하세요."
             ref={inputRef}
           />
-          <button style={{ marginLeft: "1%" }} onClick={getPeopleCode}>
-            search
-          </button>
+          <button onClick={getPeopleCode}>search</button>
         </form>
       </section>
       <h3 className="korean"> [ 네이버무비 감독코드 : {responsedCode} ] </h3>
@@ -133,20 +111,17 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
         <br />
         감독코드에 해당하는 Image를 선택 후 DB에 저장하세요.
       </p>
-      <form method="post" action="#" style={{ display: "flex" }}>
+      <form method="post" action="#">
         <input
           id="fileAdd"
           type="file"
           onChange={handleUpload}
           placeholder="첨부할 파일을 선택하세요."
-          style={{ display: "none" }}
         ></input>
         <div class="button" onClick={handleFileAdd}>
           ADD Image
         </div>
-        <button onClick={savePeopleCode} style={{ marginLeft: "2%" }}>
-          save DB
-        </button>
+        <button onClick={savePeopleCode}>save DB</button>
       </form>
       {/* <ul dangerouslySetInnerHTML={{ __html: responsedCode }}></ul> */}
       {/* 전달받은 string을 엘러먼트로 살려서 표시하기. 보안상 위험 */}
