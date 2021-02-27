@@ -107,6 +107,58 @@ const Home = () => {
                 </Carousel>
               </span>
             </section>
+            {/* <!-- Section Intro--> */}
+            <section>
+              <header className="major">
+                <h2>Main Contents</h2>
+              </header>
+              <div className="features">
+                <article>
+                  <span className="icon fa-gem"></span>
+                  <div className="content">
+                    <h3>Movie Directors</h3>
+                    <p>
+                      명작 영화를 선보인 감독 리스트를 갈무리. 네이버영화
+                      사이트를 기반으로 작성되어 한글 기준으로 갈무리 되었으며
+                      한글 오름차순으로 정렬되어 있음
+                    </p>
+                  </div>
+                </article>
+                <article>
+                  <span className="icon solid fa-paper-plane"></span>
+                  <div className="content">
+                    <h3>Fiction Wirters</h3>
+                    <p>
+                      명작 드라마를 선보인 드라마 작가와 명작 소설을 선보인
+                      소설작가를 갈무리. 네이버영화 사이트를 기반으로 작성되어
+                      한글 기준으로 갈무리 되었으며 한글 오름차순으로 정렬되어
+                      있음
+                    </p>
+                  </div>
+                </article>
+                <article>
+                  <span className="icon solid fa-rocket"></span>
+                  <div className="content">
+                    <h3>Nonfiction Wirters</h3>
+                    <p>
+                      뛰어난 작품을 선보인 비소설 작가들을 갈무리. 네이버소설
+                      사이트를 기반으로 작성되어 한글 기준으로 갈무리 되었으며
+                      한글 오름차순으로 정렬되어 있음
+                    </p>
+                  </div>
+                </article>
+                <article>
+                  <span className="icon solid fa-signal"></span>
+                  <div className="content">
+                    <h3>ETC</h3>
+                    <p>
+                      기타 분류하기 애매하지만 기억해야 하는 주요 인사들을
+                      갈무리. 간략하게 이름 정도만 제공하는 용도
+                    </p>
+                  </div>
+                </article>
+              </div>
+            </section>
 
             {/* <!-- Section Director --> */}
             <section>
@@ -124,58 +176,6 @@ const Home = () => {
               </header>
               <div className="searchNadd">
                 <SearchDirector fetchDirectorInfo={fetchDirectorInfo} />
-              </div>
-            </section>
-            {/* <!-- Section Footer--> */}
-            <section>
-              <header className="major">
-                <h2>Contets</h2>
-              </header>
-              <div className="features">
-                <article>
-                  <span className="icon fa-gem"></span>
-                  <div className="content">
-                    <h3>Movie Director</h3>
-                    <p>
-                      Aenean ornare velit lacus, ac varius enim lorem
-                      ullamcorper dolore. Proin aliquam facilisis ante interdum.
-                      Sed nulla amet lorem feugiat tempus aliquam.
-                    </p>
-                  </div>
-                </article>
-                <article>
-                  <span className="icon solid fa-paper-plane"></span>
-                  <div className="content">
-                    <h3>Sapien veroeros</h3>
-                    <p>
-                      Aenean ornare velit lacus, ac varius enim lorem
-                      ullamcorper dolore. Proin aliquam facilisis ante interdum.
-                      Sed nulla amet lorem feugiat tempus aliquam.
-                    </p>
-                  </div>
-                </article>
-                <article>
-                  <span className="icon solid fa-rocket"></span>
-                  <div className="content">
-                    <h3>Quam lorem ipsum</h3>
-                    <p>
-                      Aenean ornare velit lacus, ac varius enim lorem
-                      ullamcorper dolore. Proin aliquam facilisis ante interdum.
-                      Sed nulla amet lorem feugiat tempus aliquam.
-                    </p>
-                  </div>
-                </article>
-                <article>
-                  <span className="icon solid fa-signal"></span>
-                  <div className="content">
-                    <h3>Sed magna finibus</h3>
-                    <p>
-                      Aenean ornare velit lacus, ac varius enim lorem
-                      ullamcorper dolore. Proin aliquam facilisis ante interdum.
-                      Sed nulla amet lorem feugiat tempus aliquam.
-                    </p>
-                  </div>
-                </article>
               </div>
             </section>
           </div>
