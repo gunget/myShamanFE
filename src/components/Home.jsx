@@ -63,30 +63,23 @@ function a11yProps(index) {
   };
 }
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//     width: "100%",
-//     backgroundColor: theme.palette.background.paper,
-//   },
-// }));
-
 const useStyles = makeStyles((theme) => ({
   appBar: {
     backgroundColor: "#fff",
     boxShadow: "none",
+    display: "none",
   },
   root: {
     flexGrow: 1,
     width: "100%",
     backgroundColor: theme.palette.background.paper,
   },
-  tap: {
-    backgroundColor: "#000",
-    border: "1px solid #fff",
-  },
+  tap: {},
   taps: {
     backgroundColor: "transparent",
+  },
+  views: {
+    marginTop: "30px",
   },
 }));
 
@@ -127,6 +120,15 @@ const Home = () => {
 
   const handleChangeIndex = (index) => {
     setValue(index);
+  };
+
+  //Tap 전환효과 구현
+  const chageTaps = (e) => {
+    e.preventDefault();
+    const tapElement = document.getElementById(
+      `scrollable-force-tab-${e.target.dataset.id}`
+    );
+    tapElement.click();
   };
 
   return (
@@ -193,8 +195,8 @@ const Home = () => {
                   <span className="icon fa-gem"></span>
                   <div className="content">
                     <h3>
-                      <a href="#DirectorList">
-                        Movie Directors &nbsp;&nbsp;
+                      <a href="#" onClick={chageTaps} data-id="0">
+                        Movie Directors &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
                     </h3>
@@ -209,8 +211,8 @@ const Home = () => {
                   <span className="icon solid fa-paper-plane"></span>
                   <div className="content">
                     <h3>
-                      <a href="#DirectorList">
-                        Fiction Wirters &nbsp;&nbsp;
+                      <a href="#" onClick={chageTaps} data-id="1">
+                        Fiction Wirters &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
                     </h3>
@@ -224,8 +226,8 @@ const Home = () => {
                   <span className="icon solid fa-rocket"></span>
                   <div className="content">
                     <h3>
-                      <a href="#DirectorList">
-                        Nonfiction Wirters &nbsp;&nbsp;
+                      <a href="#" onClick={chageTaps} data-id="2">
+                        Nonfiction Wirters &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
                     </h3>
@@ -239,8 +241,8 @@ const Home = () => {
                   <span className="icon solid fa-signal"></span>
                   <div className="content">
                     <h3>
-                      <a href="#DirectorList">
-                        The others &nbsp;&nbsp;
+                      <a href="#" onClick={chageTaps} data-id="3">
+                        The others &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
                     </h3>
@@ -253,10 +255,9 @@ const Home = () => {
               </div>
             </section>
             {/* <!-- Section Director --> */}
-            {/* <SectionDirector fetchDirectorInfo={fetchDirectorInfo} /> */}
             {/* material ui tap */}
             <div className={classes.root}>
-              <AppBar position="static" color="default">
+              <AppBar position="static" className={classes.appBar}>
                 <Tabs
                   centered
                   value={value}
@@ -268,6 +269,7 @@ const Home = () => {
                   aria-label="scrollable auto tabs example"
                 >
                   <Tab
+                    id="tap1"
                     className={classes.tap}
                     label="Movie Directors"
                     {...a11yProps(0)}
@@ -281,6 +283,7 @@ const Home = () => {
                 axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                 index={value}
                 onChangeIndex={handleChangeIndex}
+                className={classes.views}
               >
                 <TabPanel value={value} index={0} dir={theme.direction}>
                   <SectionDirector fetchDirectorInfo={fetchDirectorInfo} />

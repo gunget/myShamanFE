@@ -92,7 +92,7 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
 
   return (
     <div className="container search2">
-      <section id="search2" className="alt">
+      <div id="search2" className="alt">
         <form method="post" action="#">
           <input
             type="text"
@@ -101,28 +101,34 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
             placeholder="감독 이름을 입력하세요."
             ref={inputRef}
           />
-          <button onClick={getPeopleCode}>search</button>
+          <div class="button" onClick={getPeopleCode}>
+            Search
+          </div>
         </form>
-      </section>
-      <h3 className="korean"> [ 네이버무비 감독코드 : {responsedCode} ] </h3>
-      <p className="korean">
-        {" "}
-        번호가 나오지 않았다면 검색버튼을 다시 누르세요.
-        <br />
-        감독코드에 해당하는 Image를 선택 후 DB에 저장하세요.
-      </p>
-      <form method="post" action="#">
-        <input
-          id="fileAdd"
-          type="file"
-          onChange={handleUpload}
-          placeholder="첨부할 파일을 선택하세요."
-        ></input>
-        <div class="button" onClick={handleFileAdd}>
-          ADD Image
-        </div>
-        <button onClick={savePeopleCode}>save DB</button>
-      </form>
+      </div>
+      <div className="alt2">
+        <h3 className="korean"> [ 네이버무비 감독코드 : {responsedCode} ] </h3>
+        <p className="korean">
+          {" "}
+          번호가 나오지 않았다면 검색버튼을 다시 누르세요.
+          <br />
+          감독코드에 해당하는 Image를 선택 후 DB에 저장하세요.
+        </p>
+        <form method="post" action="#">
+          <input
+            id="fileAdd"
+            type="file"
+            onChange={handleUpload}
+            placeholder="첨부할 파일을 선택하세요."
+          ></input>
+          <div class="button" onClick={handleFileAdd}>
+            ADD Image
+          </div>
+          <div class="button" onClick={savePeopleCode}>
+            Save DB
+          </div>
+        </form>
+      </div>
       {/* <ul dangerouslySetInnerHTML={{ __html: responsedCode }}></ul> */}
       {/* 전달받은 string을 엘러먼트로 살려서 표시하기. 보안상 위험 */}
       {/* <form>

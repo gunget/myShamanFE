@@ -1566,13 +1566,18 @@ div .container.search2 .alt {
   margin-bottom: 20px;
 }
 
+div .container.search2 .alt2 {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+}
+
 div .container.search2 .alt form {
   display: flex;
   justify-content: space-between;
-}
-
-div .container.search2 .alt form button {
-  margin-left: 1%;
 }
 
 div .container.search2 form {
@@ -1580,9 +1585,6 @@ div .container.search2 form {
 }
 div .container.search2 form #fileAdd {
   display: none;
-}
-div .container.search2 form button {
-  margin-left: 2%;
 }
 
 /* Form */
@@ -2174,7 +2176,6 @@ table.alt tfoot {
 input[type="submit"],
 input[type="reset"],
 input[type="button"],
-button,
 .button {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -2187,7 +2188,7 @@ button,
   background-color: transparent;
   border-radius: 0.375em;
   border: 0;
-  box-shadow: inset 0 0 0 2px #f56a6a;
+  box-shadow: inset 0 0 0 1px #f56a6a;
   color: #f56a6a !important;
   cursor: pointer;
   display: inline-block;
@@ -2647,7 +2648,7 @@ button:disabled,
   margin: 0 auto;
   max-width: 110em;
 }
-#main > .inner > section {
+#main > .inner section {
   padding: 6em 0 4em 0;
   border-top: solid 2px rgba(210, 215, 217, 0.75);
 }
@@ -2719,6 +2720,7 @@ button:disabled,
 }
 #search2 form input[type="text"] {
   text-align: center;
+  height: 45px;
 }
 
 #sidebar {

@@ -49,7 +49,14 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
               <br />
             </p>
             <p className="korean">네이버무비 필모그래피 보러가기 :</p>
-            <ul className="actions" style={{ marginTop: "-5%" }}>
+            <ul
+              className="actions"
+              style={{
+                marginTop: "-5%",
+                display: "flex",
+                flexWrap: "wrap",
+              }}
+            >
               <li>
                 <a
                   href={`https://movie.naver.com/movie/bi/pi/filmo.nhn?code=${data.peopleCode}#tab`}
@@ -62,9 +69,14 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
                 </a>
               </li>
               <li>
-                <button data-id={data.id} onClick={delPeopleCode}>
+                <a
+                  href="#"
+                  data-id={data.id}
+                  onClick={delPeopleCode}
+                  className="button"
+                >
                   <i class="fas fa-trash-alt"></i>&nbsp;&nbsp;delete
-                </button>
+                </a>
               </li>
             </ul>
           </article>
