@@ -3,25 +3,14 @@ import Carousel from "re-carousel";
 import ScrollUpButton from "react-scroll-up-button";
 
 import axios from "axios";
+import DirectorsList from "./DirectorsList";
+import SearchDirector from "./SearchDirector";
 import MenuDirectorList from "./MenuDirectorList";
-import SectionDirector from "./SectionDirector";
 import PageSearch from "./PageSearch";
 import { DispatchContext } from "../contexts/Contexts.jsx";
-
 import "../assets/css/main.css";
 import "../assets/css/fontawesome-all.min.css";
 
-// material ui import
-import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-
-// template img
 import frtImg1 from "../images/frontImage1.jpg";
 import frtImg2 from "../images/frontImage2.jpg";
 import frtImg3 from "../images/frontImage3.jpg";
@@ -29,72 +18,9 @@ import pic07 from "../images/pic07.jpg";
 import pic08 from "../images/pic08.jpg";
 import pic09 from "../images/pic09.jpg";
 
-// material ui tap기능 활용 위한 함수들
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-auto-tabpanel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `scrollable-force-tab-${index}`,
-    "aria-controls": `scrollable-force-tabpanel-${index}`,
-  };
-}
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//     width: "100%",
-//     backgroundColor: theme.palette.background.paper,
-//   },
-// }));
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    backgroundColor: "#fff",
-    boxShadow: "none",
-  },
-  root: {
-    flexGrow: 1,
-    width: "100%",
-    backgroundColor: theme.palette.background.paper,
-  },
-  tap: {
-    backgroundColor: "#000",
-    border: "1px solid #fff",
-  },
-  taps: {
-    backgroundColor: "transparent",
-  },
-}));
-
-// 실제 Home 컴포넌트
 const Home = () => {
   const dispatch = useContext(DispatchContext);
 
-  // Director DB에서 초기 데이터 불러오기
   const fetchDirectorInfo = () => {
     axios
       .get("http://localhost:8000/api/directorInfo/")
@@ -111,23 +37,23 @@ const Home = () => {
       });
   };
 
+  // const handleFind = (e) => {
+  //   e.preventDefault();
+  //   const element = document.createElement("a");
+  //   console.log(e.target.value);
+  //   element.setAttribute("href", `#${e.target.value}`);
+  //   element.click();
+  //   // console.log(window.find("봉준호"));
+  // };
+
+  // const handleChange = (e) => {
+  //   setSearchWord(e.target.value);
+  // };
+
   useEffect(() => {
     fetchDirectorInfo();
     console.log("Home component useEffect실행");
   }, []);
-
-  // material ui tap기능 활용 부분
-  const classes = useStyles();
-  const theme = useTheme();
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
 
   return (
     <div className="container">
@@ -150,6 +76,7 @@ const Home = () => {
                 </li>
               </ul>
             </header>
+
             {/* <!-- Banner --> */}
             <section id="banner">
               <div className="content">
@@ -252,50 +179,32 @@ const Home = () => {
                 </article>
               </div>
             </section>
+
             {/* <!-- Section Director --> */}
-            {/* <SectionDirector fetchDirectorInfo={fetchDirectorInfo} /> */}
-            {/* material ui tap */}
-            <div className={classes.root}>
-              <AppBar position="static" color="default">
-                <Tabs
-                  centered
-                  value={value}
-                  onChange={handleChange}
-                  indicatorColor="primary"
-                  textColor="primary"
-                  variant="scrollable"
-                  scrollButtons="on"
-                  aria-label="scrollable auto tabs example"
-                >
-                  <Tab
-                    className={classes.tap}
-                    label="Movie Directors"
-                    {...a11yProps(0)}
+            <section>
+              <header id="DirectorList" className="major">
+                <h2>Movie Director</h2>
+              </header>
+              <div className="posts">
+                {/* <Router>
+                  <Route
+                    path="/"
+                    component={DirectorsList}
+                    fetchDirectorInfo={fetchDirectorInfo}
                   />
-                  <Tab label="Fiction Writers" {...a11yProps(1)} />
-                  <Tab label="NonFiction Writers" {...a11yProps(2)} />
-                  <Tab label="The Others" {...a11yProps(3)} />
-                </Tabs>
-              </AppBar>
-              <SwipeableViews
-                axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-                index={value}
-                onChangeIndex={handleChangeIndex}
-              >
-                <TabPanel value={value} index={0} dir={theme.direction}>
-                  <SectionDirector fetchDirectorInfo={fetchDirectorInfo} />
-                </TabPanel>
-                <TabPanel value={value} index={1} dir={theme.direction}>
-                  <SectionDirector fetchDirectorInfo={fetchDirectorInfo} />
-                </TabPanel>
-                <TabPanel value={value} index={2} dir={theme.direction}>
-                  <SectionDirector fetchDirectorInfo={fetchDirectorInfo} />
-                </TabPanel>
-                <TabPanel value={value} index={3} dir={theme.direction}>
-                  <SectionDirector fetchDirectorInfo={fetchDirectorInfo} />
-                </TabPanel>
-              </SwipeableViews>
-            </div>
+                </Router> */}
+                <DirectorsList fetchDirectorInfo={fetchDirectorInfo} />
+              </div>
+            </section>
+            {/* <!-- Section Search and Add --> */}
+            <section>
+              <header id="searchNadd" className="major">
+                <h2>Search & Add New Director</h2>
+              </header>
+              <div className="searchNadd">
+                <SearchDirector fetchDirectorInfo={fetchDirectorInfo} />
+              </div>
+            </section>
           </div>
         </div>
         {/* <!-- Sidebar --> */}
@@ -472,3 +381,5 @@ const Home = () => {
 };
 
 export default Home;
+
+// 박훈정 102768

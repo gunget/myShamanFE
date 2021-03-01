@@ -39,18 +39,17 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
             >
               <img src={data.image} alt="from artvee.com" />
             </a>
-            <h2 className="korean" style={{ textAlign: "center" }}>
+            <h3 className="korean" style={{ textAlign: "center" }}>
               {data.name}&nbsp;
               <i class="fas fa-film"></i>
-            </h2>
+            </h3>
             <p>
-              <h4>
-                {data.wisesaying}&nbsp; &nbsp;
-                <i class="far fa-grin-squint-tears"></i>
-              </h4>
-              <p className="korean">네이버무비 필모그래피 보러가기 :</p>
+              {data.wisesaying}&nbsp; &nbsp;
+              <i class="far fa-grin-squint-tears"></i>
+              <br />
             </p>
-            <ul className="actions">
+            <p className="korean">네이버무비 필모그래피 보러가기 :</p>
+            <ul className="actions" style={{ marginTop: "-5%" }}>
               <li>
                 <a
                   href={`https://movie.naver.com/movie/bi/pi/filmo.nhn?code=${data.peopleCode}#tab`}
