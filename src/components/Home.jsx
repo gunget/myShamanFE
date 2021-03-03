@@ -124,14 +124,16 @@ const Home = () => {
 
   //Tap 전환
   const chageTaps = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
+    // console.log("changeTap의 evenvt", e.target);
     const elemID = e.target.dataset.id;
     const tapElement = document.getElementById(
       `scrollable-force-tab-${elemID}`
     );
     if (tapElement === null) {
       //가끔 element가 잘 안받아지는 경우 대비, 재귀함수 적용
-      chageTaps(e);
+      // chageTaps(e);
+      console.log("change Tap의 엘러먼트 null!");
     } else {
       tapElement.click();
     }
@@ -207,7 +209,7 @@ const Home = () => {
                   <span className="icon fa-gem"></span>
                   <div className="content">
                     <h3>
-                      <a href="#" onClick={chageTapsNscroll} data-id="0">
+                      <a onClick={chageTapsNscroll} data-id="0">
                         Movie Directors &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
@@ -223,7 +225,7 @@ const Home = () => {
                   <span className="icon solid fa-paper-plane"></span>
                   <div className="content">
                     <h3>
-                      <a href="#" onClick={chageTapsNscroll} data-id="1">
+                      <a onClick={chageTapsNscroll} data-id="1">
                         Fiction Wirters &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
@@ -238,7 +240,7 @@ const Home = () => {
                   <span className="icon solid fa-rocket"></span>
                   <div className="content">
                     <h3>
-                      <a href="#" onClick={chageTapsNscroll} data-id="2">
+                      <a onClick={chageTapsNscroll} data-id="2">
                         Nonfiction Wirters &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
@@ -253,7 +255,7 @@ const Home = () => {
                   <span className="icon solid fa-signal"></span>
                   <div className="content">
                     <h3>
-                      <a href="#" onClick={chageTapsNscroll} data-id="3">
+                      <a onClick={chageTapsNscroll} data-id="3">
                         The others &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
@@ -271,7 +273,6 @@ const Home = () => {
             <div className={classes.root}>
               <AppBar position="static" className={classes.appBar}>
                 <Tabs
-                  centered
                   value={value}
                   onChange={handleChange}
                   indicatorColor="primary"
@@ -320,7 +321,7 @@ const Home = () => {
               </header>
               <ul>
                 <li>
-                  <a href="#" onClick={chageTapsNscroll} data-id="0">
+                  <a onClick={chageTapsNscroll} data-id="0">
                     Movie Directors&nbsp;&nbsp;
                     <i class="fas fa-chevron-right"></i>
                   </a>
@@ -337,7 +338,7 @@ const Home = () => {
                   </ul>
                 </li>
                 <li>
-                  <a href="#" onClick={chageTapsNscroll} data-id="1">
+                  <a onClick={chageTapsNscroll} data-id="1">
                     Fiction Writers&nbsp;&nbsp;
                     <i class="fas fa-chevron-right"></i>
                   </a>
@@ -362,7 +363,7 @@ const Home = () => {
                   </ul>
                 </li>
                 <li>
-                  <a href="#" onClick={chageTapsNscroll} data-id="2">
+                  <a onClick={chageTapsNscroll} data-id="2">
                     Nonfiction Writers&nbsp;&nbsp;
                     <i class="fas fa-chevron-right"></i>
                   </a>
@@ -387,7 +388,7 @@ const Home = () => {
                   </ul>
                 </li>
                 <li>
-                  <a href="#" onClick={chageTapsNscroll} data-id="3">
+                  <a onClick={chageTapsNscroll} data-id="3">
                     The Others&nbsp;&nbsp;
                     <i class="fas fa-chevron-right"></i>
                   </a>

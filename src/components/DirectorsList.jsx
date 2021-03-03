@@ -20,7 +20,6 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
         .catch((err) => console.log("삭제실패:", err));
     }
   };
-  const url = "https://mdl.artvee.com/ft/902103il.jpg";
   const list = states.loadings.initLoading
     ? "loading..."
     : states.directors.map((data) => {
