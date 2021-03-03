@@ -122,13 +122,25 @@ const Home = () => {
     setValue(index);
   };
 
-  //Tap 전환효과 구현
+  //Tap 전환
   const chageTaps = (e) => {
     e.preventDefault();
+    const elemID = e.target.dataset.id;
     const tapElement = document.getElementById(
-      `scrollable-force-tab-${e.target.dataset.id}`
+      `scrollable-force-tab-${elemID}`
     );
-    tapElement.click();
+    if (tapElement === null) {
+      //가끔 element가 잘 안받아지는 경우 대비, 재귀함수 적용
+      chageTaps(e);
+    } else {
+      tapElement.click();
+    }
+  };
+
+  //Tap 전환효과 & Scroll 이동
+  const chageTapsNscroll = (e) => {
+    chageTaps(e);
+    window.scroll({ top: 1700, behavior: "smooth" });
   };
 
   return (
@@ -166,7 +178,7 @@ const Home = () => {
                   </h2>
                 </header>
                 <p className="korean title">
-                  쉴새없이 쏟아지는 콘텐츠는 우리에게 '선택'이란 짐을 안겼다.
+                  쏟아지는 콘텐츠는 우리에게 '선택'의 짐을 안겼다.
                   <br /> 무엇을 보고 무엇을 들을 것인가.
                   <br /> 콘텐츠가 많아질수록 '타고난 이야기꾼'은 사라진다.{" "}
                   <br />
@@ -195,7 +207,7 @@ const Home = () => {
                   <span className="icon fa-gem"></span>
                   <div className="content">
                     <h3>
-                      <a href="#" onClick={chageTaps} data-id="0">
+                      <a href="#" onClick={chageTapsNscroll} data-id="0">
                         Movie Directors &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
@@ -211,7 +223,7 @@ const Home = () => {
                   <span className="icon solid fa-paper-plane"></span>
                   <div className="content">
                     <h3>
-                      <a href="#" onClick={chageTaps} data-id="1">
+                      <a href="#" onClick={chageTapsNscroll} data-id="1">
                         Fiction Wirters &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
@@ -226,7 +238,7 @@ const Home = () => {
                   <span className="icon solid fa-rocket"></span>
                   <div className="content">
                     <h3>
-                      <a href="#" onClick={chageTaps} data-id="2">
+                      <a href="#" onClick={chageTapsNscroll} data-id="2">
                         Nonfiction Wirters &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
@@ -241,7 +253,7 @@ const Home = () => {
                   <span className="icon solid fa-signal"></span>
                   <div className="content">
                     <h3>
-                      <a href="#" onClick={chageTaps} data-id="3">
+                      <a href="#" onClick={chageTapsNscroll} data-id="3">
                         The others &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
@@ -268,12 +280,7 @@ const Home = () => {
                   scrollButtons="on"
                   aria-label="scrollable auto tabs example"
                 >
-                  <Tab
-                    id="tap1"
-                    className={classes.tap}
-                    label="Movie Directors"
-                    {...a11yProps(0)}
-                  />
+                  <Tab id="tap1" label="Movie Directors" {...a11yProps(0)} />
                   <Tab label="Fiction Writers" {...a11yProps(1)} />
                   <Tab label="NonFiction Writers" {...a11yProps(2)} />
                   <Tab label="The Others" {...a11yProps(3)} />
@@ -289,13 +296,13 @@ const Home = () => {
                   <SectionDirector fetchDirectorInfo={fetchDirectorInfo} />
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                  <SectionDirector fetchDirectorInfo={fetchDirectorInfo} />
+                  page2
                 </TabPanel>
                 <TabPanel value={value} index={2} dir={theme.direction}>
-                  <SectionDirector fetchDirectorInfo={fetchDirectorInfo} />
+                  page3
                 </TabPanel>
                 <TabPanel value={value} index={3} dir={theme.direction}>
-                  <SectionDirector fetchDirectorInfo={fetchDirectorInfo} />
+                  page4
                 </TabPanel>
               </SwipeableViews>
             </div>
@@ -313,13 +320,15 @@ const Home = () => {
               </header>
               <ul>
                 <li>
-                  <a href="#DirectorList">
+                  <a href="#" onClick={chageTapsNscroll} data-id="0">
                     Movie Directors&nbsp;&nbsp;
                     <i class="fas fa-chevron-right"></i>
                   </a>
                 </li>
                 <li>
-                  <span className="opener">Movie Directors Lists</span>
+                  <span className="opener" onClick={chageTaps} data-id="0">
+                    Movie Directors Lists
+                  </span>
                   <ul>
                     <li>
                       <a href="#searchNadd">➕ ADD NEW</a>
@@ -328,13 +337,15 @@ const Home = () => {
                   </ul>
                 </li>
                 <li>
-                  <a href="generic.html">
+                  <a href="#" onClick={chageTapsNscroll} data-id="1">
                     Fiction Writers&nbsp;&nbsp;
                     <i class="fas fa-chevron-right"></i>
                   </a>
                 </li>
                 <li>
-                  <span className="opener">Fiction Writers Lists</span>
+                  <span className="opener" onClick={chageTaps} data-id="1">
+                    Fiction Writers Lists
+                  </span>
                   <ul>
                     <li>
                       <a href="#">Lorem Dolor</a>
@@ -351,13 +362,40 @@ const Home = () => {
                   </ul>
                 </li>
                 <li>
-                  <a href="elements.html">
+                  <a href="#" onClick={chageTapsNscroll} data-id="2">
                     Nonfiction Writers&nbsp;&nbsp;
                     <i class="fas fa-chevron-right"></i>
                   </a>
                 </li>
                 <li>
-                  <span className="opener">Nonfiction Writers Lists</span>
+                  <span className="opener" onClick={chageTaps} data-id="2">
+                    Nonfiction Writers Lists
+                  </span>
+                  <ul>
+                    <li>
+                      <a href="#">Lorem Dolor</a>
+                    </li>
+                    <li>
+                      <a href="#">Ipsum Adipiscing</a>
+                    </li>
+                    <li>
+                      <a href="#">Tempus Magna</a>
+                    </li>
+                    <li>
+                      <a href="#">Feugiat Veroeros</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#" onClick={chageTapsNscroll} data-id="3">
+                    The Others&nbsp;&nbsp;
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </li>
+                <li>
+                  <span className="opener" onClick={chageTaps} data-id="3">
+                    The Others Lists
+                  </span>
                   <ul>
                     <li>
                       <a href="#">Lorem Dolor</a>
