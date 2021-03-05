@@ -5,6 +5,9 @@ import ScrollUpButton from "react-scroll-up-button";
 import axios from "axios";
 import MenuDirectorList from "./MenuDirectorList";
 import SectionDirector from "./SectionDirector";
+import SectionFicWtr from "./SectionFicWtr";
+import SectionNonFicWtr from "./SectionNonFicWtr";
+import SectionOthers from "./SectionOthers";
 import PageSearch from "./PageSearch";
 import { DispatchContext } from "../contexts/Contexts.jsx";
 
@@ -118,32 +121,55 @@ const Home = () => {
     setValue(newValue);
   };
 
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
+  // const handleChangeIndex = (index) => { //SwipeableView사용 시 필요
+  //   setValue(index);
+  // };
 
   //Tap 전환
   const chageTaps = (e) => {
     // e.preventDefault();
-    // console.log("changeTap의 evenvt", e.target);
-    const elemID = e.target.dataset.id;
-    const tapElement = document.getElementById(
-      `scrollable-force-tab-${elemID}`
-    );
-    if (tapElement === null) {
-      //가끔 element가 잘 안받아지는 경우 대비, 재귀함수 적용
-      // chageTaps(e);
-      console.log("change Tap의 엘러먼트 null!");
-    } else {
-      tapElement.click();
-    }
+    const elemID = Number(e.target.dataset.id);
+    handleChange(null, elemID); //탭의 아이디를 직접 변경
+    return e.target.dataset.name;
   };
 
-  //Tap 전환효과 & Scroll 이동
-  const chageTapsNscroll = (e) => {
-    chageTaps(e);
-    window.scroll({ top: 1700, behavior: "smooth" });
-  };
+  // //Tap 전환효과 & Scroll 이동: 엘러먼트를 따와 클릭하는 방식
+  // const chageTapsNscroll = (e) => {
+  //   chageTaps(e);
+  //   const tempId = String(e.target.dataset.name);
+  //   setTimeout((e) => {
+  //     const titleElem = document.getElementById(tempId);
+  //     titleElem.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "start",
+  //       inline: "nearest",
+  //     });
+  //   }, 300);
+  // };
+
+  // 타이틀 엘러먼트로 화면 이동시키기
+  // promise를 활용해 탭전환이 완전히 끝나면 그 이후 스크롤 동작 시작
+  function ScrollToElem(e) {
+    function Scroll(e) {
+      return new Promise(function (resolve, reject) {
+        const response = chageTaps(e);
+        if (response) {
+          resolve(response);
+          console.log("changeTaps resolve실행");
+        }
+        reject(new Error("Request is failed"));
+      });
+    }
+
+    Scroll(e).then((res) => {
+      const titleElem = document.getElementById(res);
+      titleElem.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    });
+  }
 
   return (
     <div className="container">
@@ -209,7 +235,12 @@ const Home = () => {
                   <span className="icon fa-gem"></span>
                   <div className="content">
                     <h3>
-                      <a onClick={chageTapsNscroll} data-id="0">
+                      <a
+                        onClick={ScrollToElem}
+                        // onClick={chageTapsNscroll}
+                        data-id="0"
+                        data-name="DirectorList"
+                      >
                         Movie Directors &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
@@ -225,7 +256,12 @@ const Home = () => {
                   <span className="icon solid fa-paper-plane"></span>
                   <div className="content">
                     <h3>
-                      <a onClick={chageTapsNscroll} data-id="1">
+                      <a
+                        onClick={ScrollToElem}
+                        // onClick={chageTapsNscroll}
+                        data-id="1"
+                        data-name="FictionWriterList"
+                      >
                         Fiction Wirters &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
@@ -240,7 +276,12 @@ const Home = () => {
                   <span className="icon solid fa-rocket"></span>
                   <div className="content">
                     <h3>
-                      <a onClick={chageTapsNscroll} data-id="2">
+                      <a
+                        // onClick={chageTapsNscroll}
+                        onClick={ScrollToElem}
+                        data-id="2"
+                        data-name="NonFictionWriterList"
+                      >
                         Nonfiction Wirters &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
@@ -255,7 +296,12 @@ const Home = () => {
                   <span className="icon solid fa-signal"></span>
                   <div className="content">
                     <h3>
-                      <a onClick={chageTapsNscroll} data-id="3">
+                      <a
+                        // onClick={chageTapsNscroll}
+                        onClick={ScrollToElem}
+                        data-id="3"
+                        data-name="TheOthersList"
+                      >
                         The others &nbsp;&nbsp;GO&nbsp;
                         <i class="fas fa-chevron-right"></i>
                       </a>
@@ -281,31 +327,31 @@ const Home = () => {
                   scrollButtons="on"
                   aria-label="scrollable auto tabs example"
                 >
-                  <Tab id="tap1" label="Movie Directors" {...a11yProps(0)} />
+                  <Tab label="Movie Directors" {...a11yProps(0)} />
                   <Tab label="Fiction Writers" {...a11yProps(1)} />
                   <Tab label="NonFiction Writers" {...a11yProps(2)} />
                   <Tab label="The Others" {...a11yProps(3)} />
                 </Tabs>
               </AppBar>
-              <SwipeableViews
+              {/* <SwipeableViews
                 axis={theme.direction === "rtl" ? "x-reverse" : "x"}
                 index={value}
                 onChangeIndex={handleChangeIndex}
                 className={classes.views}
-              >
-                <TabPanel value={value} index={0} dir={theme.direction}>
-                  <SectionDirector fetchDirectorInfo={fetchDirectorInfo} />
-                </TabPanel>
-                <TabPanel value={value} index={1} dir={theme.direction}>
-                  page2
-                </TabPanel>
-                <TabPanel value={value} index={2} dir={theme.direction}>
-                  page3
-                </TabPanel>
-                <TabPanel value={value} index={3} dir={theme.direction}>
-                  page4
-                </TabPanel>
-              </SwipeableViews>
+              > */}
+              <TabPanel value={value} index={0} dir={theme.direction}>
+                <SectionDirector fetchDirectorInfo={fetchDirectorInfo} />
+              </TabPanel>
+              <TabPanel value={value} index={1} dir={theme.direction}>
+                <SectionFicWtr fetchDirectorInfo={fetchDirectorInfo} />
+              </TabPanel>
+              <TabPanel value={value} index={2} dir={theme.direction}>
+                <SectionNonFicWtr fetchDirectorInfo={fetchDirectorInfo} />
+              </TabPanel>
+              <TabPanel value={value} index={3} dir={theme.direction}>
+                <SectionOthers fetchDirectorInfo={fetchDirectorInfo} />
+              </TabPanel>
+              {/* </SwipeableViews> */}
             </div>
           </div>
         </div>
@@ -321,7 +367,11 @@ const Home = () => {
               </header>
               <ul>
                 <li>
-                  <a onClick={chageTapsNscroll} data-id="0">
+                  <a
+                    onClick={ScrollToElem}
+                    data-id="0"
+                    data-name="DirectorList"
+                  >
                     Movie Directors&nbsp;&nbsp;
                     <i class="fas fa-chevron-right"></i>
                   </a>
@@ -338,7 +388,11 @@ const Home = () => {
                   </ul>
                 </li>
                 <li>
-                  <a onClick={chageTapsNscroll} data-id="1">
+                  <a
+                    onClick={ScrollToElem}
+                    data-id="1"
+                    data-name="FictionWriterList"
+                  >
                     Fiction Writers&nbsp;&nbsp;
                     <i class="fas fa-chevron-right"></i>
                   </a>
@@ -363,7 +417,11 @@ const Home = () => {
                   </ul>
                 </li>
                 <li>
-                  <a onClick={chageTapsNscroll} data-id="2">
+                  <a
+                    onClick={ScrollToElem}
+                    data-id="2"
+                    data-name="NonFictionWriterList"
+                  >
                     Nonfiction Writers&nbsp;&nbsp;
                     <i class="fas fa-chevron-right"></i>
                   </a>
@@ -388,7 +446,11 @@ const Home = () => {
                   </ul>
                 </li>
                 <li>
-                  <a onClick={chageTapsNscroll} data-id="3">
+                  <a
+                    onClick={ScrollToElem}
+                    data-id="3"
+                    data-name="TheOthersList"
+                  >
                     The Others&nbsp;&nbsp;
                     <i class="fas fa-chevron-right"></i>
                   </a>
