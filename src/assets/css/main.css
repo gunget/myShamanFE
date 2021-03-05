@@ -1538,12 +1538,23 @@ header p {
   text-transform: uppercase;
 }
 
-header.major > :last-child {
+header.major > a {
+  border-bottom: none;
+  cursor: pointer;
+}
+
+header.major > h2 {
   border-bottom: solid 3px #f56a6a;
   display: inline-block;
   margin: 0 0 2em 0;
   padding: 0 0.75em 0.5em 0;
 }
+/* header.major > :last-child {
+  border-bottom: solid 3px #f56a6a;
+  display: inline-block;
+  margin: 0 0 2em 0;
+  padding: 0 0.75em 0.5em 0;
+} */
 
 header.main > :last-child {
   margin: 0 0 1em 0;
@@ -2390,6 +2401,11 @@ button:disabled,
   flex-shrink: 1;
   width: 100%;
 }
+
+.features article .content > h3 > a {
+  cursor: pointer;
+}
+
 .features article .content > :last-child {
   margin-bottom: 0;
 }

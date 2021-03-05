@@ -107,6 +107,16 @@ const Home = () => {
       });
   };
 
+  //각 카테고리의 검색 및 추가 파트로 이동하기
+  const handleAdd = (id) => {
+    const titleElem = document.getElementById(id);
+    titleElem.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+  };
+
   useEffect(() => {
     fetchDirectorInfo();
     console.log("Home component useEffect실행");
@@ -118,7 +128,7 @@ const Home = () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setValue(newValue); //tap전환용
   };
 
   // const handleChangeIndex = (index) => { //SwipeableView사용 시 필요
@@ -147,29 +157,50 @@ const Home = () => {
   //   }, 300);
   // };
 
-  // 타이틀 엘러먼트로 화면 이동시키기
-  // promise를 활용해 탭전환이 완전히 끝나면 그 이후 스크롤 동작 시작
+  //async, await을 이용해 동기적으로 탭을 바꾸고 이동하기 구현
   function ScrollToElem(e) {
-    function Scroll(e) {
-      return new Promise(function (resolve, reject) {
+    async function Scroll(e) {
+      const promise = new Promise((resolve, reject) => {
         const response = chageTaps(e);
         if (response) {
           resolve(response);
-          console.log("changeTaps resolve실행");
         }
         reject(new Error("Request is failed"));
       });
-    }
-
-    Scroll(e).then((res) => {
+      const res = await promise; //앞단계가 끝날때까지 여기서 기다림
       const titleElem = document.getElementById(res);
       titleElem.scrollIntoView({
         behavior: "smooth",
         block: "start",
         inline: "nearest",
       });
-    });
+    }
+    Scroll(e);
   }
+
+  // 타이틀 엘러먼트로 화면 이동시키기
+  // promise를 활용해 탭전환이 완전히 끝나면 그 이후 스크롤 동작 시작
+  // function ScrollToElem(e) {
+  //   function Scroll(e) {
+  //     return new Promise(function (resolve, reject) {
+  //       const response = chageTaps(e);
+  //       if (response) {
+  //         resolve(response);
+  //         console.log("changeTaps resolve실행");
+  //       }
+  //       reject(new Error("Request is failed"));
+  //     });
+  //   }
+
+  //   Scroll(e).then((res) => {
+  //     const titleElem = document.getElementById(res);
+  //     titleElem.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "start",
+  //       inline: "nearest",
+  //     });
+  //   });
+  // }
 
   return (
     <div className="container">
@@ -211,9 +242,9 @@ const Home = () => {
                   <br /> 콘텐츠가 많아질수록 '타고난 이야기꾼'은 사라진다.{" "}
                   <br />
                   <br />
-                  졸작의 숲에서 느꼈던 낯 뜨거움과 분노를 몰아내고자, 여기
-                  그들의 발자취를 기록한다.
-                  <br /> 부디 그들을 따라 걸으며 더이상의 답답함은 사라지기를.
+                  졸작의 숲에서 느꼈던 분노를 몰아내고자, 여기 그들의 발자취를
+                  기록한다.
+                  <br /> 부디 그들을 따라 걸으며 더이상의 답답함은 없기를.
                   <br /> 또 한번의 전율이 이 걸음에 함께 하기를.
                 </p>
               </div>
@@ -340,16 +371,28 @@ const Home = () => {
                 className={classes.views}
               > */}
               <TabPanel value={value} index={0} dir={theme.direction}>
-                <SectionDirector fetchDirectorInfo={fetchDirectorInfo} />
+                <SectionDirector
+                  fetchDirectorInfo={fetchDirectorInfo}
+                  handleAdd={handleAdd}
+                />
               </TabPanel>
               <TabPanel value={value} index={1} dir={theme.direction}>
-                <SectionFicWtr fetchDirectorInfo={fetchDirectorInfo} />
+                <SectionFicWtr
+                  fetchDirectorInfo={fetchDirectorInfo}
+                  handleAdd={handleAdd}
+                />
               </TabPanel>
               <TabPanel value={value} index={2} dir={theme.direction}>
-                <SectionNonFicWtr fetchDirectorInfo={fetchDirectorInfo} />
+                <SectionNonFicWtr
+                  fetchDirectorInfo={fetchDirectorInfo}
+                  handleAdd={handleAdd}
+                />
               </TabPanel>
               <TabPanel value={value} index={3} dir={theme.direction}>
-                <SectionOthers fetchDirectorInfo={fetchDirectorInfo} />
+                <SectionOthers
+                  fetchDirectorInfo={fetchDirectorInfo}
+                  handleAdd={handleAdd}
+                />
               </TabPanel>
               {/* </SwipeableViews> */}
             </div>

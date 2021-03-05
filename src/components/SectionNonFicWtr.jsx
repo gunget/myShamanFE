@@ -2,7 +2,7 @@ import React from "react";
 import DirectorsList from "./DirectorsList";
 import SearchDirector from "./SearchDirector";
 
-const SectionNonFicWtr = ({ fetchDirectorInfo }) => {
+const SectionNonFicWtr = ({ fetchDirectorInfo, handleAdd }) => {
   return (
     <>
       {" "}
@@ -10,6 +10,9 @@ const SectionNonFicWtr = ({ fetchDirectorInfo }) => {
       <section>
         <header id="NonFictionWriterList" className="major">
           <h2>NonFiction Writers</h2>
+          <a onClick={() => handleAdd("searchNadd")}>
+            <i class="fas fa-plus-circle"> NEW</i>
+          </a>
         </header>
         <div className="posts">
           <article>NonFiction Writers</article>
@@ -18,7 +21,7 @@ const SectionNonFicWtr = ({ fetchDirectorInfo }) => {
       {/* <!-- Section Search and Add --> */}
       <section>
         <header id="searchNadd" className="major">
-          <h2>Search & Add New Director</h2>
+          <h2>Search & Add New</h2>
         </header>
         <div className="searchNadd">
           <SearchDirector fetchDirectorInfo={fetchDirectorInfo} />
