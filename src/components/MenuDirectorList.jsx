@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import { StateContext } from "../contexts/Contexts.jsx";
 
-const MenuDirectorList = () => {
+const MenuDirectorList = ({ handleAdd }) => {
   const states = useContext(StateContext);
   const list = states
     ? states.directors.map((data) => {
         return (
           <li key={data.id}>
-            <a href={`#${data.name}`}>
+            <a onClick={() => handleAdd(data.name)}>
               <span className="korean">📢 {data.name}</span>
             </a>
           </li>

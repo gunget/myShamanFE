@@ -427,7 +427,7 @@ const Home = () => {
                     <li>
                       <a href="#searchNadd">➕ ADD NEW</a>
                     </li>
-                    <MenuDirectorList />
+                    <MenuDirectorList handleAdd={handleAdd} />
                   </ul>
                 </li>
                 <li>

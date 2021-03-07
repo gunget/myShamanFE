@@ -2,10 +2,11 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 
 const SearchDirector = ({ fetchDirectorInfo }) => {
-  const [peopleCode, setPeopleCode] = useState();
+  const [peopleCode, setPeopleCode] = useState("You don't seach anything yet.");
   const [ranAdvice, setRanAdvice] = useState(
     "Life is the accumlations of 'Accidents and Variables and Irony "
   );
+
   const inputRef = useRef();
   let pickedFile = null;
 
@@ -27,8 +28,7 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
     await axios
       .post("http://127.0.0.1:8000/api/directorInfo/", data) // (url, data, 헤더정보)순
       .then(() => {
-        // setSearchWord("");
-        setPeopleCode(0);
+        setPeopleCode("You don't seach anything yet.");
         inputRef.current.value = "";
         fetchDirectorInfo();
         setRanAdvice(
@@ -51,6 +51,7 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
 
   const getPeopleCode = async (e) => {
     e.preventDefault();
+    setPeopleCode("Now Searching...");
     await axios
       .get("http://127.0.0.1:8000/getPp/", {
         params: {
@@ -88,8 +89,6 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
     inputWindow.click();
   };
 
-  const responsedCode = peopleCode || "You don't seach anything yet.";
-
   return (
     <div className="container search2">
       <div id="search2" className="alt">
@@ -107,12 +106,10 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
         </form>
       </div>
       <div className="alt2">
-        <h3 className="korean"> [ 네이버무비 감독코드 : {responsedCode} ] </h3>
+        <h3 className="korean"> [ 네이버무비 감독코드 : {peopleCode} ] </h3>
         <p className="korean">
           {" "}
-          번호가 나오지 않았다면 검색버튼을 다시 누르세요.
-          <br />
-          감독코드에 해당하는 Image를 선택 후 DB에 저장하세요.
+          검색완료 시, 감독코드에 해당하는 이미지를 첨부한 후 DB에 저장하세요.
         </p>
         <form method="post" action="#">
           <input

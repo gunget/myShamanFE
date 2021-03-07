@@ -32,7 +32,7 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
           >
             <a
               href={`https://movie.naver.com/movie/bi/pi/filmo.nhn?code=${data.peopleCode}#tab`}
-              className="image"
+              className="image fit"
               target="_blank"
               rel="noreferrer"
             >
