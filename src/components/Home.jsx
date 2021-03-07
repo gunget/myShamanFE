@@ -136,7 +136,7 @@ const Home = () => {
   // };
 
   //Tap 전환
-  const chageTaps = (e) => {
+  const chageTaps = (e, id) => {
     // e.preventDefault();
     const elemID = Number(e.target.dataset.id);
     handleChange(null, elemID); //탭의 아이디를 직접 변경
@@ -402,7 +402,7 @@ const Home = () => {
         <div id="sidebar">
           <div className="inner">
             {/* <!-- Search bar --> */}
-            <PageSearch />
+            <PageSearch chageTaps={chageTaps} />
             {/* <!-- Menu --> */}
             <nav id="menu">
               <header className="major">
