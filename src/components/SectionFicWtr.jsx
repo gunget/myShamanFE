@@ -1,12 +1,11 @@
 import React from "react";
-import DirectorsList from "./DirectorsList";
-import SearchDirector from "./SearchDirector";
+import SearchWriter from "./SearchWriter";
 
 const SectionFicWtr = ({ fetchDirectorInfo, handleAdd }) => {
   return (
     <>
       {" "}
-      {/* <!-- Section Director --> */}
+      {/* <!-- Section Writer --> */}
       <section>
         <header id="FictionWriterList" className="major">
           <h2>Fiction Writers</h2>
@@ -24,7 +23,7 @@ const SectionFicWtr = ({ fetchDirectorInfo, handleAdd }) => {
           <h2>Search & Add New</h2>
         </header>
         <div className="searchNadd">
-          <SearchDirector fetchDirectorInfo={fetchDirectorInfo} />
+          <SearchWriter fetchDirectorInfo={fetchDirectorInfo} />
         </div>
       </section>
     </>

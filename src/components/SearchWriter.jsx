@@ -1,14 +1,12 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 
-const SearchDirector = ({ fetchDirectorInfo }) => {
+const SearchWriter = ({ fetchDirectorInfo }) => {
   const [peopleCode, setPeopleCode] = useState("You don't seach anything yet.");
-  const [ranAdvice, setRanAdvice] = useState(
-    "Life is the accumlations of 'Accidents and Variables and Irony "
-  );
 
-  const inputRef = useRef();
-  let pickedFile = null;
+  const inputRef = useRef(null);
+
+  const peopleLink = `https://people.search.naver.com/search.naver?where=nexearch&query=김은숙&sm=tab_etc&ie=utf8&key=PeopleService&os=${peopleCode}`;
 
   const savePeopleCode = async (e) => {
     e.preventDefault();
@@ -16,8 +14,6 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
     let data = new FormData();
     data.append("name", inputRef.current.value);
     data.append("peopleCode", Number(peopleCode));
-    data.append("image", pickedFile);
-    data.append("wisesaying", ranAdvice);
     // let data2 = {
     //   // name: searchWord,
     //   name: inputRef.current.value,
@@ -26,57 +22,35 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
     //   // fbooks: 1, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
     // };
     await axios
-      .post("http://127.0.0.1:8000/api/directorInfo/", data) // (url, data, 헤더정보)순
+      .post("http://127.0.0.1:8000/api/writerInfo/", data) // (url, data, 헤더정보)순
       .then(() => {
         setPeopleCode("You don't seach anything yet.");
         inputRef.current.value = "";
         fetchDirectorInfo();
-        setRanAdvice(
-          "Life is the combinations of 'Accidents and Variables and Irony "
-        );
       })
-      .then((res) =>
-        axios.get("http://127.0.0.1:8000/api/directorInfo/clearTempImage")
-      )
       .catch((error) => {
         console.log(error);
         setPeopleCode("저장할 수 없습니다.");
       });
   };
 
-  const handleUpload = (e) => {
-    e.preventDefault();
-    pickedFile = e.target.files[0];
-  };
+  // const handleUpload = (e) => {
+  //   e.preventDefault();
+  //   pickedFile = e.target.files[0];
+  // };
 
   const getPeopleCode = async (e) => {
     e.preventDefault();
     setPeopleCode("Now Searching...");
     await axios
-      .get("http://127.0.0.1:8000/getPpMovie/", {
+      .get("http://127.0.0.1:8000/getPpWriter/", {
         params: {
-          searchDrt: inputRef.current.value,
+          searchWtr: inputRef.current.value,
         },
       })
       .then((res) => {
         console.log(res);
         setPeopleCode(res.data);
-      })
-      .then((res) => {
-        axios
-          .get("https://icanhazdadjoke.com/", {
-            headers: {
-              Accept: "application/json",
-            },
-          })
-          .then((respose) => {
-            // axios.get("https://api.adviceslip.com/advice").then((respose) => {
-            // console.log("dad joke:", respose.data);
-            const temp = respose.data.joke;
-            if (temp) {
-              setRanAdvice(temp);
-            }
-          });
       })
       .catch((error) => {
         console.log(error);
@@ -85,8 +59,8 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
   };
 
   const handleFileAdd = () => {
-    const inputWindow = document.getElementById("fileAdd");
-    inputWindow.click();
+    // const inputWindow = document.getElementById("fileAdd");
+    // inputWindow.click();
   };
 
   return (
@@ -106,21 +80,21 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
         </form>
       </div>
       <div className="alt2">
-        <h3 className="korean"> [ 네이버무비 감독코드 : {peopleCode} ] </h3>
+        <h3 className="korean"> [ 네이버 인물정보 코드 : {peopleCode} ] </h3>
         <p className="korean">
           {" "}
-          검색완료 시, 감독코드에 해당하는 이미지를 첨부한 후 DB에 저장하세요.
+          <a href={peopleLink}>인물정보 바로가기</a>
         </p>
         <form method="post" action="#">
           <input
             id="fileAdd"
             type="file"
-            onChange={handleUpload}
+            // onChange={handleUpload}
             placeholder="첨부할 파일을 선택하세요."
           ></input>
-          <div class="button" onClick={handleFileAdd}>
+          {/* <div class="button" onClick={handleFileAdd}>
             ADD Image
-          </div>
+          </div> */}
           <div class="button" onClick={savePeopleCode}>
             Save DB
           </div>
@@ -136,4 +110,4 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
   );
 };
 
-export default SearchDirector;
+export default SearchWriter;
