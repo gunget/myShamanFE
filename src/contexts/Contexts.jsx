@@ -5,18 +5,32 @@ export const DispatchContext = createContext();
 
 function Reducer(states, { type, payload }) {
   switch (type) {
-    case "SET_INIT_DATA":
+    case "SET_DRT_INIT_DATA":
       return {
         ...states,
         directors: payload,
       };
-    case "INIT_LOADING_TOGGLE":
+    case "DRT_INIT_LOADING_TOGGLE":
       return {
         ...states,
         loadings: {
           ...states.loadings,
-          initLoading: payload,
-          // initLoading: !states.loadings.initLoading,
+          directorInitLoading: payload,
+          // directorInitLoading: !states.loadings.directorInitLoading,
+        },
+      };
+    case "SET_FWRT_INIT_DATA":
+      return {
+        ...states,
+        fictionWriters: payload,
+      };
+    case "FWRT_INIT_LOADING_TOGGLE":
+      return {
+        ...states,
+        loadings: {
+          ...states.loadings,
+          FicWriterInitLoading: payload,
+          // directorInitLoading: !states.loadings.directorInitLoading,
         },
       };
     // '객체 속 객체' 중 일부만 바꾸는 방법
@@ -31,8 +45,12 @@ function Reducer(states, { type, payload }) {
 function Store({ children }) {
   const [states, dispatch] = useReducer(Reducer, {
     directors: [],
-    writers: [],
-    loadings: { initLoading: true, generalLoading: true },
+    fictionWriters: [],
+    loadings: {
+      directorInitLoading: true,
+      FicWriterInitLoading: true,
+      generalLoading: true,
+    },
   });
   return (
     <DispatchContext.Provider value={dispatch}>

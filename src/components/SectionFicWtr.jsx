@@ -1,11 +1,12 @@
 import React from "react";
-import SearchWriter from "./SearchWriter";
+import FicWriterList from "./FicWriterList";
+import SearchFictionWriter from "./SearchFicWtr";
 
-const SectionFicWtr = ({ fetchDirectorInfo, handleAdd }) => {
+const SectionFicWtr = ({ fetchFicWriterInfo, handleAdd }) => {
   return (
     <>
       {" "}
-      {/* <!-- Section Writer --> */}
+      {/* <!-- Section FicWriter --> */}
       <section>
         <header id="FictionWriterList" className="major">
           <h2>Fiction Writers</h2>
@@ -14,7 +15,7 @@ const SectionFicWtr = ({ fetchDirectorInfo, handleAdd }) => {
           </a>
         </header>
         <div className="posts">
-          <article>Fiction Writers</article>
+          <FicWriterList fetchFicWriterInfo={fetchFicWriterInfo} />
         </div>
       </section>
       {/* <!-- Section Search and Add --> */}
@@ -23,7 +24,7 @@ const SectionFicWtr = ({ fetchDirectorInfo, handleAdd }) => {
           <h2>Search & Add New</h2>
         </header>
         <div className="searchNadd">
-          <SearchWriter fetchDirectorInfo={fetchDirectorInfo} />
+          <SearchFictionWriter fetchFicWriterInfo={fetchFicWriterInfo} />
         </div>
       </section>
     </>

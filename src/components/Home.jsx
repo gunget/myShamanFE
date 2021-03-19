@@ -93,12 +93,28 @@ const Home = () => {
     axios
       .get("http://localhost:8000/api/directorInfo/")
       .then((res) => {
-        console.log("Get list from DB:", res);
-        dispatch({ type: "SET_INIT_DATA", payload: res.data });
+        // console.log("Get list from DB:", res);
+        dispatch({ type: "SET_DRT_INIT_DATA", payload: res.data });
       })
       .then(() => {
         // setLoading(false);
-        dispatch({ type: "INIT_LOADING_TOGGLE", payload: false });
+        dispatch({ type: "DRT_INIT_LOADING_TOGGLE", payload: false });
+      })
+      .catch((error) => {
+        console.log("DB에러:", error);
+      });
+  };
+
+  const fetchFicWriterInfo = () => {
+    axios
+      .get("http://localhost:8000/api/ficWriterInfo/")
+      .then((res) => {
+        console.log("Get list from DB:", res);
+        dispatch({ type: "SET_FWRT_INIT_DATA", payload: res.data });
+      })
+      .then(() => {
+        // setLoading(false);
+        dispatch({ type: "FWRT_INIT_LOADING_TOGGLE", payload: false });
       })
       .catch((error) => {
         console.log("DB에러:", error);
@@ -117,6 +133,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchDirectorInfo();
+    fetchFicWriterInfo();
     console.log("Home component useEffect실행");
   }, []);
 
@@ -376,7 +393,7 @@ const Home = () => {
               </TabPanel>
               <TabPanel value={value} index={1} dir={theme.direction}>
                 <SectionFicWtr
-                  fetchDirectorInfo={fetchDirectorInfo}
+                  fetchFicWriterInfo={fetchFicWriterInfo}
                   handleAdd={handleAdd}
                 />
               </TabPanel>

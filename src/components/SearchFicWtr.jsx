@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 
-const SearchWriter = ({ fetchDirectorInfo }) => {
+const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
   const [peopleCode, setPeopleCode] = useState("You don't seach anything yet.");
 
   const inputRef = useRef(null);
@@ -22,11 +22,11 @@ const SearchWriter = ({ fetchDirectorInfo }) => {
     //   // fbooks: 1, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
     // };
     await axios
-      .post("http://127.0.0.1:8000/api/writerInfo/", data) // (url, data, 헤더정보)순
+      .post("http://127.0.0.1:8000/api/ficWriterInfo/", data) // (url, data, 헤더정보)순
       .then(() => {
         setPeopleCode("You don't seach anything yet.");
         inputRef.current.value = "";
-        fetchDirectorInfo();
+        fetchFicWriterInfo();
       })
       .catch((error) => {
         console.log(error);
@@ -71,7 +71,7 @@ const SearchWriter = ({ fetchDirectorInfo }) => {
             type="text"
             name="query"
             id="query"
-            placeholder="감독 이름을 입력하세요."
+            placeholder="작가 이름을 입력하세요."
             ref={inputRef}
           />
           <div class="button" onClick={getPeopleCode}>
@@ -110,4 +110,4 @@ const SearchWriter = ({ fetchDirectorInfo }) => {
   );
 };
 
-export default SearchWriter;
+export default SearchFictionWriter;

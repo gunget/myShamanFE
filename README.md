@@ -6,6 +6,8 @@
 
 1. FictionWriter검색기능 작성
 
+- 초기에 DB에서 가져온 값을 뿌리는 fetch부분 작성 할 것
+
 1. 한글폰트를 네이버 폰트에서 구해볼 것
 
 1. authorization 기능 만들기

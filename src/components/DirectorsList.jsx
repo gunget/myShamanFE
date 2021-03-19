@@ -20,7 +20,7 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
         .catch((err) => console.log("삭제실패:", err));
     }
   };
-  const list = states.loadings.initLoading
+  const list = states.loadings.directorInitLoading
     ? "loading..."
     : states.directors.map((data) => {
         return (
