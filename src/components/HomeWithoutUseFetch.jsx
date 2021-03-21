@@ -9,6 +9,8 @@ import SectionNonFicWtr from "./SectionNonFicWtr";
 import SectionOthers from "./SectionOthers";
 import PageSearch from "./PageSearch";
 import useFetch from "./useFetch";
+import { DispatchContext } from "../contexts/Contexts.jsx";
+import axios from "axios";
 
 import "../assets/css/main.css";
 import "../assets/css/fontawesome-all.min.css";
@@ -85,8 +87,40 @@ const useStyles = makeStyles((theme) => ({
 
 // 실제 Home 컴포넌트
 const Home = () => {
-  //초기 데이터 DB에서 불러오기
-  const { fetchDirectorInfo, fetchFicWriterInfo } = useFetch();
+  const dispatch = useContext(DispatchContext);
+
+  // Director DB에서 초기 데이터 불러오기
+  const fetchDirectorInfo = () => {
+    axios
+      .get("http://localhost:8000/api/directorInfo/")
+      .then((res) => {
+        // console.log("Get list from DB:", res);
+        dispatch({ type: "SET_DRT_INIT_DATA", payload: res.data });
+      })
+      .then(() => {
+        // setLoading(false);
+        dispatch({ type: "DRT_INIT_LOADING_TOGGLE", payload: false });
+      })
+      .catch((error) => {
+        console.log("DB에러:", error);
+      });
+  };
+
+  const fetchFicWriterInfo = () => {
+    axios
+      .get("http://localhost:8000/api/ficWriterInfo/")
+      .then((res) => {
+        console.log("Get list from DB:", res);
+        dispatch({ type: "SET_FWRT_INIT_DATA", payload: res.data });
+      })
+      .then(() => {
+        // setLoading(false);
+        dispatch({ type: "FWRT_INIT_LOADING_TOGGLE", payload: false });
+      })
+      .catch((error) => {
+        console.log("DB에러:", error);
+      });
+  };
 
   //각 카테고리의 검색 및 추가 파트로 이동하기
   const handleAdd = (id) => {
@@ -113,6 +147,10 @@ const Home = () => {
     setValue(newValue); //tap전환용
   };
 
+  // const handleChangeIndex = (index) => { //SwipeableView사용 시 필요
+  //   setValue(index);
+  // };
+
   //Tap 전환
   const chageTaps = (e) => {
     // e.preventDefault();
@@ -120,6 +158,20 @@ const Home = () => {
     handleChange(null, elemID); //탭의 아이디를 직접 변경
     return e.target.dataset.name;
   };
+
+  // //Tap 전환효과 & Scroll 이동: 엘러먼트를 따와 클릭하는 방식
+  // const chageTapsNscroll = (e) => {
+  //   chageTaps(e);
+  //   const tempId = String(e.target.dataset.name);
+  //   setTimeout((e) => {
+  //     const titleElem = document.getElementById(tempId);
+  //     titleElem.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "start",
+  //       inline: "nearest",
+  //     });
+  //   }, 300);
+  // };
 
   //async, await을 이용해 동기적으로 탭을 바꾸고 이동하기 구현
   function ScrollToElem(e) {
@@ -141,6 +193,30 @@ const Home = () => {
     }
     Scroll(e);
   }
+
+  // 타이틀 엘러먼트로 화면 이동시키기
+  // promise를 활용해 탭전환이 완전히 끝나면 그 이후 스크롤 동작 시작
+  // function ScrollToElem(e) {
+  //   function Scroll(e) {
+  //     return new Promise(function (resolve, reject) {
+  //       const response = chageTaps(e);
+  //       if (response) {
+  //         resolve(response);
+  //         console.log("changeTaps resolve실행");
+  //       }
+  //       reject(new Error("Request is failed"));
+  //     });
+  //   }
+
+  //   Scroll(e).then((res) => {
+  //     const titleElem = document.getElementById(res);
+  //     titleElem.scrollIntoView({
+  //       behavior: "smooth",
+  //       block: "start",
+  //       inline: "nearest",
+  //     });
+  //   });
+  // }
 
   return (
     <div className="container">

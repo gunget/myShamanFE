@@ -4,9 +4,9 @@
 
 - 탭이 정상적으로 전환되지 않는 경우 간헐적으로 나옴
 
-1. FictionWriter검색기능 작성
+1. NonFictionWriter검색기능 작성
 
-- fetch부분만 별도의 파일로 뺄 것
+1. SearchNnew파트의 디자인 수정
 
 1. 한글폰트를 네이버 폰트에서 구해볼 것
 
