@@ -2,18 +2,42 @@ import React, { useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
 
+// List image
+import frtImg2 from "../images/frontImage2.jpg";
+
+// material ui import
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: "100%",
+    margin: "0 auto",
+  },
+  media: {
+    height: 140,
+  },
+});
+
 const DirectorsList = ({ fetchDirectorInfo }) => {
   const states = useContext(StateContext);
+  const classes = useStyles();
 
   const delPeopleCode = (e) => {
     e.preventDefault();
 
+    const id = e.target.parentNode.parentNode.parentNode.parentNode.dataset.id;
+
     const confirm = window.confirm("정말 삭제하시겠습니까?");
     if (confirm) {
       axios
-        .delete(
-          `http://localhost:8000/api/directorInfo/${e.target.dataset.id}/`
-        )
+        .delete(`http://localhost:8000/api/directorInfo/${id}/`)
         .then(() => {
           fetchDirectorInfo();
         })
@@ -23,6 +47,8 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
   const list = states.loadings.directorInitLoading
     ? "loading..."
     : states.directors.map((data) => {
+        const link = `https://movie.naver.com/movie/bi/pi/filmo.nhn?code=${data.peopleCode}#tab`;
+
         return (
           <article
             id={data.name}
@@ -30,54 +56,42 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
             data-id={data.id}
             data-peoplecode={data.peopleCode}
           >
-            <a
-              href={`https://movie.naver.com/movie/bi/pi/filmo.nhn?code=${data.peopleCode}#tab`}
-              className="image fit"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <img src={data.image} alt="from artvee.com" />
-            </a>
-            <h3 className="korean" style={{ textAlign: "center" }}>
-              {data.name}&nbsp;
-              <i class="fas fa-film"></i>
-            </h3>
-            <p>
-              {data.wisesaying}&nbsp; &nbsp;
-              <i class="far fa-grin-squint-tears"></i>
-              <br />
-            </p>
-            <p className="korean">네이버무비 필모그래피 보러가기 :</p>
-            <ul
-              className="actions"
-              style={{
-                marginTop: "-5%",
-                display: "flex",
-                flexWrap: "wrap",
-              }}
-            >
-              <li>
-                <a
-                  href={`https://movie.naver.com/movie/bi/pi/filmo.nhn?code=${data.peopleCode}#tab`}
+            <Card className={classes.root}>
+              <CardActionArea href={link} target="_blank" rel="noreferrer">
+                <CardMedia
+                  className={classes.media}
+                  image={data.image}
+                  title="from artvee.com"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {data.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    {data.wisesaying}&nbsp; &nbsp;
+                    <i class="far fa-grin-squint-tears"></i>
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions data-id={data.id}>
+                <Button
+                  href={link}
                   target="_blank"
                   rel="noreferrer"
-                  className="button"
+                  size="small"
+                  color="primary"
                 >
-                  <i class="fas fa-sign-in-alt"></i>
-                  &nbsp;&nbsp;go filmo
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  data-id={data.id}
-                  onClick={delPeopleCode}
-                  className="button"
-                >
-                  <i class="fas fa-trash-alt"></i>&nbsp;&nbsp;delete
-                </a>
-              </li>
-            </ul>
+                  Go Naver Movie
+                </Button>
+                <Button onClick={delPeopleCode} size="small" color="secondary">
+                  Delete
+                </Button>
+              </CardActions>
+            </Card>
           </article>
         );
       });

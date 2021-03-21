@@ -92,7 +92,7 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
   return (
     <div className="container search2">
       <div id="search2" className="alt">
-        <form method="post" action="#">
+        <form method="post" action="#" onSubmit={getPeopleCode}>
           <input
             type="text"
             name="query"
@@ -108,8 +108,9 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
       <div className="alt2">
         <h3 className="korean"> [ 네이버무비 감독코드 : {peopleCode} ] </h3>
         <p className="korean">
-          {" "}
-          검색완료 시, 감독코드에 해당하는 이미지를 첨부한 후 DB에 저장하세요.
+          1. 0번은 검색결과가 없다는 의미입니다. <br />
+          2. 검색완료 시, 감독코드에 해당하는 이미지를 첨부한 후 DB에
+          저장하세요.
         </p>
         <form method="post" action="#">
           <input

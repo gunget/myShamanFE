@@ -2,6 +2,9 @@ import React, { useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
 
+// List image
+import frtImg2 from "../images/frontImage2.jpg";
+
 // material ui import
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -14,7 +17,8 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: "100%",
+    margin: "0 auto",
   },
   media: {
     height: 140,
@@ -26,17 +30,15 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
   const states = useContext(StateContext);
   const classes = useStyles();
 
-  console.log("ficWritersList comp", states.fictionWriters);
-
   const delPeopleCode = (e) => {
     e.preventDefault();
+
+    const id = e.target.parentNode.parentNode.parentNode.parentNode.dataset.id;
 
     const confirm = window.confirm("정말 삭제하시겠습니까?");
     if (confirm) {
       axios
-        .delete(
-          `http://localhost:8000/api/ficWriterInfo/${e.target.dataset.id}/`
-        )
+        .delete(`http://localhost:8000/api/ficWriterInfo/${id}/`)
         .then(() => {
           fetchFicWriterInfo();
         })
@@ -56,12 +58,11 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
             data-peoplecode={data.peopleCode}
           >
             <Card className={classes.root}>
-              <CardActionArea>
+              <CardActionArea href={link} target="_blank" rel="noreferrer">
                 <CardMedia
-                  href={link}
                   className={classes.media}
-                  image="/static/images/cards/contemplative-reptile.jpg"
-                  title="Contemplative Reptile"
+                  image={frtImg2}
+                  title="FicWriters"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
@@ -72,22 +73,23 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
                     color="textSecondary"
                     component="p"
                   >
-                    Lizards are a widespread group of squamate reptiles, with
-                    over 6,000 species, ranging across all continents except
-                    Antarctica
+                    Fiction 생산에 탁월한 재능을 가진 작가들. 네이버 인물정보를
+                    통해 그들이 만들어온 작품들을 감상하고 당신의 시간을 투자할
+                    지 말지 결정하세요.
                   </Typography>
                 </CardContent>
               </CardActionArea>
-              <CardActions>
-                <Button href={link} size="small" color="primary">
+              <CardActions data-id={data.id}>
+                <Button
+                  href={link}
+                  target="_blank"
+                  rel="noreferrer"
+                  size="small"
+                  color="primary"
+                >
                   Go Naver Search
                 </Button>
-                <Button
-                  data-id={data.id}
-                  onClick={delPeopleCode}
-                  size="small"
-                  color="secondary"
-                >
+                <Button onClick={delPeopleCode} size="small" color="secondary">
                   Delete
                 </Button>
               </CardActions>

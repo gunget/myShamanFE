@@ -6,8 +6,6 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
 
   const inputRef = useRef(null);
 
-  const peopleLink = `https://people.search.naver.com/search.naver?where=nexearch&query=김은숙&sm=tab_etc&ie=utf8&key=PeopleService&os=${peopleCode}`;
-
   const savePeopleCode = async (e) => {
     e.preventDefault();
 
@@ -66,7 +64,7 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
   return (
     <div className="container search2">
       <div id="search2" className="alt">
-        <form method="post" action="#">
+        <form method="post" action="#" onSubmit={getPeopleCode}>
           <input
             type="text"
             name="query"
@@ -82,8 +80,7 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
       <div className="alt2">
         <h3 className="korean"> [ 네이버 인물정보 코드 : {peopleCode} ] </h3>
         <p className="korean">
-          {" "}
-          <a href={peopleLink}>인물정보 바로가기</a>
+          인물코드가 나오면 DB에 저장하세요. 0번은 검색결과가 없다는 의미입니다.
         </p>
         <form method="post" action="#">
           <input
