@@ -1573,8 +1573,14 @@ div .container.search2 {
 }
 
 div .container.search2 .alt {
-  width: 70%;
+  width: 100%;
   margin-bottom: 20px;
+}
+
+div .container.search2 .alt form {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 div .container.search2 .alt2 {
@@ -1586,14 +1592,6 @@ div .container.search2 .alt2 {
   width: 70%;
 }
 
-div .container.search2 .alt form {
-  display: flex;
-  justify-content: space-between;
-}
-
-div .container.search2 form {
-  display: flex;
-}
 div .container.search2 form #fileAdd {
   display: none;
 }
@@ -1666,9 +1664,12 @@ select {
   height: 2.75em;
   padding-right: 2.75em;
   text-overflow: ellipsis;
+  vertical-align: middle;
+  text-align-last: center;
+  width: 300px;
 }
 select option {
-  color: #3d4449;
+  color: #7f888f;
   background: #ffffff;
 }
 select:focus::-ms-value {
@@ -1686,7 +1687,7 @@ input[type="search"],
 input[type="url"],
 input[type="file"],
 select {
-  height: 2.75em;
+  height: 45px;
 }
 
 input[type="file"] {
@@ -2735,9 +2736,10 @@ button:disabled,
   top: 0;
   width: 2em;
 }
-#search2 form input[type="text"] {
+#search2 form input#query {
   text-align: center;
   height: 45px;
+  width: 300px;
 }
 
 #sidebar {

@@ -3,7 +3,9 @@ import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
 
 // List image
+import frtImg1 from "../images/frontImage1.jpg";
 import frtImg2 from "../images/frontImage2.jpg";
+import frtImg3 from "../images/frontImage3.jpg";
 
 // material ui import
 import { makeStyles } from "@material-ui/core/styles";
@@ -49,6 +51,22 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
     ? "loading..."
     : states.fictionWriters.map((data) => {
         const link = `https://people.search.naver.com/search.naver?where=nexearch&query=${data.name}&sm=tab_etc&ie=utf8&key=PeopleService&os=${data.peopleCode}`;
+        let image = "";
+        switch (data.job) {
+          case "드라마작가":
+            image = frtImg2;
+            break;
+          case "소설가":
+            image = frtImg1;
+            break;
+          case "만화가":
+            image = frtImg3;
+            break;
+
+          default:
+            image = frtImg1;
+            break;
+        }
 
         return (
           <article
@@ -61,12 +79,13 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
               <CardActionArea href={link} target="_blank" rel="noreferrer">
                 <CardMedia
                   className={classes.media}
-                  image={frtImg2}
+                  image={image}
                   title="FicWriters"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {data.name}
+                    {data.name}{" "}
+                    <Typography variant="overline">[ {data.job} ]</Typography>
                   </Typography>
                   <Typography
                     variant="body2"
@@ -74,8 +93,8 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
                     component="p"
                   >
                     Fiction 생산에 탁월한 재능을 가진 작가들. 네이버 인물정보를
-                    통해 그들이 만들어온 작품들을 감상하고 당신의 시간을 투자할
-                    지 말지 결정하세요.
+                    통해 그들이 만들어온 작품들을 감상하고, 그들에게 당신의
+                    시간을 투자하세요.
                   </Typography>
                 </CardContent>
               </CardActionArea>

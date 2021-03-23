@@ -3,7 +3,6 @@ import axios from "axios";
 
 const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
   const [peopleCode, setPeopleCode] = useState("You don't seach anything yet.");
-  const [job, setJob] = useState("드라마작가");
 
   const inputRef = useRef(null);
 
@@ -13,7 +12,13 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
     let data = new FormData();
     data.append("name", inputRef.current.value);
     data.append("peopleCode", Number(peopleCode));
-    data.append("job", job);
+    // let data2 = {
+    //   // name: searchWord,
+    //   name: inputRef.current.value,
+    //   peopleCode: Number(peopleCode),
+    //   image: pickedFile,
+    //   // fbooks: 1, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
+    // };
     await axios
       .post("http://127.0.0.1:8000/api/ficWriterInfo/", data) // (url, data, 헤더정보)순
       .then(() => {
@@ -51,9 +56,9 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
       });
   };
 
-  const handelSelect = (e) => {
-    e.preventDefault();
-    setJob(e.target.value);
+  const handleFileAdd = () => {
+    // const inputWindow = document.getElementById("fileAdd");
+    // inputWindow.click();
   };
 
   return (
@@ -67,14 +72,6 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
             placeholder="작가 이름을 입력하세요."
             ref={inputRef}
           />
-          <select id="FicJobSelect" onChange={handelSelect}>
-            <option value="" selected>
-              직업을 선택하세요.
-            </option>
-            <option value="드라마작가">드라마작가</option>
-            <option value="소설가">소설가</option>
-            <option value="만화가">만화가</option>
-          </select>
           <div class="button" onClick={getPeopleCode}>
             Search
           </div>
