@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import Carousel from "re-carousel";
 import ScrollUpButton from "react-scroll-up-button";
 
-import MenuDirectorList from "./MenuDirectorList";
+import MenuList from "./MenuList";
 import SectionDirector from "./SectionDirector";
 import SectionFicWtr from "./SectionFicWtr";
 import SectionNonFicWtr from "./SectionNonFicWtr";
@@ -367,7 +367,7 @@ const Home = () => {
                     <li>
                       <a href="#searchNadd">➕ ADD NEW</a>
                     </li>
-                    <MenuDirectorList handleAdd={handleAdd} />
+                    <MenuList handleAdd={handleAdd} type="directors" />
                   </ul>
                 </li>
                 <li>
@@ -386,17 +386,9 @@ const Home = () => {
                   </span>
                   <ul>
                     <li>
-                      <a href="#">Lorem Dolor</a>
+                      <a href="#searchNadd">➕ ADD NEW</a>
                     </li>
-                    <li>
-                      <a href="#">Ipsum Adipiscing</a>
-                    </li>
-                    <li>
-                      <a href="#">Tempus Magna</a>
-                    </li>
-                    <li>
-                      <a href="#">Feugiat Veroeros</a>
-                    </li>
+                    <MenuList handleAdd={handleAdd} type="fictionWriters" />
                   </ul>
                 </li>
                 <li>
