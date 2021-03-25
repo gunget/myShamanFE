@@ -86,7 +86,11 @@ const useStyles = makeStyles((theme) => ({
 // 실제 Home 컴포넌트
 const Home = () => {
   //초기 데이터 DB에서 불러오기
-  const { fetchDirectorInfo, fetchFicWriterInfo } = useFetch();
+  const {
+    fetchDirectorInfo,
+    fetchFicWriterInfo,
+    fetchNonFicWriterInfo,
+  } = useFetch();
 
   //각 카테고리의 검색 및 추가 파트로 이동하기
   const handleAdd = (id) => {
@@ -101,6 +105,7 @@ const Home = () => {
   useEffect(() => {
     fetchDirectorInfo();
     fetchFicWriterInfo();
+    fetchNonFicWriterInfo();
     console.log("Home component useEffect실행");
   }, []);
 
@@ -324,7 +329,7 @@ const Home = () => {
               </TabPanel>
               <TabPanel value={value} index={2} dir={theme.direction}>
                 <SectionNonFicWtr
-                  fetchDirectorInfo={fetchDirectorInfo}
+                  fetchNonFicWriterInfo={fetchNonFicWriterInfo}
                   handleAdd={handleAdd}
                 />
               </TabPanel>
@@ -407,17 +412,9 @@ const Home = () => {
                   </span>
                   <ul>
                     <li>
-                      <a href="#">Lorem Dolor</a>
+                      <a href="#searchNadd">➕ ADD NEW</a>
                     </li>
-                    <li>
-                      <a href="#">Ipsum Adipiscing</a>
-                    </li>
-                    <li>
-                      <a href="#">Tempus Magna</a>
-                    </li>
-                    <li>
-                      <a href="#">Feugiat Veroeros</a>
-                    </li>
+                    <MenuList handleAdd={handleAdd} type="nonFictionWriters" />
                   </ul>
                 </li>
                 <li>

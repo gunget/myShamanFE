@@ -29,7 +29,21 @@ function Reducer(states, { type, payload }) {
         ...states,
         loadings: {
           ...states.loadings,
-          FicWriterInitLoading: payload,
+          ficWriterInitLoading: payload,
+          // directorInitLoading: !states.loadings.directorInitLoading,
+        },
+      };
+    case "SET_NFWRT_INIT_DATA":
+      return {
+        ...states,
+        nonFictionWriters: payload,
+      };
+    case "NFWRT_INIT_LOADING_TOGGLE":
+      return {
+        ...states,
+        loadings: {
+          ...states.loadings,
+          nonFicWriterInitLoading: payload,
           // directorInitLoading: !states.loadings.directorInitLoading,
         },
       };
@@ -46,9 +60,11 @@ function Store({ children }) {
   const [states, dispatch] = useReducer(Reducer, {
     directors: [],
     fictionWriters: [],
+    nonFictionWriters: [],
     loadings: {
       directorInitLoading: true,
-      FicWriterInitLoading: true,
+      ficWriterInitLoading: true,
+      nonFicWriterInitLoading: true,
       generalLoading: true,
     },
   });

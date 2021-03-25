@@ -27,8 +27,8 @@ const useStyles = makeStyles({
   },
 });
 
-// FicWriter Component
-const FicWriterList = ({ fetchFicWriterInfo }) => {
+// NonFicWriter Component
+const NonFicWriterList = ({ fetchNonFicWriterInfo }) => {
   const states = useContext(StateContext);
   const classes = useStyles();
 
@@ -40,16 +40,16 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
     const confirm = window.confirm("정말 삭제하시겠습니까?");
     if (confirm) {
       axios
-        .delete(`http://localhost:8000/api/ficWriterInfo/${id}/`)
+        .delete(`http://localhost:8000/api/nonFicWriterInfo/${id}/`)
         .then(() => {
-          fetchFicWriterInfo();
+          fetchNonFicWriterInfo();
         })
         .catch((err) => console.log("삭제실패:", err));
     }
   };
-  const list = states.loadings.ficWriterInitLoading
+  const list = states.loadings.nonFicWriterInitLoading
     ? "loading..."
-    : states.fictionWriters.map((data) => {
+    : states.nonFictionWriters.map((data) => {
         const link = `https://people.search.naver.com/search.naver?where=nexearch&query=${data.name}&sm=tab_etc&ie=utf8&key=PeopleService&os=${data.peopleCode}`;
         let image = "";
         switch (data.job) {
@@ -60,6 +60,15 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
             image = frtImg1;
             break;
           case "만화가":
+            image = frtImg3;
+            break;
+          case "작가":
+            image = frtImg2;
+            break;
+          case "철학자":
+            image = frtImg1;
+            break;
+          case "교수":
             image = frtImg3;
             break;
 
@@ -92,8 +101,8 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
                     color="textSecondary"
                     component="p"
                   >
-                    Fiction 생산에 탁월한 재능을 가진 작가들. '네이버 인물정보
-                    '를 통해 그들이 만들어온 작품들을 감상하고, 그들에게 당신의
+                    각자의 분야에서 탁월한 식견을 보유한 작가들. '네이버
+                    인물정보 '를 통해 그들의 저작들을 확인하고, 그들에게 당신의
                     시간을 투자하세요.
                   </Typography>
                 </CardContent>
@@ -129,4 +138,4 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
   return <>{list}</>;
 };
 
-export default FicWriterList;
+export default NonFicWriterList;

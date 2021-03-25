@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
-import QueryString from "qs"; //axios.get으로 array를 보낼때 사용하는 library
+import QueryString from "qs";
 
-const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
+const SearchNonFictionWriter = ({ fetchNonFicWriterInfo }) => {
   const [peopleCode, setPeopleCode] = useState("You don't seach anything yet.");
-  const [job, setJob] = useState("드라마작가");
+  const [job, setJob] = useState("철학자");
 
   const inputRef = useRef(null);
 
@@ -16,11 +16,11 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
     data.append("peopleCode", Number(peopleCode));
     data.append("job", job);
     await axios
-      .post("http://127.0.0.1:8000/api/ficWriterInfo/", data) // (url, data, 헤더정보)순
+      .post("http://127.0.0.1:8000/api/nonFicWriterInfo/", data) // (url, data, 헤더정보)순
       .then(() => {
         setPeopleCode("You don't seach anything yet.");
         inputRef.current.value = "";
-        fetchFicWriterInfo();
+        fetchNonFicWriterInfo();
       })
       .catch((error) => {
         console.log(error);
@@ -40,10 +40,7 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
       .get("http://127.0.0.1:8000/getPpWriter/", {
         params: {
           searchWtr: inputRef.current.value,
-          jobs: ["드라마작가", "소설가", "만화가"],
-          // jobs0: "드라마작가",
-          // jobs1: "소설가",
-          // jobs2: "만화가",
+          jobs: ["교수", "철학자", "작가"],
         },
         paramsSerializer: (params) => {
           return QueryString.stringify(params);
@@ -72,7 +69,7 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
             type="text"
             name="query"
             id="query"
-            placeholder="작가 이름을 입력하세요."
+            placeholder="이름을 입력하세요."
             ref={inputRef}
           />
 
@@ -85,7 +82,7 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
         <h3 className="korean"> [ 네이버 인물정보 코드 : {peopleCode} ] </h3>
         <p className="korean">
           1. 검색어 입력 시 직업까지 입력하면 결과가 정확해 집니다(ex.
-          홍길동작가). <br /> 2. 0번은 결과가 없다는 뜻입니다. <br />
+          홍길동교수). <br /> 2. 0번은 결과가 없다는 뜻입니다. <br />
           3. 직업을 선택하고 DB에 저장하세요.
         </p>
         <form method="post" action="#">
@@ -102,9 +99,9 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
             <option value="" selected>
               저장할 직업명을 선택하세요.
             </option>
-            <option value="드라마작가">드라마작가</option>
-            <option value="소설가">소설가</option>
-            <option value="만화가">만화가</option>
+            <option value="교수">교수</option>
+            <option value="철학자">철학자</option>
+            <option value="작가">작가</option>
             <option value="기타">기타</option>
           </select>
           <div class="button" onClick={savePeopleCode}>
@@ -122,4 +119,4 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
   );
 };
 
-export default SearchFictionWriter;
+export default SearchNonFictionWriter;

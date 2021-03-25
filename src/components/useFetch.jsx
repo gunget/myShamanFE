@@ -36,7 +36,23 @@ const useFetch = () => {
         console.log("DB에러:", error);
       });
   };
-  return { fetchDirectorInfo, fetchFicWriterInfo }; //key:value가 같은 객체를 destructive로 리턴
+
+  const fetchNonFicWriterInfo = () => {
+    axios
+      .get("http://localhost:8000/api/nonFicWriterInfo/")
+      .then((res) => {
+        console.log("Get list from nonFic DB:", res);
+        dispatch({ type: "SET_NFWRT_INIT_DATA", payload: res.data });
+      })
+      .then(() => {
+        // setLoading(false);
+        dispatch({ type: "NFWRT_INIT_LOADING_TOGGLE", payload: false });
+      })
+      .catch((error) => {
+        console.log("DB에러:", error);
+      });
+  };
+  return { fetchDirectorInfo, fetchFicWriterInfo, fetchNonFicWriterInfo }; //key:value가 같은 객체를 destructive로 리턴
 };
 
 export default useFetch;

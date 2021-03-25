@@ -6,6 +6,8 @@
 
 1. NonFictionWriter검색기능 작성
 
+- NonFicWriterList역시 중복되는 정보가 많으므로 하나로 합치는 것 고려
+
 1. others의 검색기능 작성
 
 - 디자인은 간단하게 표형식으로 나오게
@@ -20,3 +22,5 @@
 
 - 전체DB를 UserDB에 1:N으로 엮어줘야 함
 - jwt를 활용한 login logout 구현
+
+1. Artvee서버가 복구되지 않으면, DirectorList의 그림 받아오는 과정 수정 필요

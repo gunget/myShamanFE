@@ -1,8 +1,8 @@
 import React from "react";
-import DirectorsList from "./DirectorsList";
-import SearchDirector from "./SearchDirector";
+import NonFicWriterList from "./NonFicWriterList";
+import SearchNonFictionWriter from "./SearchNonFicWtr";
 
-const SectionNonFicWtr = ({ fetchDirectorInfo, handleAdd }) => {
+const SectionNonFicWtr = ({ fetchNonFicWriterInfo, handleAdd }) => {
   return (
     <>
       {" "}
@@ -15,7 +15,7 @@ const SectionNonFicWtr = ({ fetchDirectorInfo, handleAdd }) => {
           </a>
         </header>
         <div className="posts">
-          <article>NonFiction Writers</article>
+          <NonFicWriterList fetchNonFicWriterInfo={fetchNonFicWriterInfo} />
         </div>
       </section>
       {/* <!-- Section Search and Add --> */}
@@ -24,7 +24,9 @@ const SectionNonFicWtr = ({ fetchDirectorInfo, handleAdd }) => {
           <h2>Search & Add New</h2>
         </header>
         <div className="searchNadd">
-          <SearchDirector fetchDirectorInfo={fetchDirectorInfo} />
+          <SearchNonFictionWriter
+            fetchNonFicWriterInfo={fetchNonFicWriterInfo}
+          />
         </div>
       </section>
     </>
