@@ -1,6 +1,6 @@
 import React from "react";
 import DirectorsList from "./DirectorsList";
-import SearchDirector from "./SearchDirector";
+import SearchOthers from "./SearchOthers";
 
 const SectionOthers = ({ fetchDirectorInfo, handleAdd }) => {
   return (
@@ -24,7 +24,7 @@ const SectionOthers = ({ fetchDirectorInfo, handleAdd }) => {
           <h2>Search & Add New</h2>
         </header>
         <div className="searchNadd">
-          <SearchDirector fetchDirectorInfo={fetchDirectorInfo} />
+          <SearchOthers />
         </div>
       </section>
     </>

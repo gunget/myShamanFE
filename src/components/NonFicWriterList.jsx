@@ -51,17 +51,9 @@ const NonFicWriterList = ({ fetchNonFicWriterInfo }) => {
     ? "loading..."
     : states.nonFictionWriters.map((data) => {
         const link = `https://people.search.naver.com/search.naver?where=nexearch&query=${data.name}&sm=tab_etc&ie=utf8&key=PeopleService&os=${data.peopleCode}`;
+        const linkBook = `https://book.naver.com/search/search.nhn?query=${data.name}`;
         let image = "";
         switch (data.job) {
-          case "드라마작가":
-            image = frtImg2;
-            break;
-          case "소설가":
-            image = frtImg1;
-            break;
-          case "만화가":
-            image = frtImg3;
-            break;
           case "작가":
             image = frtImg2;
             break;
@@ -89,7 +81,7 @@ const NonFicWriterList = ({ fetchNonFicWriterInfo }) => {
                 <CardMedia
                   className={classes.media}
                   image={image}
-                  title="FicWriters"
+                  title="NonFicWriters"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
@@ -102,8 +94,8 @@ const NonFicWriterList = ({ fetchNonFicWriterInfo }) => {
                     component="p"
                   >
                     각자의 분야에서 탁월한 식견을 보유한 작가들. '네이버
-                    인물정보 '를 통해 그들의 저작들을 확인하고, 그들에게 당신의
-                    시간을 투자하세요.
+                    인물정보'와 '네이버 책정보'를 통해 그들의 저작들을 확인하고,
+                    그들에게 당신의 시간을 투자하세요.
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -115,7 +107,16 @@ const NonFicWriterList = ({ fetchNonFicWriterInfo }) => {
                   size="small"
                   color="primary"
                 >
-                  Go Naver Search
+                  Go Naver People
+                </Button>
+                <Button
+                  href={linkBook}
+                  target="_blank"
+                  rel="noreferrer"
+                  size="small"
+                  color="default"
+                >
+                  Go Naver Books
                 </Button>
                 <Button onClick={delPeopleCode} size="small" color="secondary">
                   Delete
