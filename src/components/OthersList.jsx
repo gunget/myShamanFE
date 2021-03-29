@@ -9,7 +9,7 @@ const OthersList = ({ fetchOthersInfo }) => {
   const delPeople = (e) => {
     e.preventDefault();
 
-    const id = e.target.parentNode.parentNode.parentNode.id;
+    const id = e.target.parentNode.parentNode.parentNode.dataset.id;
     console.log("others List id", id);
 
     const confirm = window.confirm("정말 삭제하시겠습니까?");
@@ -27,7 +27,7 @@ const OthersList = ({ fetchOthersInfo }) => {
     ? "loading..."
     : states.others.map((data) => {
         return (
-          <tr id={data.id}>
+          <tr id={data.name} data-id={data.id}>
             <td>{data.name}</td>
             <td>{data.description}</td>
             <td>{data.job}</td>

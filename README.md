@@ -1,12 +1,15 @@
 # 해결해야할 과제
 
+1. Menu others List에 데이터 목록 나오도록 수정
+
+1. authorization 기능 만들기
+
+- 전체DB를 UserDB에 1:N으로 엮어줘야 함
+- jwt를 활용한 login logout 구현
+
 1. 탭전환 이동 보완
 
 - 탭이 정상적으로 전환되지 않는 경우 간헐적으로 나옴
-
-1. others의 검색기능 작성
-
-- 디자인은 간단하게 표형식으로 나오게
 
 1. SearchNnew파트의 디자인 수정
 
@@ -16,9 +19,4 @@
 
 1. scrollup기능이 화면이 작아지면 먹지않는 문제 보완
 
-1. authorization 기능 만들기
-
-- 전체DB를 UserDB에 1:N으로 엮어줘야 함
-- jwt를 활용한 login logout 구현
-
-1. Artvee서버가 복구되지 않으면, DirectorList의 그림 받아오는 과정 수정 필요
+<!-- 1. Artvee서버가 복구되지 않으면, DirectorList의 그림 받아오는 과정 수정 필요 -->
