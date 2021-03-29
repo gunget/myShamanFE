@@ -1,8 +1,8 @@
 import React from "react";
-import DirectorsList from "./DirectorsList";
 import SearchOthers from "./SearchOthers";
+import OthersList from "./OthersList";
 
-const SectionOthers = ({ fetchDirectorInfo, handleAdd }) => {
+const SectionOthers = ({ fetchOthersInfo, handleAdd }) => {
   return (
     <>
       {" "}
@@ -15,7 +15,7 @@ const SectionOthers = ({ fetchDirectorInfo, handleAdd }) => {
           </a>
         </header>
         <div className="posts">
-          <article>The Others</article>
+          <OthersList fetchOthersInfo={fetchOthersInfo} />
         </div>
       </section>
       {/* <!-- Section Search and Add --> */}
@@ -24,7 +24,7 @@ const SectionOthers = ({ fetchDirectorInfo, handleAdd }) => {
           <h2>Search & Add New</h2>
         </header>
         <div className="searchNadd">
-          <SearchOthers />
+          <SearchOthers fetchOthersInfo={fetchOthersInfo} />
         </div>
       </section>
     </>

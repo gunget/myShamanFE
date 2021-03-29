@@ -1,40 +1,33 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
-import QueryString from "qs";
 
-const SearchOthers = ({ fetchNonFicWriterInfo }) => {
-  const [peopleCode, setPeopleCode] = useState("You don't seach anything yet.");
-  const [job, setJob] = useState("철학자");
+const SearchOthers = ({ fetchOthersInfo }) => {
+  const nameRef = useRef("홍길동");
+  const jobRef = useRef("캐릭터");
+  const descriptionRef = useRef("소설 속 인물");
 
-  const inputRef = useRef(null);
-
-  const savePeopleCode = async (e) => {
+  const saveDB = async (e) => {
     e.preventDefault();
 
     let data = new FormData();
-    data.append("name", inputRef.current.value);
-    data.append("peopleCode", Number(peopleCode));
-    data.append("job", job);
+    data.append("name", nameRef.current.value);
+    data.append("job", jobRef.current.value);
+    data.append("description", descriptionRef.current.value);
     await axios
-      .post("http://127.0.0.1:8000/api/nonFicWriterInfo/", data) // (url, data, 헤더정보)순
+      .post("http://127.0.0.1:8000/api/othersInfo/", data) // (url, data, 헤더정보)순
       .then(() => {
-        setPeopleCode("You don't seach anything yet.");
-        inputRef.current.value = "";
-        fetchNonFicWriterInfo();
+        nameRef.current.value = "";
+        jobRef.current.value = "";
+        descriptionRef.current.value = "";
+        fetchOthersInfo();
       })
       .catch((error) => {
         console.log(error);
-        setPeopleCode("저장할 수 없습니다.");
       });
   };
 
-  const handelSelect = (e) => {
-    e.preventDefault();
-    setJob(e.target.value);
-  };
-
   return (
-    <div>
+    <div className="container search2">
       <form method="post" action="#">
         <div class="row gtr-uniform">
           <div class="col-6 col-12-xsmall">
@@ -42,40 +35,37 @@ const SearchOthers = ({ fetchNonFicWriterInfo }) => {
               type="text"
               name="demo-name"
               id="demo-name"
-              value=""
-              placeholder="Name"
+              ref={nameRef}
+              placeholder="이름을 입력하세요."
             />
           </div>
           <div class="col-6 col-12-xsmall">
             <input
-              type="email"
-              name="demo-email"
-              id="demo-email"
-              value=""
-              placeholder="Email"
+              type="text"
+              name="demo-job"
+              id="demo-job"
+              ref={jobRef}
+              placeholder="직업을 입력하세요."
             />
           </div>
           <div class="col-12">
-            <select name="demo-category" id="demo-category">
-              <option value="">- Category -</option>
-              <option value="1">Manufacturing</option>
-              <option value="1">Shipping</option>
-              <option value="1">Administration</option>
-              <option value="1">Human Resources</option>
-            </select>
-          </div>
-          <div class="col-12">
             <textarea
-              name="demo-message"
-              id="demo-message"
-              placeholder="Enter your message"
-              rows="6"
+              name="demo-description"
+              id="demo-description"
+              ref={descriptionRef}
+              placeholder="인물의 관련정보를 입력하세요."
+              rows="5"
             ></textarea>
           </div>
           <div class="col-12">
             <ul class="actions">
               <li>
-                <input type="submit" value="Send Message" class="primary" />
+                <input
+                  type="submit"
+                  value="submit"
+                  onClick={saveDB}
+                  class="primary"
+                />
               </li>
               <li>
                 <input type="reset" value="Reset" />

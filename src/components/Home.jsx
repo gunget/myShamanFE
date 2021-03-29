@@ -90,6 +90,7 @@ const Home = () => {
     fetchDirectorInfo,
     fetchFicWriterInfo,
     fetchNonFicWriterInfo,
+    fetchOthersInfo,
   } = useFetch();
 
   //각 카테고리의 검색 및 추가 파트로 이동하기
@@ -106,6 +107,7 @@ const Home = () => {
     fetchDirectorInfo();
     fetchFicWriterInfo();
     fetchNonFicWriterInfo();
+    fetchOthersInfo();
     console.log("Home component useEffect실행");
   }, []);
 
@@ -335,7 +337,7 @@ const Home = () => {
               </TabPanel>
               <TabPanel value={value} index={3} dir={theme.direction}>
                 <SectionOthers
-                  fetchDirectorInfo={fetchDirectorInfo}
+                  fetchOthersInfo={fetchOthersInfo}
                   handleAdd={handleAdd}
                 />
               </TabPanel>

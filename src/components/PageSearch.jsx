@@ -100,7 +100,7 @@ const PageSearch = ({ handleChange }) => {
         <input
           type="text"
           name="query"
-          id="query"
+          id="query2"
           placeholder="이름 검색 (Full Name)"
           ref={inputRef}
         />

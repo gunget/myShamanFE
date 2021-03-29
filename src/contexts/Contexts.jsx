@@ -47,6 +47,20 @@ function Reducer(states, { type, payload }) {
           // directorInitLoading: !states.loadings.directorInitLoading,
         },
       };
+    case "SET_OTHERS_INIT_DATA":
+      return {
+        ...states,
+        others: payload,
+      };
+    case "OTHERS_INIT_LOADING_TOGGLE":
+      return {
+        ...states,
+        loadings: {
+          ...states.loadings,
+          othersInitLoading: payload,
+          // directorInitLoading: !states.loadings.directorInitLoading,
+        },
+      };
     // '객체 속 객체' 중 일부만 바꾸는 방법
     // const array = { a : 1, b : { key: 1, val: 2 }, c : false }
     // const array5 = {...array, b:{...array.b, val:8}
@@ -61,10 +75,12 @@ function Store({ children }) {
     directors: [],
     fictionWriters: [],
     nonFictionWriters: [],
+    others: [],
     loadings: {
       directorInitLoading: true,
       ficWriterInitLoading: true,
       nonFicWriterInitLoading: true,
+      othersInitLoading: true,
       generalLoading: true,
     },
   });
