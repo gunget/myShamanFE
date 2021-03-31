@@ -20,8 +20,8 @@ import Select from "@material-ui/core/Select";
 const useStyles = makeStyles((theme) => ({
   root: {
     fontFamily: "serif",
-    fontWeight: "700",
-    fontSize: "0.8em",
+    fontWeight: "800",
+    fontSize: "0.7em",
     letterSpacing: "0.5px",
     opacity: "0.7",
     textTransform: "uppercase",
@@ -33,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   label: {
     fontFamily: "serif",
-    fontWeight: "800",
-    letterSpacing: "1px",
+    fontWeight: "bold",
   },
   menuitem: {
     fontFamily: "serif",
@@ -70,7 +69,7 @@ const PageSearch = ({ handleChange }) => {
           id="demo-simple-select-label"
           classes={{ root: classes.label }}
         >
-          Catagory
+          CATAGORY
         </InputLabel>
         <Select
           classes={{

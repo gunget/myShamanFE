@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import Carousel from "re-carousel";
 import ScrollUpButton from "react-scroll-up-button";
 
@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
 // 실제 Home 컴포넌트
 const Home = () => {
   //초기 데이터 DB에서 불러오기
+
   const {
     fetchDirectorInfo,
     fetchFicWriterInfo,
@@ -122,8 +123,9 @@ const Home = () => {
 
   //Tap 전환
   const chageTaps = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     const elemID = Number(e.target.dataset.id);
+    console.log("tap 전환 번호:", elemID, e);
     handleChange(null, elemID); //탭의 아이디를 직접 변경
     return e.target.dataset.name;
   };
@@ -435,66 +437,14 @@ const Home = () => {
                   </span>
                   <ul>
                     <li>
-                      <a href="#">Lorem Dolor</a>
+                      <a href="#searchNadd">➕ ADD NEW</a>
                     </li>
-                    <li>
-                      <a href="#">Ipsum Adipiscing</a>
-                    </li>
-                    <li>
-                      <a href="#">Tempus Magna</a>
-                    </li>
-                    <li>
-                      <a href="#">Feugiat Veroeros</a>
-                    </li>
+                    <MenuList handleAdd={handleAdd} type="others" />
                   </ul>
                 </li>
               </ul>
             </nav>
-
-            {/* <!-- Section --> */}
-            <section>
-              <header className="major">
-                <h2>Ante interdum</h2>
-              </header>
-              <div className="mini-posts">
-                <article>
-                  <a href="#" className="image">
-                    <img src={pic07} alt=""></img>
-                  </a>
-                  <p>
-                    Aenean ornare velit lacus, ac varius enim lorem ullamcorper
-                    dolore aliquam.
-                  </p>
-                </article>
-                <article>
-                  <a href="#" className="image">
-                    <img src={pic08} alt=""></img>
-                  </a>
-                  <p>
-                    Aenean ornare velit lacus, ac varius enim lorem ullamcorper
-                    dolore aliquam.
-                  </p>
-                </article>
-                <article>
-                  <a href="#" className="image">
-                    <img src={pic09} alt=""></img>
-                  </a>
-                  <p>
-                    Aenean ornare velit lacus, ac varius enim lorem ullamcorper
-                    dolore aliquam.
-                  </p>
-                </article>
-              </div>
-              <ul className="actions">
-                <li>
-                  <a href="#" className="button">
-                    More
-                  </a>
-                </li>
-              </ul>
-            </section>
-
-            {/* <!-- Section --> */}
+            {/* <!-- Section Contact--> */}
             <section>
               <header className="major">
                 <h2>Get in touch</h2>
@@ -518,6 +468,57 @@ const Home = () => {
               </ul>
             </section>
 
+            {/* <!-- Section Change Content --> */}
+            <section>
+              <header className="major">
+                <h2>CHANGE TAPS</h2>
+              </header>
+              <div className="container">
+                <div class="list">
+                  <div class="num">
+                    <h3
+                      onClick={ScrollToElem}
+                      // onClick={chageTapsNscroll}
+                      data-id="0"
+                      data-name="DirectorList"
+                    >
+                      Go Movie Directors &nbsp;&nbsp;
+                      <i class="fas fa-gem"></i>
+                    </h3>
+                  </div>
+                  <div class="num">
+                    <h3
+                      onClick={ScrollToElem}
+                      // onClick={chageTapsNscroll}
+                      data-id="1"
+                      data-name="FictionWriterList"
+                    >
+                      Go Fiction Writers &nbsp;&nbsp;
+                      <i class="fas fa-paper-plane"></i>
+                    </h3>
+                  </div>
+                  <div class="num">
+                    <h3
+                      onClick={ScrollToElem}
+                      data-id="2"
+                      data-name="NonFictionWriterList"
+                    >
+                      Go NonFiction Writers &nbsp;&nbsp;
+                      <i class="fas fa-rocket"></i>
+                    </h3>
+                  </div>
+                  <div class="num">
+                    <h3
+                      onClick={ScrollToElem}
+                      data-id="3"
+                      data-name="TheOthersList"
+                    >
+                      Go The Others &nbsp;&nbsp;<i class="fas fa-signal"></i>
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </section>
             {/* <!-- Footer --> */}
             <footer id="footer">
               <p className="copyright">
