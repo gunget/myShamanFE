@@ -214,16 +214,13 @@ const Home = () => {
                 <article>
                   <span className="icon fa-gem"></span>
                   <div className="content">
-                    <h3>
-                      <a
-                        onClick={ScrollToElem}
-                        // onClick={chageTapsNscroll}
-                        data-id="0"
-                        data-name="DirectorList"
-                      >
-                        Movie Directors &nbsp;&nbsp;GO&nbsp;
-                        <i class="fas fa-chevron-right"></i>
-                      </a>
+                    <h3
+                      onClick={ScrollToElem}
+                      // onClick={chageTapsNscroll}
+                      data-id="0"
+                      data-name="DirectorList"
+                    >
+                      Movie Directors &nbsp;&nbsp;▶
                     </h3>
                     <p>
                       언제나 손꼽아 기다리게 되는 감독들. 그들의 필모그래피를
@@ -235,16 +232,13 @@ const Home = () => {
                 <article>
                   <span className="icon solid fa-paper-plane"></span>
                   <div className="content">
-                    <h3>
-                      <a
-                        onClick={ScrollToElem}
-                        // onClick={chageTapsNscroll}
-                        data-id="1"
-                        data-name="FictionWriterList"
-                      >
-                        Fiction Wirters &nbsp;&nbsp;GO&nbsp;
-                        <i class="fas fa-chevron-right"></i>
-                      </a>
+                    <h3
+                      onClick={ScrollToElem}
+                      // onClick={chageTapsNscroll}
+                      data-id="1"
+                      data-name="FictionWriterList"
+                    >
+                      Fiction Wirters &nbsp;&nbsp;▶
                     </h3>
                     <p>
                       드라마, 소설 등 타고난 스토리 작가들을 갈무리. 네이버
@@ -255,16 +249,13 @@ const Home = () => {
                 <article>
                   <span className="icon solid fa-rocket"></span>
                   <div className="content">
-                    <h3>
-                      <a
-                        // onClick={chageTapsNscroll}
-                        onClick={ScrollToElem}
-                        data-id="2"
-                        data-name="NonFictionWriterList"
-                      >
-                        Nonfiction Wirters &nbsp;&nbsp;GO&nbsp;
-                        <i class="fas fa-chevron-right"></i>
-                      </a>
+                    <h3
+                      // onClick={chageTapsNscroll}
+                      onClick={ScrollToElem}
+                      data-id="2"
+                      data-name="NonFictionWriterList"
+                    >
+                      Nonfiction Wirters &nbsp;&nbsp;▶
                     </h3>
                     <p>
                       차기작을 늘 기다리게 만드는 비소설 작가들을 갈무리. 네이버
@@ -275,16 +266,12 @@ const Home = () => {
                 <article>
                   <span className="icon solid fa-signal"></span>
                   <div className="content">
-                    <h3>
-                      <a
-                        // onClick={chageTapsNscroll}
-                        onClick={ScrollToElem}
-                        data-id="3"
-                        data-name="TheOthersList"
-                      >
-                        The others &nbsp;&nbsp;GO&nbsp;
-                        <i class="fas fa-chevron-right"></i>
-                      </a>
+                    <h3 // onClick={chageTapsNscroll}
+                      onClick={ScrollToElem}
+                      data-id="3"
+                      data-name="TheOthersList"
+                    >
+                      The others &nbsp;&nbsp;▶
                     </h3>
                     <p>
                       기타 분류하기 애매하지만 인상적인 인물들을 갈무리.
@@ -365,7 +352,11 @@ const Home = () => {
                     data-name="DirectorList"
                   >
                     Movie Directors&nbsp;&nbsp;
-                    <i class="fas fa-chevron-right"></i>
+                    <i
+                      class="fas fa-gem"
+                      data-id="0"
+                      data-name="DirectorList"
+                    ></i>
                   </a>
                 </li>
                 <li>
@@ -386,7 +377,11 @@ const Home = () => {
                     data-name="FictionWriterList"
                   >
                     Fiction Writers&nbsp;&nbsp;
-                    <i class="fas fa-chevron-right"></i>
+                    <i
+                      class="fas fa-paper-plane"
+                      data-id="1"
+                      data-name="FictionWriterList"
+                    ></i>
                   </a>
                 </li>
                 <li>
@@ -407,7 +402,11 @@ const Home = () => {
                     data-name="NonFictionWriterList"
                   >
                     Nonfiction Writers&nbsp;&nbsp;
-                    <i class="fas fa-chevron-right"></i>
+                    <i
+                      class="fas fa-rocket"
+                      data-id="2"
+                      data-name="NonFictionWriterList"
+                    ></i>
                   </a>
                 </li>
                 <li>
@@ -428,7 +427,11 @@ const Home = () => {
                     data-name="TheOthersList"
                   >
                     The Others&nbsp;&nbsp;
-                    <i class="fas fa-chevron-right"></i>
+                    <i
+                      class="fas fa-signal"
+                      data-id="3"
+                      data-name="TheOthersList"
+                    ></i>
                   </a>
                 </li>
                 <li>
@@ -471,7 +474,7 @@ const Home = () => {
             {/* <!-- Section Change Content --> */}
             <section>
               <header className="major">
-                <h2>CHANGE TAPS</h2>
+                <h2>Change CATs</h2>
               </header>
               <div className="container">
                 <div class="list">
@@ -483,18 +486,25 @@ const Home = () => {
                       data-name="DirectorList"
                     >
                       Go Movie Directors &nbsp;&nbsp;
-                      <i class="fas fa-gem"></i>
+                      <i
+                        class="fas fa-gem"
+                        data-id="0"
+                        data-name="DirectorList"
+                      ></i>
                     </h3>
                   </div>
                   <div class="num">
                     <h3
                       onClick={ScrollToElem}
-                      // onClick={chageTapsNscroll}
                       data-id="1"
                       data-name="FictionWriterList"
                     >
                       Go Fiction Writers &nbsp;&nbsp;
-                      <i class="fas fa-paper-plane"></i>
+                      <i
+                        class="fas fa-paper-plane"
+                        data-id="1"
+                        data-name="FictionWriterList"
+                      ></i>
                     </h3>
                   </div>
                   <div class="num">
@@ -504,7 +514,11 @@ const Home = () => {
                       data-name="NonFictionWriterList"
                     >
                       Go NonFiction Writers &nbsp;&nbsp;
-                      <i class="fas fa-rocket"></i>
+                      <i
+                        class="fas fa-rocket"
+                        data-id="2"
+                        data-name="NonFictionWriterList"
+                      ></i>
                     </h3>
                   </div>
                   <div class="num">
@@ -513,7 +527,12 @@ const Home = () => {
                       data-id="3"
                       data-name="TheOthersList"
                     >
-                      Go The Others &nbsp;&nbsp;<i class="fas fa-signal"></i>
+                      Go The Others &nbsp;&nbsp;
+                      <i
+                        class="fas fa-signal"
+                        data-id="3"
+                        data-name="TheOthersList"
+                      ></i>
                     </h3>
                   </div>
                 </div>

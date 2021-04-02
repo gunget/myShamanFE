@@ -2485,6 +2485,11 @@ button:disabled,
   width: 100%;
 }
 
+.features article .content h3:hover {
+  cursor: pointer;
+  color: #f56a6a;
+}
+
 .features article .content > h3 > a {
   cursor: pointer;
 }
