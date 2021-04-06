@@ -27,9 +27,6 @@ import Box from "@material-ui/core/Box";
 import frtImg1 from "../images/frontImage1.jpg";
 import frtImg2 from "../images/frontImage2.jpg";
 import frtImg3 from "../images/frontImage3.jpg";
-import pic07 from "../images/pic07.jpg";
-import pic08 from "../images/pic08.jpg";
-import pic09 from "../images/pic09.jpg";
 
 // material ui tap기능 활용 위한 함수들
 function TabPanel(props) {
@@ -84,9 +81,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // 실제 Home 컴포넌트
-const Home = () => {
+const Home = ({ location, history }) => {
   //초기 데이터 DB에서 불러오기
-
   const {
     fetchDirectorInfo,
     fetchFicWriterInfo,
@@ -160,7 +156,7 @@ const Home = () => {
           <div className="inner">
             {/* <!-- Header --> */}
             <header id="header">
-              <a href="index.html" className="logo">
+              <a href="/Home" className="logo">
                 <strong>MyShamans</strong> : Let's memorize !
               </a>
               <ul className="icons">
