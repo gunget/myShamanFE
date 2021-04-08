@@ -64,7 +64,7 @@ export default function SignIn({ history }) {
   const pwRef = useRef();
   const alertMessage = useRef();
 
-  const testSubmit = (e) => {
+  const submit = (e) => {
     e.preventDefault();
     const data = {
       username: nameRef.current.value,
@@ -96,14 +96,14 @@ export default function SignIn({ history }) {
     const checkUser = async () => {
       const userRsp = await axios
         .post("http://localhost:8000/rest-auth/login/", data)
-        .then((data) => {
+        .then((res) => {
           history.push({
             pathname: "/Home",
-            state: { isAuthenticated: true },
+            state: { isAuthenticated: true, username: nameRef.current.value }, //jwt활용시 수정필요
           });
-          return data;
+          return res;
         })
-        .then((data) => {
+        .then((res) => {
           window.location.reload();
           // js가 적용된 템플릿을 리액트로 가져다 쓸 때 생기는 문제점!!!!
           // 최초 signIn page단계에서 static설정들을 위한 js들이 모두 실행 및 종료되어, 실제로
@@ -205,7 +205,7 @@ export default function SignIn({ history }) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={testSubmit}
+            onClick={submit}
           >
             로그인
           </Button>

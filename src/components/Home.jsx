@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from "re-carousel";
 import ScrollUpButton from "react-scroll-up-button";
+import axios from "axios";
 
 import MenuList from "./MenuList";
 import SectionDirector from "./SectionDirector";
@@ -9,6 +10,7 @@ import SectionNonFicWtr from "./SectionNonFicWtr";
 import SectionOthers from "./SectionOthers";
 import PageSearch from "./PageSearch";
 import useFetch from "./useFetch";
+import ImportScript from "./ImportScript";
 
 import "../assets/css/main.css";
 import "../assets/css/fontawesome-all.min.css";
@@ -82,6 +84,15 @@ const useStyles = makeStyles((theme) => ({
 
 // 실제 Home 컴포넌트
 const Home = ({ location, history }) => {
+  // 리액트에서 외부 스크립트 불러오는 방법
+  // ImportScript("../assets/js/jquery.min.js");
+  // ImportScript("../assets/js/breakpoints.min.js");
+  // ImportScript("../assets/js/browser.min.js");
+  // ImportScript("../assets/js/main.js");
+  // ImportScript("../assets/js/util.js");
+
+  const [username, setUserName] = useState("anonymous");
+
   //초기 데이터 DB에서 불러오기
   const {
     fetchDirectorInfo,
@@ -101,10 +112,11 @@ const Home = ({ location, history }) => {
   };
 
   useEffect(() => {
-    fetchDirectorInfo();
-    fetchFicWriterInfo();
-    fetchNonFicWriterInfo();
-    fetchOthersInfo();
+    setUserName(location.state.username);
+    // fetchDirectorInfo();
+    // fetchFicWriterInfo();
+    // fetchNonFicWriterInfo();
+    // fetchOthersInfo();
     console.log("Home component useEffect실행");
   }, []);
 
@@ -115,6 +127,14 @@ const Home = ({ location, history }) => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue); //tap전환용
+  };
+
+  const logout = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8000/rest-auth/logout/")
+      // .then(localStorage.removeItem("jwt"))
+      .then(history.push("/"));
   };
 
   //Tap 전환
@@ -161,9 +181,9 @@ const Home = ({ location, history }) => {
               </a>
               <ul className="icons">
                 <li>
-                  <a href="https://html5up.net/">
+                  <a href="#" onClick={logout}>
                     <i class="fas fa-drafting-compass"></i>
-                    <span className="label"> Desinged by HTML5 UP </span>
+                    <span className="label"> {username} : logout </span>
                   </a>
                 </li>
               </ul>
