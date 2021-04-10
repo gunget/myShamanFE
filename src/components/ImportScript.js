@@ -3,10 +3,10 @@ const ImportScript = (resourceUrl) => {
   useEffect(() => {
     const script = document.createElement("script");
     script.src = resourceUrl;
-    script.defer = true;
+    script.aysnc = true;
     document.body.appendChild(script);
     return () => {
-      document.body.removeChild(script);
+      // document.body.removeChild(script);
     };
   }, [resourceUrl]);
 };

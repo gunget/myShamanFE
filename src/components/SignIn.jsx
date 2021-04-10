@@ -4,7 +4,8 @@ import CSRFToken from "./CSRFToken";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
+// import CssBaseline from "@material-ui/core/CssBaseline";
+// 이게 있으면 mui의 body css가 우선적용 됨. 다른 css에서 body 항목을 쓴다면 deprecate됨.
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#fafafa",
   },
   paper: {
     // marginTop: theme.spacing(8),
@@ -105,11 +107,13 @@ export default function SignIn({ history }) {
         })
         .then((res) => {
           window.location.reload();
-          // js가 적용된 템플릿을 리액트로 가져다 쓸 때 생기는 문제점!!!!
-          // 최초 signIn page단계에서 static설정들을 위한 js들이 모두 실행 및 종료되어, 실제로
-          // 로그인 후 Home comp가 로드되고 나면, 저들에 의한 동작들이 하나도 안 먹음
-          // 가장 간단한 해결책은 일단 home으로 push된 후 페이지를 reload하는 법
-          // 단점: 이렇게 하면 token을 state로 사용하는 방식은 사용 불가능
+          // 리액트 로그인 템플릿을, 무료 html템플릿(js포함됨)으로 가져다 쓸때 생기는 문제점!!!!
+          // 첫째, 무료 템플릿 body태그에 적용되는 css들이 리액트 템플릿의 것으로 오버라이딩 된다.
+          // 둘째, 로그인 템플릿을 띄울때 무료 탬플릿용 js들이 로드되는데 엘러먼트들이 없으므로 무효화된다.
+          // 그결과, 로그인 후 Home으로 들어가보면 body용 css들이 안먹고, js도 로드되지 않는다
+          // 해결책은,
+          // 첫째, window.location.reload();해서 페이지를 다시열기. token을 state로 사용하는 방식 활용불가
+          // 둘째, 리액트 템플릿의 cssBaseline컴포넌트 제거. Home 컴포넌트가 열릴때 특정 js를 다시로드.
         })
         .catch((error) => error.response); //return글자를 안써야 error값이 리턴된다!!!!!
       //또 axios는 error라고만 하면 response데이터를 볼 수 없다. error.response라 해야 한다.
@@ -143,36 +147,37 @@ export default function SignIn({ history }) {
   };
 
   return (
-    <Container className={classes.container} component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          로그인
-        </Typography>
-        <form
-          className={classes.form}
-          noValidate
-          // action="http://localhost:8000/rest-auth/login/"
-          // method="post"
-        >
-          <CSRFToken />
-          {/* 장고의 CSRF방지 기능 활용 컴포넌트 */}
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="Username"
-            label="Username"
-            name="Username"
-            autoComplete="Username"
-            inputRef={nameRef}
-            autoFocus
-          />
-          {/* <TextField
+    <div className="container">
+      <Container className={classes.container} component="main" maxWidth="xs">
+        {/* <CssBaseline /> */}
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            로그인
+          </Typography>
+          <form
+            className={classes.form}
+            noValidate
+            // action="http://localhost:8000/rest-auth/login/"
+            // method="post"
+          >
+            <CSRFToken />
+            {/* 장고의 CSRF방지 기능 활용 컴포넌트 */}
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="Username"
+              label="Username"
+              name="Username"
+              autoComplete="Username"
+              inputRef={nameRef}
+              autoFocus
+            />
+            {/* <TextField
             variant="outlined"
             margin="normal"
             required
@@ -183,44 +188,47 @@ export default function SignIn({ history }) {
             name="Email"
             autoComplete="Email"
           /> */}
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            type="password"
-            name="Password"
-            label="Password"
-            id="Password"
-            inputRef={pwRef}
-            autoComplete="current-password"
-          />
-          {/* <FormControlLabel
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              type="password"
+              name="Password"
+              label="Password"
+              id="Password"
+              inputRef={pwRef}
+              autoComplete="current-password"
+            />
+            {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           /> */}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={submit}
-          >
-            로그인
-          </Button>
-          <Grid container justify="center">
-            <Grid item>
-              <Link href="/SignUp" variant="body2">
-                <div ref={alertMessage}>"계정이 없습니까? 회원가입하세요."</div>
-              </Link>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={submit}
+            >
+              로그인
+            </Button>
+            <Grid container justify="center">
+              <Grid item>
+                <Link href="/SignUp" variant="body2">
+                  <div ref={alertMessage}>
+                    "계정이 없습니까? 회원가입하세요."
+                  </div>
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
-    </Container>
+          </form>
+        </div>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </Container>
+    </div>
   );
 }

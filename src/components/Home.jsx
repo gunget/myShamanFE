@@ -84,12 +84,30 @@ const useStyles = makeStyles((theme) => ({
 
 // 실제 Home 컴포넌트
 const Home = ({ location, history }) => {
-  // 리액트에서 외부 스크립트 불러오는 방법
-  // ImportScript("../assets/js/jquery.min.js");
-  // ImportScript("../assets/js/breakpoints.min.js");
-  // ImportScript("../assets/js/browser.min.js");
-  // ImportScript("../assets/js/main.js");
-  // ImportScript("../assets/js/util.js");
+  // 리액트에서 외부 스크립트 불러오는 방법.
+  // 아래 두파일을 최초 index.html이 뜰때 같이 로딩되기는 하지만 적용될 엘러먼트가 없어 무용지물이 됨
+  // Home 컴포넌트가 띄워지며 엘러먼트는 뜨지만 js가 적용안되는 걸 해결하려, 무효화된 js 다시 로딩
+  ImportScript("../assets/js/breakpoints.min.js");
+  ImportScript("../assets/js/browser.min.js");
+  ImportScript("../assets/js/jquery.min.js");
+  ImportScript("../assets/js/main.js");
+  ImportScript("../assets/js/util.js");
+
+  // const sideBar = document.getElementById("sidebarInner");
+  // console.log("inner elem:", sideBar);
+  // window.addEventListener("scroll", () => {
+  //   if (window.scrollY > 1000) {
+  //     sideBar.style = {
+  //       position: "fixed",
+  //       // top: "-1109.14px",
+  //     };
+  //   } else {
+  //     sideBar.style = {
+  //       position: "relative",
+  //       // top: "0",
+  //     };
+  //   }
+  // });
 
   const [username, setUserName] = useState("anonymous");
 
@@ -112,11 +130,11 @@ const Home = ({ location, history }) => {
   };
 
   useEffect(() => {
-    setUserName(location.state.username);
-    // fetchDirectorInfo();
-    // fetchFicWriterInfo();
-    // fetchNonFicWriterInfo();
-    // fetchOthersInfo();
+    setUserName(location.state.username); //jwt를 활용할때 관련 부분 수정할 것. 받아오는 username으로.
+    fetchDirectorInfo();
+    fetchFicWriterInfo();
+    fetchNonFicWriterInfo();
+    fetchOthersInfo();
     console.log("Home component useEffect실행");
   }, []);
 
@@ -352,7 +370,7 @@ const Home = ({ location, history }) => {
         </div>
         {/* <!-- Sidebar --> */}
         <div id="sidebar">
-          <div className="inner">
+          <div className="inner" id="sidebarInner">
             {/* <!-- Search bar --> */}
             <PageSearch handleChange={handleChange} />
             {/* <!-- Menu --> */}

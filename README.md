@@ -10,10 +10,11 @@
 1. html에 사용한 js가 signIn화면 때 로드되어, 정작 signIn후엔 적용되지 않는 문제
 
 - 일단은 signIn-전환 후 화면을 refresh하는 것으로 해결
-- 최초 화면이 두번 로드되어 데이터 낭비 발생. 다른 방법 고려 필요.
-- js파일들을 다시 띄울 순 있었으나 변화없음
-- Home component로 전환되어도 main.css가 기 로드된 엘러먼트(ex body)엔 적용되지 않는 문제가 핵심인듯
-- body부분에 적용되는 css만 별도로 분리해, signin 단계에서 적용하는 것 검토!!!!
+- mui의 cssBaseLine컴포넌트가 body태그의 css를 오버라이딩 한게 문제였음. 이를 제거하니 css문제는 사라짐
+- 브라우저 앞뒤로 이동 시, 여전히 같은 증상 발생
+- importScript.js로 javascript문제도 잡았으나, sidebar의 scroll Lock기능이 먹지 않음
+- 로딩과정에서 높이값을 측정하는 부분에 오류가 생겨, 강제로 style을 못 먹이는 듯
+- 직접 scroll Lock을 구현하거나, 높이값을 띄울 다른 방법을 찾아야 함
 
 1. get it touch 문구 수정
 

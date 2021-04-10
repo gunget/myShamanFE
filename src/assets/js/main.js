@@ -158,9 +158,10 @@
     if ($window.scrollTop() == 1) $window.scrollTop(0);
 
     $window
+      .trigger("resize.sidebar-lock")
       .on("scroll.sidebar-lock", function () {
         var x, y;
-
+        console.log("sidebar Lock 부분 실행됨");
         // <=large? Bail.
         if (breakpoints.active("<=large")) {
           $sidebar_inner.data("locked", 0).css("position", "").css("top", "");

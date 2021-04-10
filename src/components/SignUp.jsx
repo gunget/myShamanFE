@@ -4,7 +4,7 @@ import CSRFToken from "./CSRFToken";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
+// import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#fafafa",
   },
   paper: {
     // marginTop: theme.spacing(8),
@@ -67,9 +68,7 @@ export default function SignUp({ history }) {
   const emailRef = useRef();
   const pw1Ref = useRef();
   const pw2Ref = useRef();
-  const alertRef = useRef(
-    "비밀번호는 문자숫자를 결합하여 8글자 이상이어야 합니다."
-  );
+  const alertRef = useRef("비밀번호는 문자, 숫자 포함 8글자 이상");
   // console.log(alertRef);
 
   const submitNewUser = async (e) => {
@@ -102,7 +101,7 @@ export default function SignUp({ history }) {
 
   return (
     <Container className={classes.container} component="main" maxWidth="xs">
-      <CssBaseline />
+      {/* <CssBaseline /> */}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
