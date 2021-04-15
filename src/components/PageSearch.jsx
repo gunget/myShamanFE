@@ -48,10 +48,21 @@ const PageSearch = ({ handleChange }) => {
 
   const handleFind = (e) => {
     e.preventDefault();
-    const element = document.createElement("a");
-    element.setAttribute("href", `#${inputRef.current.value}`);
-    element.click();
+    const titleElem = document.getElementById(inputRef.current.value);
+    titleElem.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
   };
+
+  // LandingPgae의 URL이 '/'인 경우 ID로 바로 이동할 수 있는 방법
+  // const handleFind = (e) => {
+  //   e.preventDefault();
+  //   const element = document.createElement("a");
+  //   element.setAttribute("href", `#${inputRef.current.value}`);
+  //   element.click();
+  // };
 
   //material ui
   const classes = useStyles();

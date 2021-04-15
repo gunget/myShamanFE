@@ -1,11 +1,20 @@
 import { useContext, useEffect } from "react";
-import { DispatchContext } from "../contexts/Contexts.jsx";
+import { DispatchContext, StateContext } from "../contexts/Contexts.jsx";
 import axios from "axios";
 
 const useFetch = () => {
   const dispatch = useContext(DispatchContext);
+  const states = useContext(StateContext);
 
-  const jwt = JSON.parse(localStorage.getItem("jwt"));
+  // localstrage에 있는 jwt를 state에 넣어주고 지우기
+  // if (localStorage.getItem("jwt")) {
+  //   const token = JSON.parse(localStorage.getItem("jwt"));
+  //   dispatch({ type: "SET_JWT", payload: token });
+  // }
+
+  const jwt = localStorage.getItem("jwt")
+    ? JSON.parse(localStorage.getItem("jwt"))
+    : states.jwt;
 
   const config = {
     headers: {
@@ -77,7 +86,12 @@ const useFetch = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "SET_JWT", payload: jwt });
+    // localstrage에 있는 jwt를 state에 넣어주고 지우기. 브라우저가 refresh되면 reducer의 jwt는 사라짐
+    if (localStorage.getItem("jwt")) {
+      const token = JSON.parse(localStorage.getItem("jwt"));
+      dispatch({ type: "SET_JWT", payload: token });
+      localStorage.removeItem("jwt");
+    }
   }, []);
 
   return {
@@ -85,7 +99,6 @@ const useFetch = () => {
     fetchFicWriterInfo,
     fetchNonFicWriterInfo,
     fetchOthersInfo,
-    jwt,
   }; //key:value가 같은 객체를 destructive로 리턴
 };
 

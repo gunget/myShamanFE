@@ -1,11 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import axios from "axios";
+import { StateContext } from "../contexts/Contexts.jsx";
 
 const SearchDirector = ({ fetchDirectorInfo }) => {
   const [peopleCode, setPeopleCode] = useState("You don't seach anything yet.");
   const [ranAdvice, setRanAdvice] = useState(
     "Life is the accumlations of 'Accidents and Variables and Irony "
   );
+
+  const state = useContext(StateContext);
 
   const inputRef = useRef();
   let pickedFile = null;

@@ -64,6 +64,8 @@ function Reducer(states, { type, payload }) {
     // '객체 속 객체' 중 일부만 바꾸는 방법
     // const array = { a : 1, b : { key: 1, val: 2 }, c : false }
     // const array5 = {...array, b:{...array.b, val:8}
+    case "SET_JWT":
+      return { ...states, jwt: payload };
 
     default:
       throw new Error("UnHandled Action!");
@@ -83,6 +85,7 @@ function Store({ children }) {
       othersInitLoading: true,
       generalLoading: true,
     },
+    jwt: "",
   });
   return (
     <DispatchContext.Provider value={dispatch}>

@@ -84,15 +84,6 @@ const useStyles = makeStyles((theme) => ({
 
 // 실제 Home 컴포넌트
 const Home = ({ location, history }) => {
-  // 리액트에서 외부 스크립트 불러오는 방법.
-  // 아래 두파일을 최초 index.html이 뜰때 같이 로딩되기는 하지만 적용될 엘러먼트가 없어 무용지물이 됨
-  // Home 컴포넌트가 띄워지며 엘러먼트는 뜨지만 js가 적용안되는 걸 해결하려, 무효화된 js 다시 로딩
-  // 대부분 되지만 sideBar의 scrollLocked기능은 여전히 안됨
-  // ImportScript("../assets/js/breakpoints.min.js");
-  // ImportScript("../assets/js/browser.min.js");
-  // ImportScript("../assets/js/main.js");
-  // ImportScript("../assets/js/util.js");
-
   const [username, setUserName] = useState("anonymous");
 
   //초기 데이터 DB에서 불러오기
@@ -101,6 +92,7 @@ const Home = ({ location, history }) => {
     fetchFicWriterInfo,
     fetchNonFicWriterInfo,
     fetchOthersInfo,
+    jwt,
   } = useFetch();
 
   //각 카테고리의 검색 및 추가 파트로 이동하기
@@ -142,9 +134,14 @@ const Home = ({ location, history }) => {
 
   const logout = (e) => {
     e.preventDefault();
+    const config = {
+      headers: {
+        Authorization: `jwt ${jwt.token}`,
+      },
+    };
     axios
-      .post("http://localhost:8000/rest-auth/logout/")
-      // .then(localStorage.removeItem("jwt"))
+      .post("http://localhost:8000/rest-auth/logout/", config)
+      .then(localStorage.removeItem("jwt"))
       .then(history.push("/"));
   };
 

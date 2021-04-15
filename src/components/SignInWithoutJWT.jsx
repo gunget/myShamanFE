@@ -75,24 +75,35 @@ export default function SignIn({ history }) {
 
     function getSetJwt(nameFromServer) {
       axios
-        .post("http://127.0.0.1:8000/api-jwt-auth/", data)
+        .post("http://127.0.0.1:8000/api-jwt-auth/login", data)
         .then((response) => {
           return response.data; //리턴값이 다음 then으로 넘겨짐
         })
         .then((data) => {
-          // console.log("새jwt:", data);
+          console.log("새jwt:", data);
           localStorage.setItem("jwt", JSON.stringify(data));
           return data;
         })
         .then((data) => {
           history.push({
-            pathname: "/Home",
+            pathname: "/main",
             state: { isAuthenticated: true, username: nameFromServer },
           });
-          return data;
+        });
+      //실제 data를 쓰진 않지만 이전 작업이 끝나고 실행되도록
+      //data를 더미 용도로 사용함
+    }
+
+    const checkUser = async () => {
+      const userRsp = await axios
+        .post("http://localhost:8000/rest-auth/login/", data)
+        .then((res) => {
+          history.push({
+            pathname: "/Home",
+            state: { isAuthenticated: true, username: nameRef.current.value }, //jwt활용시 수정필요
+          });
+          return res;
         })
-        //실제 data를 쓰진 않지만 이전 작업이 끝나고 실행되도록
-        //data를 더미 용도로 사용함
         .then((res) => {
           window.location.reload();
           // 리액트 로그인 템플릿을, 무료 html템플릿(js포함됨)으로 가져다 쓸때 생기는 문제점!!!!
@@ -107,19 +118,10 @@ export default function SignIn({ history }) {
       //또 axios는 error라고만 하면 response데이터를 볼 수 없다. error.response라 해야 한다.
       //하나 더, 동기작업(시퀸스작업)을 하려면 반드시 'axios의 return값을 받는 변수명'으로 다음 작업을
       //해야 한다.
-    }
-
-    const checkUser = async () => {
-      const userRsp = await axios
-        .post("http://localhost:8000/rest-auth/login/", data)
-        .catch((error) => error.response); //return글자를 안써야 error값이 리턴된다!!!!!
-      //또 axios는 error라고만 하면 response데이터를 볼 수 없다. error.response라 해야 한다.
-      //하나 더, 동기작업(시퀸스작업)을 하려면 반드시 'axios의 return값을 받는 변수명'으로 다음 작업을
-      //해야 한다.
       if (userRsp.status === 200) {
-        getSetJwt(userRsp.data.user.username); //서버에서 로그인 성공후 받은 자료 활용
+        // getSetJwt(userRsp.data.user.username); //서버에서 로그인 성공후 받은 자료 활용
       } else {
-        // console.log("error message:", userRsp);
+        console.log("error message:", userRsp);
         alertMessage.current.innerHTML =
           "ID 또는 비밀번호를 잘 못 입력하셨습니다.";
         alertMessage.current.className = classes.alert;
@@ -134,7 +136,7 @@ export default function SignIn({ history }) {
         .then((response) => {
           localStorage.setItem("jwt", JSON.stringify(response.data));
         })
-        .then(history.push("/"))
+        .then(history.push("/main/"))
         .catch((error) => {
           console.log(error);
         });
