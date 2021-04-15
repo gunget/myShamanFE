@@ -88,10 +88,10 @@ const Home = ({ location, history }) => {
   // 아래 두파일을 최초 index.html이 뜰때 같이 로딩되기는 하지만 적용될 엘러먼트가 없어 무용지물이 됨
   // Home 컴포넌트가 띄워지며 엘러먼트는 뜨지만 js가 적용안되는 걸 해결하려, 무효화된 js 다시 로딩
   // 대부분 되지만 sideBar의 scrollLocked기능은 여전히 안됨
-  ImportScript("../assets/js/breakpoints.min.js");
-  ImportScript("../assets/js/browser.min.js");
-  ImportScript("../assets/js/main.js");
-  ImportScript("../assets/js/util.js");
+  // ImportScript("../assets/js/breakpoints.min.js");
+  // ImportScript("../assets/js/browser.min.js");
+  // ImportScript("../assets/js/main.js");
+  // ImportScript("../assets/js/util.js");
 
   const [username, setUserName] = useState("anonymous");
 
@@ -114,6 +114,15 @@ const Home = ({ location, history }) => {
   };
 
   useEffect(() => {
+    // 리액트에서 외부 스크립트 불러오는 방법.
+    // 아래 두파일을 최초 index.html이 뜰때 같이 로딩되기는 하지만 적용될 엘러먼트가 없어 무용지물이 됨
+    // Home 컴포넌트가 띄워지며 엘러먼트는 뜨지만 js가 적용안되는 걸 해결하려, 무효화된 js 다시 로딩
+    // 대부분 되지만 sideBar의 scrollLocked기능은 여전히 안됨
+    ImportScript("../assets/js/breakpoints.min.js");
+    ImportScript("../assets/js/browser.min.js");
+    ImportScript("../assets/js/main.js");
+    ImportScript("../assets/js/util.js");
+
     setUserName(location.state.username); //jwt를 활용할때 관련 부분 수정할 것. 받아오는 username으로.
     fetchDirectorInfo();
     fetchFicWriterInfo();
