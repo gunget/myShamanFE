@@ -49,11 +49,15 @@ const PageSearch = ({ handleChange }) => {
   const handleFind = (e) => {
     e.preventDefault();
     const titleElem = document.getElementById(inputRef.current.value);
-    titleElem.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "nearest",
-    });
+    if (titleElem) {
+      titleElem.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    } else {
+      inputRef.current.value = "찾는 인물이 없습니다.";
+    }
   };
 
   // LandingPgae의 URL이 '/'인 경우 ID로 바로 이동할 수 있는 방법
