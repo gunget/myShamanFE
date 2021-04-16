@@ -77,7 +77,7 @@ const useFetch = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "SET_JWT", payload: jwt });
+    dispatch({ type: "SET_JWT", payload: jwt }); //받아온 토큰을 state에 저장. 딱 한번만 하려고 useEffect사용.
   }, []);
 
   return {

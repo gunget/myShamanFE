@@ -2,9 +2,7 @@
 
 1. authorization 기능 만들기
 
-- logout기능 구현: jwt 적용후, Home의 우상단 username부분 수정 필요
-- jwt 적용
-- 전체DB를 UserDB에 1:N으로 엮어 계정당 DB할당하도록 설정
+- logInMixin 기능 구현. 전체DB를 UserDB에 1:N으로 엮어 계정당 DB할당하도록 설정
 - `input[type=text]:focus`로 붉은 border뺀 것 적용 고려
 
 1. html에 사용한 js가 signIn화면 때 로드되어, 정작 signIn후엔 적용되지 않는 문제

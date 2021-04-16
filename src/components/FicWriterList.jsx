@@ -32,6 +32,12 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
   const states = useContext(StateContext);
   const classes = useStyles();
 
+  const config = {
+    headers: {
+      Authorization: `jwt ${states.jwt.token}`,
+    },
+  };
+
   const delPeopleCode = (e) => {
     e.preventDefault();
 
@@ -40,7 +46,7 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
     const confirm = window.confirm("정말 삭제하시겠습니까?");
     if (confirm) {
       axios
-        .delete(`http://localhost:8000/api/ficWriterInfo/${id}/`)
+        .delete(`http://localhost:8000/api/ficWriterInfo/${id}/`, config)
         .then(() => {
           fetchFicWriterInfo();
         })

@@ -129,15 +129,8 @@ export default function SignIn({ history }) {
     //이미 jwt를 받은게 있다면 검증
     const jwtFromLS = JSON.parse(localStorage.getItem("jwt"));
     if (jwtFromLS) {
-      axios
-        .post("http://localhost:8000/api-jwt-auth/refresh/", jwtFromLS)
-        .then((response) => {
-          localStorage.setItem("jwt", JSON.stringify(response.data));
-        })
-        .then(history.push("/"))
-        .catch((error) => {
-          console.log(error);
-        });
+      localStorage.removeItem("jwt");
+      checkUser();
     } else {
       checkUser();
     }

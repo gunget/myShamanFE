@@ -9,13 +9,19 @@ const OthersList = ({ fetchOthersInfo }) => {
   const delPeople = (e) => {
     e.preventDefault();
 
+    const config = {
+      headers: {
+        Authorization: `jwt ${states.jwt.token}`,
+      },
+    };
+
     const id = e.target.parentNode.parentNode.parentNode.dataset.id;
     console.log("others List id", id);
 
     const confirm = window.confirm("정말 삭제하시겠습니까?");
     if (confirm) {
       axios
-        .delete(`http://localhost:8000/api/othersInfo/${id}/`)
+        .delete(`http://localhost:8000/api/othersInfo/${id}/`, config)
         .then(() => {
           fetchOthersInfo();
         })

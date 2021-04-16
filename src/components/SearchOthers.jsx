@@ -1,10 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useContext } from "react";
 import axios from "axios";
+import { StateContext } from "../contexts/Contexts.jsx";
 
 const SearchOthers = ({ fetchOthersInfo }) => {
   const nameRef = useRef("홍길동");
   const jobRef = useRef("캐릭터");
   const descriptionRef = useRef("소설 속 인물");
+
+  const states = useContext(StateContext);
+  const config = {
+    headers: {
+      Authorization: `jwt ${states.jwt.token}`,
+    },
+  };
 
   const saveDB = async (e) => {
     e.preventDefault();
@@ -14,7 +22,7 @@ const SearchOthers = ({ fetchOthersInfo }) => {
     data.append("job", jobRef.current.value);
     data.append("description", descriptionRef.current.value);
     await axios
-      .post("http://127.0.0.1:8000/api/othersInfo/", data) // (url, data, 헤더정보)순
+      .post("http://127.0.0.1:8000/api/othersInfo/", data, config) // (url, data, 헤더정보)순
       .then(() => {
         nameRef.current.value = "";
         jobRef.current.value = "";

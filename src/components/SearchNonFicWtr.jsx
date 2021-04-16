@@ -1,12 +1,19 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import axios from "axios";
 import QueryString from "qs";
+import { StateContext } from "../contexts/Contexts.jsx";
 
 const SearchNonFictionWriter = ({ fetchNonFicWriterInfo }) => {
   const [peopleCode, setPeopleCode] = useState("You don't seach anything yet.");
   const [job, setJob] = useState("철학자");
 
   const inputRef = useRef(null);
+  const states = useContext(StateContext);
+  const config = {
+    headers: {
+      Authorization: `jwt ${states.jwt.token}`,
+    },
+  };
 
   const savePeopleCode = async (e) => {
     e.preventDefault();
@@ -16,7 +23,7 @@ const SearchNonFictionWriter = ({ fetchNonFicWriterInfo }) => {
     data.append("peopleCode", Number(peopleCode));
     data.append("job", job);
     await axios
-      .post("http://127.0.0.1:8000/api/nonFicWriterInfo/", data) // (url, data, 헤더정보)순
+      .post("http://127.0.0.1:8000/api/nonFicWriterInfo/", data, config) // (url, data, 헤더정보)순
       .then(() => {
         setPeopleCode("You don't seach anything yet.");
         inputRef.current.value = "";
@@ -37,15 +44,19 @@ const SearchNonFictionWriter = ({ fetchNonFicWriterInfo }) => {
     e.preventDefault();
     setPeopleCode("Now Searching...");
     await axios
-      .get("http://127.0.0.1:8000/getPpWriter/", {
-        params: {
-          searchWtr: inputRef.current.value,
-          jobs: ["교수", "철학자", "작가"],
+      .get(
+        "http://127.0.0.1:8000/getPpWriter/",
+        {
+          params: {
+            searchWtr: inputRef.current.value,
+            jobs: ["교수", "철학자", "작가"],
+          },
+          paramsSerializer: (params) => {
+            return QueryString.stringify(params);
+          }, // 각각 jobs[0], jobs[1], jobs[2]라는 key로 보내진다. 단, 서버 쪽에서도 각각 받아와야해서 비효율적
         },
-        paramsSerializer: (params) => {
-          return QueryString.stringify(params);
-        }, // 각각 jobs[0], jobs[1], jobs[2]라는 key로 보내진다. 단, 서버 쪽에서도 각각 받아와야해서 비효율적
-      })
+        config
+      )
       .then((res) => {
         console.log(res);
         setPeopleCode(res.data);

@@ -8,10 +8,16 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
     "Life is the accumlations of 'Accidents and Variables and Irony "
   );
 
-  const state = useContext(StateContext);
+  const states = useContext(StateContext);
 
   const inputRef = useRef();
   let pickedFile = null;
+
+  const config = {
+    headers: {
+      Authorization: `jwt ${states.jwt.token}`,
+    },
+  };
 
   const savePeopleCode = async (e) => {
     e.preventDefault();
@@ -28,8 +34,9 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
     //   image: pickedFile,
     //   // fbooks: 1, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
     // };
+
     await axios
-      .post("http://127.0.0.1:8000/api/directorInfo/", data) // (url, data, 헤더정보)순
+      .post("http://127.0.0.1:8000/api/directorInfo/", data, config) // (url, data, 헤더정보)순
       .then(() => {
         setPeopleCode("You don't seach anything yet.");
         inputRef.current.value = "";
@@ -39,7 +46,10 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
         );
       })
       .then((res) =>
-        axios.get("http://127.0.0.1:8000/api/directorInfo/clearTempImage")
+        axios.get(
+          "http://127.0.0.1:8000/api/directorInfo/clearTempImage",
+          config
+        )
       )
       .catch((error) => {
         console.log(error);
@@ -56,11 +66,15 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
     e.preventDefault();
     setPeopleCode("Now Searching...");
     await axios
-      .get("http://127.0.0.1:8000/getPpMovie/", {
-        params: {
-          searchDrt: inputRef.current.value,
+      .get(
+        "http://127.0.0.1:8000/getPpMovie/",
+        {
+          params: {
+            searchDrt: inputRef.current.value,
+          },
         },
-      })
+        config
+      )
       .then((res) => {
         console.log(res);
         setPeopleCode(res.data);
