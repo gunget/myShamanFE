@@ -1,0 +1,251 @@
+리액트 장고 프로젝트 세팅 방법 (201214현재)
+
+1. 장고 프로젝트 세팅하기
+1) 프로젝트 설치후 기본 설정
+- python, github, vscode 설치
+- vscode설치후 : ctrl + shift + p -> Terminal: Select Default Shell -> Git Bash
+ . 터미널을 gitbash로 띄우기
+ . extensions에 python_VScode설치
+- 프로젝트 폴더 생성 - 해당폴더로 이동 - 터미널실행 후 파이썬 정상설치 확인
+ . python --version
+ . window10에서 permission denided 나오면: 설정-앱-앱 실행 별칭 관리 - python관련 관리자 둘 Off
+- python -m venv myvenv : 가상환경 생성하기
+ . source myvenv/Scripts/activate : 가상환경 실행하기
+- pip install django : 장고 설치하기
+ . python -m pip install --upgrade pip : pip 업그레이드 하기
+- django-admin startproject **project : 프로젝트 만들기
+ . cd **project  // python manage.py runserver : 서버 정상실행 확인하기
+ . ctrl+c : 서버실행 종료
+- setting.py 변경하기 (secret키 변경 등)
+ . (manage.py가 있는 위치에서) touch my_setting.py : 내 설정파일 만들기
+ . SECRET_KEY = '~~~.' : settings.py의 secret_key부분 분리 (DB, LocalHoset도 분리 추천)
+ . setting.py파일에 아래처럼 입력
+   import my_settings
+   SECRET_KEY = my_settings.SECRET_KEY
+ . LANGUAGE_CODE = 'ko-kr' : 한국기준으로 설정 변경
+   TIME_ZONE = 'Asia/Seoul'
+   USE_TZ = False
+ . STATIC_ROOT = os.path.join(BASE_DIR, 'static') : static파일의 기본 위치 설정
+ . media를 별도로 사용 시 해당 설정 추가(https://roseline124.github.io/django/2019/03/27/pickmeal-media.html) 참고
+   settings.py에 mediaURL설정 : MEDIA_URL = '/media/', MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+   url.py에 static(~~)추가: urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+   (from django.conf.urls.static import static, from django.conf import settings 필요)
+   해당 모델에 설정 추가 : photo = models.ImageField(upload_to="reviewBoard/images", blank=True)
+- (manage.py가 있는 위치에서) touch .gitignore : git에 올리지 않을 파일 생성
+ .### Django ### : 보통 이정도는 기본으로 넣는다고 함
+  *.log
+  *.pot
+  *.pyc
+  __pycache__/
+  local_settings.py
+  db.sqlite3
+  db.sqlite3-journal
+  media
+  my_setting.py //별도 추가한 설정
+- pip freeze / pip freeze > requirements.txt  : git clone을 위해 dependancy 기록해줌
+- python manage.py migrate 최초 DB설정
+
+2)앱 만든 후 기본 설정
+- python manage.py startapp **app : 앱만들기
+ . setting.
+- python manage.py createsuperuser : 관리자 계정 생성
+ . Username (leave blank to use 'user'): admin
+   Email address: rlagowns5885@naver.com
+   Password: 
+   Password (again): 
+ . test용으로는 id:travis, pw:djg12345사용
+- 앱생성 후 default DB생성 : 최초 모델생성없이 한번은 해줘야 SQLite가 설치된다.
+ . python manage.py makemigrations : DB변경사항 정리
+ . python manage.py migrate : DB에 적용
+ . 모델에 변경사항이 생기면 할때마다 위 과정을 반복해야 한다.
+ . cf. DB초기화 하기: 앱폴더-migration 속에서 __init__.py파일 빼고 모두 지운다(migration한 기록들)
+                          sqlLite.db파일도 지운다.
+- 사용할 모델 생성 
+ . admin.py에 어드민에서 보일 사이트 등록(여러개의 모델을 등록할 경우 [ ]사용 필!)
+- settings.py - Installed_apps에 앱등록: 'Fbooks.apps.FbooksConfig'
+- 처리할 view생성 및 Urlconf 지정
+2-1) Django Restful framework사용 시 필요사항
+- restFramework설치 - pip install djangorestframework - setting_installed앱에 추가, 'rest_framework',
+- CORS(Cross-Origin Resource Sharing)설치로 다른포트를 사용하는 프론트 서버와 붙을 수 있도록 설정
+. pip install django-cors-headers
+. settings.py에 설정 추가
+  INSTALLED_APPS = [ ...  'corsheaders', ]
+  IDDLEWARE = [ 'corsheaders.middleware.CorsMiddleware',  ...] //제일 위로 올릴 것
+  CORS_ORIGIN_WHITELIST = (  'http://localhost:3000',   'http://127.0.0.1:3000' ) 개별적으로 원하는 도메인 추가
+  CORS_ORIGIN_ALLOW_ALL = True, CORS_ALLOW_CREDENTIALS = True 그냥 전체 도메인을 추가 시
+- 모델 설정
+. Nth depth를 갖는 객체 설정시 1차 모델에 2차모델이 Foreign키로 연결되는 형태를 가져야함
+ ..이때 2차 모델은 1차모델에 대한 foreign키 설정을 가지지만 1차모델은 2차모델을 모르는 형태로 기록
+- serializer.py 작성:api로 호출하기 위해 모델을 serialize해야 함
+ . Nth객체 설정 시, 1차 모델에 삽입할 내용을 기록해줘야 함. 이때 2차 모델에 설정해뒀던 related_name을 컬럼명으로
+  반드시 사용해야 함!!!
+- 완성후 view설정(serilaizer클래스 설정) 및 url설정(router를 사용해 설정)
+ 
+2. 리액트를 프론트로 사용하기
+1) 개발단계에서 프론트로 사용하기 위해 설정하기
+(https://justmakeyourself.tistory.com/entry/django-connect-react 참고)
+(https://junlab.tistory.com/187참고)
+- CORS패키지 설치 및 setting.py수정(전단계에서 했던 내용)
+- 리액트 앱을 build : npm run build -> build폴더에 배포용 파일이 만들어짐
+- 리액트 package.json에 proxy추가("proxy": "http://localhost:8000",) 프론트에서도 3000번에 url이 없을시 8000번으로 연결됨
+- 이 빌드된 파일(static파일)을 장고가 볼 수 있도록 장고 세팅
+ . path("", views.ReactAppView.as_view()): 루트 url 추가(바로 보이도록)
+ . 해당 뷰를 만들어 줌. 요청이 들어오면 HttpResponse로 프론트에서 빌드한 index.html을 리턴하는 뷰.
+ . setting.py에 statcfile(js css등)을 어디서 가져올 건지 지정해야 함
+   STATICFILES_DIRS = [ str(ROOT_DIR.path('front', 'build', 'static')),	# 추가
+- 이렇게 하면 장고(8000번)를 열면 빌드된 리액트의 프론트 단이 보임
+2) 배포단계에서 프론트로 사용하기 위해 설정하기
+- 기본 개념은 동일. 차이라면, 빌드된 파일을 장고의 특정 폴더로 옮기고 setting에서 template와 staticfiles_url을 해당 위치로
+옮겨주면 됨.
+- 이후 실제 배포는 장고의 배포 절차를 따라가면 될 듯
+3) React에서 DRF에 CRUD하기
+- Axios를 통해 간단하게 구현할 수 있음 : npm install axios 후 사용할 jsx에서 import axios from "axios";
+- get //fetch와 다르게 axios가 JSON.parse작업을 다 처리해줌. 로그로 찍어가면서 필요한 값만 받아오면 된다.
+  const response = await axios.get("http://127.0.0.1:8000/api/fbooks");
+  const fbFromDJG = await response.data[0];
+- delete//각 아이템은 자동으로 주어진 id값에따라 별도의 url을 갖는다(ex /api/users/1). 이걸 접근해서 지워줌
+  axios.delete(`http://localhost:8000/api/users/${itemRef.current.dataset.id}/`);
+- post// 
+  axios.post("http://127.0.0.1:8000/api/users/", {
+        name: nameRef.current.value,
+        number: numberRef.current.value,
+        fbooks: 2, //api/users/1을 DRF상에 나타나는 모든 변수를 등록해줘야 함(자동생성되는 id는 제외) 
+      });
+- update// 마찬가지로 post를 이용. 이때 해당 id가 필요.
+   axios.put(`http://localhost:8000/api/users/${itemRef.current.dataset.id}/`, {
+        name: input.name,
+        number: input.number,
+        fbooks: 2, //반드시 DRF API상의 변수와 값을 맞춰줘야 한다. 틀리면 어디에 넣을지 모르므로
+      });
+4) 로그인(인증작업 만들기)
+4-1)로그인용 리액트페이지 만들기
+- material UI에서 제공하는 기본 템플릿 활용, SignIn과 SignUp 컴포넌트 작성
+- npm install react-router-dom 설치,
+  App.js로 가서 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+  <Router>로 감싸고 그 안에 <Route path="url" component={띄울컴포넌트}>삽입. 간단하게 상호간 라우팅 됨
+  해당 컴포넌트에서 바로 다른 경로로 이동하고 싶다면 <Link>를 사용(html의 a태그 기능)
+- signIn 후  history.push로 이동시키는데 이때 인증되었다는 정보를 함께 넘길것
+        .then((res) => {
+          history.push({
+            pathname: "/Home",
+            state: { isAuthenticated: true, username: nameRef.current.value }, //jwt활용시 수정필요
+          });
+- url에서 바로 직접쳐서 랜딩페이지로 접근하는 것을 막기위해, restirectedRoute라는 컴포넌트를 만들고 인증이 되었다면 랜딩
+페이지로 이동시킬 것. 이때 signIn에서 받은 인증정보를 활용. location.state.isAuthenticated.
+4-2)django인증 기능 구현
+- pip install django-rest-auth, pip install django-allauth설치 및 관련세팅. 링크의 설명 참조.
+ . https://freekim.tistory.com/8?category=887076
+ . https://junlab.tistory.com/214
+- django-rest-auth와 djang-allauth설치
+. settings-installed app에 관련내용 추가
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'allauth.socialaccount',
+. site Id=1추가
+. ACCOUNT_EMAIL_REQUIRED = False
+ ACCOUNT_EMAIL_VERIFICATION = "none"
+ ACCOUNT_LOGOUT_ON_GET = True
+ 이것도 추가하지 않으면, 이메일 검증을 통과못해 window10071 에러발생
+
+- 서버 실행한 뒤, 각종 end point가 정상적으로 동작하는지 확인
+5) JWT적용하기
+- jwt를 localstorage에 저장할거냐, cookie에 저장할거냐에 관한 이슈 있음. 전자에 하면 XSS라는 공격에, 후자에 하면
+  CORS라는 공격에 취약하다 함. XSS는 리액트가 기본적으로 막아주니 localstorage에 저장하는 방법 선택. 여전히 
+ token에 접근할 수 있다는 위험성은 있음. 중요한 서비스의 경우 state에 저장하고 새로고침 시 없어지도록 하는 방식이
+ 최선이라고 함. 실제 은행에서 이 방식을 사용 중이라고.
+5-1)djago에 jwt 적용하기
+- pip install djangorestframework-jwt 설치: 기존의 drf말고 추가로 설치해야함
+- setting.py에 관련 설정 추가
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication', 기존 drf의 token을 사용 안하겠다는 의미로 주석처리
+        # 'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+JWT_AUTH = {
+    'JWT_SECRET_KEY': SECRET_KEY,
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=1),
+}
+REST_USE_JWT = True
+- url.py수정. jwt발행 및 갱신관련 url 추가
+. from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
+.   path('api-jwt-auth/', obtain_jwt_token),          # JWT 토큰 획득
+    path('api-jwt-auth/refresh/', refresh_jwt_token), # JWT 토큰 갱신
+    path('api-jwt-auth/verify/', verify_jwt_token),   # JWT 토큰 확인
+5-2)react에 jwt적용하기
+- 서버와 데이터를 주고 받는 모든 장소에 jwt를 헤더에 삽입해서 보내줘야함
+- signIn
+        axios
+        .post("http://127.0.0.1:8000/api-jwt-auth/", data) //인증 토큰 받기
+        .then((response) => {
+          return response.data; //리턴값이 다음 then으로 넘겨짐
+        })
+        .then((data) => {
+          // console.log("새jwt:", data);
+          localStorage.setItem("jwt", JSON.stringify(data)); //받은 토큰을 localStorage에 저장
+          return data;
+        })
+        .then((data) => {
+          history.push({
+            pathname: "/Home",
+            state: { isAuthenticated: true, username: nameFromServer },
+          }); //인증완료 정보 등과 함께 landing page로 push
+          return data;
+        })
+- 예시. 서버에서 데이터 받아오기(get)
+  const jwt = JSON.parse(localStorage.getItem("jwt"));
+  const config = {
+    headers: {
+      Authorization: `jwt ${jwt.token}`, // 토큰 삽입
+    },
+  };
+
+  const fetchDirectorInfo = () => {
+    axios
+      .get("http://localhost:8000/api/directorInfo/", config) //토큰을 집어넣어 자료요청함
+      .then((res) => {
+        dispatch({ type: "SET_DRT_INIT_DATA", payload: res.data });
+      })
+      .then(() => {
+        dispatch({ type: "DRT_INIT_LOADING_TOGGLE", payload: false });
+      })
+      .catch((error) => {
+        console.log("DB에러:", error);
+      });
+  };
+. 토큰을 state에 저장하려면 useFetch 안에서 useEffect사용. 이 경우 페이지 reload하면 jwt사라짐
+  useEffect(() => {
+    dispatch({ type: "SET_JWT", payload: jwt }); //받아온 토큰을 state에 저장. 딱 한번만 하려고 useEffect사용.
+  }, []);
+- 예시2, 데이터가 있을 경우. axios(url, data, config)순으로 보내야 한다. Post에서도 마찬가지.
+  const config = {
+    headers: {
+      Authorization: `jwt ${states.jwt.token}`,
+    },
+  };
+  const getPeopleCode = async (e) => {
+    e.preventDefault();
+    setPeopleCode("Now Searching...");
+    await axios
+      .get(
+        "http://127.0.0.1:8000/getPpMovie/",
+        {
+          params: {
+            searchDrt: inputRef.current.value,
+          },
+        },
+        config
+      )
