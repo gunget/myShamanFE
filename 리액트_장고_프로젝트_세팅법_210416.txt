@@ -58,8 +58,11 @@
  . python manage.py makemigrations : DB변경사항 정리
  . python manage.py migrate : DB에 적용
  . 모델에 변경사항이 생기면 할때마다 위 과정을 반복해야 한다.
- . cf. DB초기화 하기: 앱폴더-migration 속에서 __init__.py파일 빼고 모두 지운다(migration한 기록들)
-                          sqlLite.db파일도 지운다.
+ . cf. DB초기화 하기:
+   rm -f db.sqlite3 //DB지우기
+   rm -r movieDrtr/migrations //앱이름 아래있는 DB변경사항들 지우기
+   python manage.py makemigrations movieDrtr //새로운 DB를 설치하고 변경사항 기록 위치를 지정하기
+   python manage.py migrate // 변경사항 최종 설치하기
 - 사용할 모델 생성 
  . admin.py에 어드민에서 보일 사이트 등록(여러개의 모델을 등록할 경우 [ ]사용 필!)
 - settings.py - Installed_apps에 앱등록: 'Fbooks.apps.FbooksConfig'
