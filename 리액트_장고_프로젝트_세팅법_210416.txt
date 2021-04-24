@@ -133,6 +133,7 @@
             pathname: "/Home",
             state: { isAuthenticated: true, username: nameRef.current.value }, //jwt활용시 수정필요
           });
+- signIn컴포넌트 렌더링 부분에서 CSSBaselien 컴포넌트 뺄 것. 랜딩페이지로 이동시 기본 css적용 방해.
 - url에서 바로 직접쳐서 랜딩페이지로 접근하는 것을 막기위해, restirectedRoute라는 컴포넌트를 만들고 인증이 되었다면 랜딩
 페이지로 이동시킬 것. 이때 signIn에서 받은 인증정보를 활용. location.state.isAuthenticated.
 4-2)django인증 기능 구현
@@ -252,3 +253,74 @@ REST_USE_JWT = True
         },
         config
       )
+6)사용자별 DB내용 표출 방법
+- 기본 개념은 각 DB에 owner필드를 추가하고 이것을 기준으로 필터하여 get request에 응답으로 보내는 방식
+- 참고: https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/
+6-1)모델 수정
+- 모델에 owner필드 생성 및 장고가 제공하는 User DB와 연결
+- relatied name으로 view에서 호출하니까 정확히 써줘야함
+from django.contrib.auth.models import User
+
+class DirectorInfo(models.Model):
+    owner = models.ForeignKey(User, related_name='directorInfo', 
+6-2)View 수정
+- 사용자별로 반환하기 위해서, 전체 테이블을 호출했던 objects.all부분을 삭제
+- 인증된 사용자만 데이터를 볼 수 있도록 permission추가
+- 인증된 사용자만 데이터를 생성할 수 있도록 perform_create 함수 오버라이딩
+- 사용자별로 데이터를 보여주기 위해 get_queryset 오버라이딩
+from rest_framework.permissions import IsAuthenticated
+class directorInfoView(viewsets.ModelViewSet):
+    # queryset = DirectorInfo.objects.all() # 사용자별로 데이터를 반환하기 위해 전체 queryset취소
+    serializer_class = DirectorInfoSerializer
+    permission_classes = [IsAuthenticated,] //인증된 사용자만 데이터를 볼 수 있도록 자격 추가
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    def get_queryset(self): #사용자별로 데이터를 필터링하기 위해 get_queryset 오버라이드
+        user = self.request.user
+        return DirectorInfo.objects.filter(owner=user)
+6-3)Serializer 수정
+- 각 serializer에 owner필드 추가(과정상 일부라 하긴 했는데 꼭 필요한지는 모르겠음)
+class DirectorInfoSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+6-4)기타
+- drf 메뉴얼에는 userlist view를 별도로 만들도록 유도함. custom user table을 사용할때 필요한 듯
+from rest_framework import generics
+from django.contrib.auth.models import User
+
+class UserListView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+- 관련해서 serializer도 만듦
+from django.contrib.auth.models import User
+
+class UserSerializer(serializers.ModelSerializer):
+    directorInfo = serializers.PrimaryKeyRelatedField(many=True, queryset=DirectorInfo.objects.all())
+    ficWriterInfo = serializers.PrimaryKeyRelatedField(many=True, queryset=FicWriterInfo.objects.all())
+    nonFicWriterInfo = serializers.PrimaryKeyRelatedField(many=True, queryset=NonFicWriterInfo.objects.all())
+    othersInfo = serializers.PrimaryKeyRelatedField(many=True, queryset=OthersInfo.objects.all())
+
+    class Meta:
+        model = User
+        fields = "__all__"
+- 관련에서 url도 추가
+    path('users/', views.UserListView.as_view()),
+- 다 구현하긴 했으나, 기본 admin을 그대로 사용하는 경우 불필요한 기능.
+- jwt를 구현한 상태에선 로그인 없인 해당 부분 체크도 불가능
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
