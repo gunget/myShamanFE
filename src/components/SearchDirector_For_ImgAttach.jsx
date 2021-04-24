@@ -1,14 +1,12 @@
 import React, { useState, useRef, useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
-import globalImgs from "../images/globalImgs";
 
 const SearchDirector = ({ fetchDirectorInfo }) => {
   const [peopleCode, setPeopleCode] = useState("You don't seach anything yet.");
   const [ranAdvice, setRanAdvice] = useState(
     "Life is the accumlations of 'Accidents and Variables and Irony "
   );
-  const [area, setArea] = useState("한국");
 
   const states = useContext(StateContext);
 
@@ -27,7 +25,7 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
     let data = new FormData();
     data.append("name", inputRef.current.value);
     data.append("peopleCode", Number(peopleCode));
-    data.append("area", area);
+    data.append("image", pickedFile);
     data.append("wisesaying", ranAdvice);
     // let data2 = {
     //   // name: searchWord,
@@ -47,10 +45,21 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
           "Life is the combinations of 'Accidents and Variables and Irony "
         );
       })
+      .then((res) =>
+        axios.get(
+          "http://127.0.0.1:8000/api/directorInfo/clearTempImage",
+          config
+        )
+      )
       .catch((error) => {
         console.log(error);
         setPeopleCode("저장할 수 없습니다.");
       });
+  };
+
+  const handleUpload = (e) => {
+    e.preventDefault();
+    pickedFile = e.target.files[0];
   };
 
   const getPeopleCode = async (e) => {
@@ -92,9 +101,9 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
       });
   };
 
-  const handelSelect = (e) => {
-    e.preventDefault();
-    setArea(e.target.value);
+  const handleFileAdd = () => {
+    const inputWindow = document.getElementById("fileAdd");
+    inputWindow.click();
   };
 
   return (
@@ -117,30 +126,30 @@ const SearchDirector = ({ fetchDirectorInfo }) => {
         <h3 className="korean"> [ 네이버무비 감독코드 : {peopleCode} ] </h3>
         <p className="korean">
           1. 0번은 검색결과가 없다는 의미입니다. <br />
-          2. 검색완료 시, 출신지역을 선택한 후 DB에 저장하세요.
+          2. 검색완료 시, 감독코드에 해당하는 이미지를 첨부한 후 DB에
+          저장하세요.
         </p>
         <form method="post" action="#">
           <input
             id="fileAdd"
             type="file"
+            onChange={handleUpload}
             placeholder="첨부할 파일을 선택하세요."
           ></input>
-          <select id="FicJobSelect" onChange={handelSelect}>
-            <option value="" selected>
-              감독의 출신지역을 선택하세요.
-            </option>
-            <option value="한국">한국</option>
-            <option value="북아메리카">북아메리카</option>
-            <option value="남아메리카">남아메리카</option>
-            <option value="유럽">유럽</option>
-            <option value="아시아">아시아</option>
-            <option value="기타">기타</option>
-          </select>
+          <div class="button" onClick={handleFileAdd}>
+            ADD Image
+          </div>
           <div class="button" onClick={savePeopleCode}>
             Save DB
           </div>
         </form>
       </div>
+      {/* <ul dangerouslySetInnerHTML={{ __html: responsedCode }}></ul> */}
+      {/* 전달받은 string을 엘러먼트로 살려서 표시하기. 보안상 위험 */}
+      {/* <form>
+        <input type="text" ref={inputRef}></input>
+        <button onClick={getPeopleCode}>getCode</button>
+      </form> */}
     </div>
   );
 };

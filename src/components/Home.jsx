@@ -26,9 +26,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
 // template img
-import frtImg1 from "../images/frontImage1.jpg";
-import frtImg2 from "../images/frontImage2.jpg";
-import frtImg3 from "../images/frontImage3.jpg";
+import globalImgs from "../images/globalImgs";
 
 // material ui tap기능 활용 위한 함수들
 function TabPanel(props) {
@@ -105,24 +103,6 @@ const Home = ({ location, history }) => {
     });
   };
 
-  useEffect(() => {
-    // 리액트에서 외부 스크립트 불러오는 방법.
-    // 아래 두파일을 최초 index.html이 뜰때 같이 로딩되기는 하지만 적용될 엘러먼트가 없어 무용지물이 됨
-    // Home 컴포넌트가 띄워지며 엘러먼트는 뜨지만 js가 적용안되는 걸 해결하려, 무효화된 js 다시 로딩
-    // 대부분 되지만 sideBar의 scrollLocked기능은 여전히 안됨
-    ImportScript("../assets/js/breakpoints.min.js");
-    ImportScript("../assets/js/browser.min.js");
-    ImportScript("../assets/js/main.js");
-    ImportScript("../assets/js/util.js");
-
-    setUserName(location.state.username); //jwt를 활용할때 관련 부분 수정할 것. 받아오는 username으로.
-    fetchDirectorInfo();
-    fetchFicWriterInfo();
-    fetchNonFicWriterInfo();
-    fetchOthersInfo();
-    console.log("Home component useEffect실행");
-  }, []);
-
   // material ui tap기능 활용 부분
   const classes = useStyles();
   const theme = useTheme();
@@ -175,6 +155,24 @@ const Home = ({ location, history }) => {
     Scroll(e);
   }
 
+  useEffect(() => {
+    // 리액트에서 외부 스크립트 불러오는 방법.
+    // 아래 두파일을 최초 index.html이 뜰때 같이 로딩되기는 하지만 적용될 엘러먼트가 없어 무용지물이 됨
+    // Home 컴포넌트가 띄워지며 엘러먼트는 뜨지만 js가 적용안되는 걸 해결하려, 무효화된 js 다시 로딩
+    // 대부분 되지만 sideBar의 scrollLocked기능은 여전히 안됨
+    ImportScript("../assets/js/breakpoints.min.js");
+    ImportScript("../assets/js/browser.min.js");
+    ImportScript("../assets/js/main.js");
+    ImportScript("../assets/js/util.js");
+
+    setUserName(location.state.username); //jwt를 활용할때 관련 부분 수정할 것. 받아오는 username으로.
+    fetchDirectorInfo();
+    fetchFicWriterInfo();
+    fetchNonFicWriterInfo();
+    fetchOthersInfo();
+    console.log("Home component useEffect실행");
+  }, []);
+
   return (
     <div className="container">
       {/* <!-- Wrapper --> */}
@@ -223,9 +221,9 @@ const Home = ({ location, history }) => {
               </div>
               <span className="image object">
                 <Carousel loop="true" auto interval="5000" duration="500">
-                  <img src={frtImg1} alt="대문그림"></img>
-                  <img src={frtImg2} alt="대문그림"></img>
-                  <img src={frtImg3} alt="대문그림"></img>
+                  <img src={globalImgs.frontImage1} alt="대문그림"></img>
+                  <img src={globalImgs.frontImage2} alt="대문그림"></img>
+                  <img src={globalImgs.frontImage3} alt="대문그림"></img>
                 </Carousel>
               </span>
             </section>
@@ -389,7 +387,7 @@ const Home = ({ location, history }) => {
                   </span>
                   <ul>
                     <li>
-                      <a href="#searchNadd">➕ ADD NEW</a>
+                      <a onClick={() => handleAdd("searchNadd")}>➕ ADD NEW</a>
                     </li>
                     <MenuList handleAdd={handleAdd} type="directors" />
                   </ul>
@@ -414,7 +412,7 @@ const Home = ({ location, history }) => {
                   </span>
                   <ul>
                     <li>
-                      <a href="#searchNadd">➕ ADD NEW</a>
+                      <a onClick={() => handleAdd("searchNadd")}>➕ ADD NEW</a>
                     </li>
                     <MenuList handleAdd={handleAdd} type="fictionWriters" />
                   </ul>
@@ -439,7 +437,7 @@ const Home = ({ location, history }) => {
                   </span>
                   <ul>
                     <li>
-                      <a href="#searchNadd">➕ ADD NEW</a>
+                      <a onClick={() => handleAdd("searchNadd")}>➕ ADD NEW</a>
                     </li>
                     <MenuList handleAdd={handleAdd} type="nonFictionWriters" />
                   </ul>
@@ -464,7 +462,7 @@ const Home = ({ location, history }) => {
                   </span>
                   <ul>
                     <li>
-                      <a href="#searchNadd">➕ ADD NEW</a>
+                      <a onClick={() => handleAdd("searchNadd")}>➕ ADD NEW</a>
                     </li>
                     <MenuList handleAdd={handleAdd} type="others" />
                   </ul>

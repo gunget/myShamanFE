@@ -3,7 +3,7 @@ import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
 
 // List image
-import frtImg2 from "../images/frontImage2.jpg";
+import globalImgs from "../images/globalImgs";
 
 // material ui import
 import { makeStyles } from "@material-ui/core/styles";
@@ -55,6 +55,29 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
     : states.directors.map((data) => {
         const link = `https://movie.naver.com/movie/bi/pi/filmo.nhn?code=${data.peopleCode}#tab`;
 
+        let image = "";
+        switch (data.area) {
+          case "한국":
+            image = globalImgs.drtKorImg;
+            break;
+          case "북아메리카":
+            image = globalImgs.drtNthAmImg;
+            break;
+          case "남아메리카":
+            image = globalImgs.drtSthAmImg;
+            break;
+          case "유럽":
+            image = globalImgs.drtUrpImg;
+            break;
+          case "아시아":
+            image = globalImgs.drtAsnImg;
+            break;
+
+          default:
+            image = globalImgs.etc;
+            break;
+        }
+
         return (
           <article
             id={data.name}
@@ -66,12 +89,13 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
               <CardActionArea href={link} target="_blank" rel="noreferrer">
                 <CardMedia
                   className={classes.media}
-                  image={data.image}
+                  image={image}
                   title="from artvee.com"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {data.name}
+                    {data.name}{" "}
+                    <Typography variant="overline">[ {data.area} ]</Typography>
                   </Typography>
                   <Typography
                     variant="body2"

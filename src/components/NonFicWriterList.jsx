@@ -3,9 +3,7 @@ import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
 
 // List image
-import frtImg1 from "../images/frontImage1.jpg";
-import frtImg2 from "../images/frontImage2.jpg";
-import frtImg3 from "../images/frontImage3.jpg";
+import globalImgs from "../images/globalImgs";
 
 // material ui import
 import { makeStyles } from "@material-ui/core/styles";
@@ -61,17 +59,17 @@ const NonFicWriterList = ({ fetchNonFicWriterInfo }) => {
         let image = "";
         switch (data.job) {
           case "작가":
-            image = frtImg2;
+            image = globalImgs.nficWtImg;
             break;
           case "철학자":
-            image = frtImg1;
+            image = globalImgs.nficFlImg;
             break;
           case "교수":
-            image = frtImg3;
+            image = globalImgs.nficPfImg;
             break;
 
           default:
-            image = frtImg1;
+            image = globalImgs.etc;
             break;
         }
 
