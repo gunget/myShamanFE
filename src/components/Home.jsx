@@ -203,9 +203,9 @@ const Home = ({ location, history }) => {
                     <br />
                     Storyteller&nbsp;&nbsp;<i class="fas fa-feather-alt"></i>
                   </h1>
-                  <h2 className="korean">
+                  <p className="korean2 header">
                     이야기꾼은 만들어지지 않는다. <br /> 다만 타고날 뿐
-                  </h2>
+                  </p>
                 </header>
                 <p className="korean title">
                   쏟아지는 콘텐츠는 우리에게 '선택'의 짐을 안겼다.
@@ -475,20 +475,19 @@ const Home = ({ location, history }) => {
                 <h2>Get in touch</h2>
               </header>
               <p>
-                Sed varius enim lorem ullamcorper dolore aliquam aenean ornare
-                velit lacus, ac varius enim lorem ullamcorper dolore. Proin sed
-                aliquam facilisis ante interdum. Sed nulla amet lorem feugiat
-                tempus aliquam.
+                &nbsp;불혹을 진즉 넘긴 코린이. 독학이라 아는 것도 없지만 행여
+                궁금하신게 있다면 메모 남겨주세요. 답변을 드릴 수 있을진
+                모르겠습니다.
               </p>
               <ul className="contact">
                 <li className="icon solid fa-envelope">
-                  <a href="#">information@untitled.tld</a>
+                  <p>adminTravis@google.com</p>
                 </li>
-                <li className="icon solid fa-phone">(000) 000-0000</li>
+                <li className="icon solid fa-phone">(010) 0000-0000</li>
                 <li className="icon solid fa-home">
-                  1234 Somewhere Road #8254
+                  1234 개발자의 길 #8254
                   <br />
-                  Nashville, TN 00000-0000
+                  경기도, 빛이 밝게 빛나는 도시 <br /> TN 00000-0000
                 </li>
               </ul>
             </section>

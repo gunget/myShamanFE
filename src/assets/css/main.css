@@ -1,6 +1,6 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,400italic,600italic|Roboto+Slab:400,700");
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap");
+
 /*
 	Editorial by HTML5 UP
 	html5up.net | @ajlkn
@@ -140,10 +140,16 @@ body {
 }
 
 body .korean {
-  font-family: "Nanum Gothic Coding";
+  font-family: "Nanum Gothic", sans-serif;
 }
 body .korean.title {
   font-size: 17px;
+}
+body .korean2.header {
+  font-family: "Black And White Picture", sans-serif;
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: rgba(61, 57, 57, 0.918);
 }
 
 mark {

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
+import Loading from "./Loading";
 
 // List image
 import globalImgs from "../images/globalImgs";
@@ -51,83 +52,80 @@ const NonFicWriterList = ({ fetchNonFicWriterInfo }) => {
         .catch((err) => console.log("삭제실패:", err));
     }
   };
-  const list = states.loadings.nonFicWriterInitLoading
-    ? "loading..."
-    : states.nonFictionWriters.map((data) => {
-        const link = `https://people.search.naver.com/search.naver?where=nexearch&query=${data.name}&sm=tab_etc&ie=utf8&key=PeopleService&os=${data.peopleCode}`;
-        const linkBook = `https://book.naver.com/search/search.nhn?query=${data.name}`;
-        let image = "";
-        switch (data.job) {
-          case "작가":
-            image = globalImgs.nficWtImg;
-            break;
-          case "철학자":
-            image = globalImgs.nficFlImg;
-            break;
-          case "교수":
-            image = globalImgs.nficPfImg;
-            break;
+  const list = states.loadings.nonFicWriterInitLoading ? (
+    <Loading />
+  ) : (
+    states.nonFictionWriters.map((data) => {
+      const link = `https://people.search.naver.com/search.naver?where=nexearch&query=${data.name}&sm=tab_etc&ie=utf8&key=PeopleService&os=${data.peopleCode}`;
+      const linkBook = `https://book.naver.com/search/search.nhn?query=${data.name}`;
+      let image = "";
+      switch (data.job) {
+        case "작가":
+          image = globalImgs.nficWtImg;
+          break;
+        case "철학자":
+          image = globalImgs.nficFlImg;
+          break;
+        case "교수":
+          image = globalImgs.nficPfImg;
+          break;
 
-          default:
-            image = globalImgs.etc;
-            break;
-        }
+        default:
+          image = globalImgs.etc;
+          break;
+      }
 
-        return (
-          <article
-            id={data.name}
-            key={data.id}
-            data-id={data.id}
-            data-peoplecode={data.peopleCode}
-          >
-            <Card className={classes.root}>
-              <CardActionArea href={link} target="_blank" rel="noreferrer">
-                <CardMedia
-                  className={classes.media}
-                  image={image}
-                  title="NonFicWriters"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {data.name}{" "}
-                    <Typography variant="overline">[ {data.job} ]</Typography>
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    각자의 분야에서 탁월한 식견을 보유한 작가들. '네이버
-                    인물정보'와 '네이버 책정보'를 통해 그들의 저작들을 확인하고,
-                    그들에게 당신의 시간을 투자하세요.
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions data-id={data.id}>
-                <Button
-                  href={link}
-                  target="_blank"
-                  rel="noreferrer"
-                  size="small"
-                  color="primary"
-                >
-                  Go Naver People
-                </Button>
-                <Button
-                  href={linkBook}
-                  target="_blank"
-                  rel="noreferrer"
-                  size="small"
-                  color="default"
-                >
-                  Go Naver Books
-                </Button>
-                <Button onClick={delPeopleCode} size="small" color="secondary">
-                  Delete
-                </Button>
-              </CardActions>
-            </Card>
-            {/* <div>
+      return (
+        <article
+          id={data.name}
+          key={data.id}
+          data-id={data.id}
+          data-peoplecode={data.peopleCode}
+        >
+          <Card className={classes.root}>
+            <CardActionArea href={link} target="_blank" rel="noreferrer">
+              <CardMedia
+                className={classes.media}
+                image={image}
+                title="NonFicWriters"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {data.name}{" "}
+                  <Typography variant="overline">[ {data.job} ]</Typography>
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  각자의 분야에서 탁월한 식견을 보유한 작가들. '네이버
+                  인물정보'와 '네이버 책정보'를 통해 그들의 저작들을 확인하고,
+                  그들에게 당신의 시간을 투자하세요.
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions data-id={data.id}>
+              <Button
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                size="small"
+                color="primary"
+              >
+                Go Naver People
+              </Button>
+              <Button
+                href={linkBook}
+                target="_blank"
+                rel="noreferrer"
+                size="small"
+                color="default"
+              >
+                Go Naver Books
+              </Button>
+              <Button onClick={delPeopleCode} size="small" color="secondary">
+                Delete
+              </Button>
+            </CardActions>
+          </Card>
+          {/* <div>
               <a
                 href="#"
                 data-id={data.id}
@@ -137,9 +135,10 @@ const NonFicWriterList = ({ fetchNonFicWriterInfo }) => {
                 <i class="fas fa-trash-alt"></i>&nbsp;&nbsp;delete
               </a>
             </div> */}
-          </article>
-        );
-      });
+        </article>
+      );
+    })
+  );
   return <>{list}</>;
 };
 

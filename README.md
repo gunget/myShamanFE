@@ -1,8 +1,11 @@
 # 해결해야할 과제
 
+1. 배포하기
+
+- 리액트 빌드해서 장고의 프론트로 만들기
+
 1. authorization 기능 만들기
 
-- logInMixin 기능 구현. 전체DB를 UserDB에 1:N으로 엮어 계정당 DB할당하도록 설정
 - `input[type=text]:focus`로 붉은 border뺀 것 적용 고려
 
 1. html에 사용한 js가 signIn화면 때 로드되어, 정작 signIn후엔 적용되지 않는 문제
@@ -12,19 +15,25 @@
 - 브라우저 앞뒤로 이동 시, 여전히 같은 증상 발생
 - importScript.js로 javascript문제도 잡았으나, sidebar의 scroll Lock기능이 먹지 않음
 - 로딩과정에서 높이값을 측정하는 부분에 오류가 생겨, 강제로 style을 못 먹이는 듯
-- 직접 scroll Lock을 구현하거나, 높이값을 띄울 다른 방법을 찾아야 함
+- 직접 scroll Lock을 구현하거나, 높이값을 띄울 다른 방법을 찾아야 함. 템플릿 자바스크립트 변경 불가능 상태.
 
-1. get it touch 문구 수정
+<!-- 1. get it touch 문구 수정 -->
 
-1. list의 loading 글자를 이미지 나오게 수정
+<!-- 1. list의 loading 글자를 이미지 나오게 수정 -->
 
 1. director코드가 검색이 안될 때, 직접 입력하게 하는 모달창 개발
 
+1. sign in시 배경 그림이 흐려졌다 나타나는 효과 적용
+
+- sign in 상단에 myshaman logo 삽입. 무료 로고 서칭 필요
+
 1. SearchNnew파트의 디자인 수정
 
-1. 한글폰트를 네이버 폰트에서 구해볼 것
+<!-- 1. 한글폰트 수정 -->
 
 1. scrollup기능이 화면이 작아지면 먹지않는 문제 보완
+
+- 화면 하단에 rollup버튼 만드는 것 고려
 
 1. Artvee서버가 복구되지 않으면, DirectorList의 그림 받아오는 과정 수정 필요
 

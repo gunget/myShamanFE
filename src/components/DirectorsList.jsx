@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
+import Loading from "./Loading";
 
 // List image
 import globalImgs from "../images/globalImgs";
@@ -50,81 +51,79 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
         .catch((err) => console.log("삭제실패:", err));
     }
   };
-  const list = states.loadings.directorInitLoading
-    ? "loading..."
-    : states.directors.map((data) => {
-        const link = `https://movie.naver.com/movie/bi/pi/filmo.nhn?code=${data.peopleCode}#tab`;
+  const list = states.loadings.directorInitLoading ? (
+    <Loading />
+  ) : (
+    states.directors.map((data) => {
+      const link = `https://movie.naver.com/movie/bi/pi/filmo.nhn?code=${data.peopleCode}#tab`;
 
-        let image = "";
-        switch (data.area) {
-          case "한국":
-            image = globalImgs.drtKorImg;
-            break;
-          case "북아메리카":
-            image = globalImgs.drtNthAmImg;
-            break;
-          case "남아메리카":
-            image = globalImgs.drtSthAmImg;
-            break;
-          case "유럽":
-            image = globalImgs.drtUrpImg;
-            break;
-          case "아시아":
-            image = globalImgs.drtAsnImg;
-            break;
+      let image = "";
+      switch (data.area) {
+        case "한국":
+          image = globalImgs.drtKorImg;
+          break;
+        case "북아메리카":
+          image = globalImgs.drtNthAmImg;
+          break;
+        case "남아메리카":
+          image = globalImgs.drtSthAmImg;
+          break;
+        case "유럽":
+          image = globalImgs.drtUrpImg;
+          break;
+        case "아시아":
+          image = globalImgs.drtAsnImg;
+          break;
 
-          default:
-            image = globalImgs.etc;
-            break;
-        }
+        default:
+          image = globalImgs.etc;
+          break;
+      }
 
-        return (
-          <article
-            id={data.name}
-            key={data.id}
-            data-id={data.id}
-            data-peoplecode={data.peopleCode}
-          >
-            <Card className={classes.root}>
-              <CardActionArea href={link} target="_blank" rel="noreferrer">
-                <CardMedia
-                  className={classes.media}
-                  image={image}
-                  title="from artvee.com"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {data.name}{" "}
-                    <Typography variant="overline">[ {data.area} ]</Typography>
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    {data.wisesaying}&nbsp; &nbsp;
-                    <i class="far fa-grin-squint-tears"></i>
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions data-id={data.id}>
-                <Button
-                  href={link}
-                  target="_blank"
-                  rel="noreferrer"
-                  size="small"
-                  color="primary"
-                >
-                  Go Naver Movie
-                </Button>
-                <Button onClick={delPeopleCode} size="small" color="secondary">
-                  Delete
-                </Button>
-              </CardActions>
-            </Card>
-          </article>
-        );
-      });
+      return (
+        <article
+          id={data.name}
+          key={data.id}
+          data-id={data.id}
+          data-peoplecode={data.peopleCode}
+        >
+          <Card className={classes.root}>
+            <CardActionArea href={link} target="_blank" rel="noreferrer">
+              <CardMedia
+                className={classes.media}
+                image={image}
+                title="from artvee.com"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {data.name}{" "}
+                  <Typography variant="overline">[ {data.area} ]</Typography>
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {data.wisesaying}&nbsp; &nbsp;
+                  <i class="far fa-grin-squint-tears"></i>
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions data-id={data.id}>
+              <Button
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                size="small"
+                color="primary"
+              >
+                Go Naver Movie
+              </Button>
+              <Button onClick={delPeopleCode} size="small" color="secondary">
+                Delete
+              </Button>
+            </CardActions>
+          </Card>
+        </article>
+      );
+    })
+  );
   return <>{list}</>;
 };
 

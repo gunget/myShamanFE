@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
+import Loading from "./Loading";
 
 // NonFicWriter Component
 const OthersList = ({ fetchOthersInfo }) => {
@@ -29,22 +30,26 @@ const OthersList = ({ fetchOthersInfo }) => {
     }
   };
 
-  const list = states.loadings.othersInitLoading
-    ? "loading..."
-    : states.others.map((data) => {
-        return (
-          <tr id={data.name} data-id={data.id}>
-            <td>{data.name}</td>
-            <td>{data.description}</td>
-            <td>{data.job}</td>
-            <td>
-              <a onClick={delPeople}>
-                <i class="fas fa-trash-alt"></i>
-              </a>
-            </td>
-          </tr>
-        );
-      });
+  const list = states.loadings.othersInitLoading ? (
+    <td colSpan="4">
+      <Loading />
+    </td>
+  ) : (
+    states.others.map((data) => {
+      return (
+        <tr id={data.name} data-id={data.id}>
+          <td>{data.name}</td>
+          <td>{data.description}</td>
+          <td>{data.job}</td>
+          <td>
+            <a onClick={delPeople}>
+              <i class="fas fa-trash-alt"></i>
+            </a>
+          </td>
+        </tr>
+      );
+    })
+  );
   return (
     <article className="others">
       <div class="table-wrapper">

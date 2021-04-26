@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
+import Loading from "./Loading";
 
 // List image
 import globalImgs from "../images/globalImgs";
@@ -51,73 +52,70 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
         .catch((err) => console.log("삭제실패:", err));
     }
   };
-  const list = states.loadings.ficWriterInitLoading
-    ? "loading..."
-    : states.fictionWriters.map((data) => {
-        const link = `https://people.search.naver.com/search.naver?where=nexearch&query=${data.name}&sm=tab_etc&ie=utf8&key=PeopleService&os=${data.peopleCode}`;
-        let image = "";
-        switch (data.job) {
-          case "드라마작가":
-            image = globalImgs.ficDrmImg;
-            break;
-          case "소설가":
-            image = globalImgs.ficNvImg;
-            break;
-          case "만화가":
-            image = globalImgs.ficCrtnImg;
-            break;
+  const list = states.loadings.ficWriterInitLoading ? (
+    <Loading />
+  ) : (
+    states.fictionWriters.map((data) => {
+      const link = `https://people.search.naver.com/search.naver?where=nexearch&query=${data.name}&sm=tab_etc&ie=utf8&key=PeopleService&os=${data.peopleCode}`;
+      let image = "";
+      switch (data.job) {
+        case "드라마작가":
+          image = globalImgs.ficDrmImg;
+          break;
+        case "소설가":
+          image = globalImgs.ficNvImg;
+          break;
+        case "만화가":
+          image = globalImgs.ficCrtnImg;
+          break;
 
-          default:
-            image = globalImgs.etc;
-            break;
-        }
+        default:
+          image = globalImgs.etc;
+          break;
+      }
 
-        return (
-          <article
-            id={data.name}
-            key={data.id}
-            data-id={data.id}
-            data-peoplecode={data.peopleCode}
-          >
-            <Card className={classes.root}>
-              <CardActionArea href={link} target="_blank" rel="noreferrer">
-                <CardMedia
-                  className={classes.media}
-                  image={image}
-                  title="FicWriters"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {data.name}{" "}
-                    <Typography variant="overline">[ {data.job} ]</Typography>
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    Fiction 생산에 탁월한 재능을 가진 작가들. '네이버 인물정보
-                    '를 통해 그들이 만들어온 작품들을 감상하고, 그들에게 당신의
-                    시간을 투자하세요.
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions data-id={data.id}>
-                <Button
-                  href={link}
-                  target="_blank"
-                  rel="noreferrer"
-                  size="small"
-                  color="primary"
-                >
-                  Go Naver Search
-                </Button>
-                <Button onClick={delPeopleCode} size="small" color="secondary">
-                  Delete
-                </Button>
-              </CardActions>
-            </Card>
-            {/* <div>
+      return (
+        <article
+          id={data.name}
+          key={data.id}
+          data-id={data.id}
+          data-peoplecode={data.peopleCode}
+        >
+          <Card className={classes.root}>
+            <CardActionArea href={link} target="_blank" rel="noreferrer">
+              <CardMedia
+                className={classes.media}
+                image={image}
+                title="FicWriters"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {data.name}{" "}
+                  <Typography variant="overline">[ {data.job} ]</Typography>
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Fiction 생산에 탁월한 재능을 가진 작가들. '네이버 인물정보 '를
+                  통해 그들이 만들어온 작품들을 감상하고, 그들에게 당신의 시간을
+                  투자하세요.
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions data-id={data.id}>
+              <Button
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                size="small"
+                color="primary"
+              >
+                Go Naver Search
+              </Button>
+              <Button onClick={delPeopleCode} size="small" color="secondary">
+                Delete
+              </Button>
+            </CardActions>
+          </Card>
+          {/* <div>
               <a
                 href="#"
                 data-id={data.id}
@@ -127,9 +125,10 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
                 <i class="fas fa-trash-alt"></i>&nbsp;&nbsp;delete
               </a>
             </div> */}
-          </article>
-        );
-      });
+        </article>
+      );
+    })
+  );
   return <>{list}</>;
 };
 
