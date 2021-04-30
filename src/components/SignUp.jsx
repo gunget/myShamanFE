@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import axios from "axios";
 import CSRFToken from "./CSRFToken";
+import globalImgs from "../images/globalImgs";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -70,6 +71,14 @@ export default function SignUp({ history }) {
   const pw2Ref = useRef();
   const alertRef = useRef("비밀번호는 문자, 숫자 포함 8글자 이상");
   // console.log(alertRef);
+  const bgRef = useRef();
+
+  const changBlur = (e) => {
+    const input = e.target.value;
+    const length = input.length;
+    const blurValue = 32 - length * 4;
+    bgRef.current.style.filter = `blur(${blurValue}px)`;
+  };
 
   const submitNewUser = async (e) => {
     e.preventDefault();
@@ -100,97 +109,117 @@ export default function SignUp({ history }) {
   };
 
   return (
-    <Container className={classes.container} component="main" maxWidth="xs">
-      {/* <CssBaseline /> */}
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          회원가입
-        </Typography>
-        <form className={classes.form} onSubmit={submitNewUser}>
-          <CSRFToken />
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={12}>
-              <TextField
-                autoComplete="fname"
-                name="username"
-                variant="outlined"
-                required
-                fullWidth
-                id="username"
-                label="username"
-                autoFocus
-                inputRef={nameRef}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                inputRef={emailRef}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password1"
-                label="Password"
-                type="password"
-                id="password1"
-                autoComplete="current-password"
-                inputRef={pw1Ref}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password2"
-                label="Password_Confirm"
-                type="password"
-                id="password2"
-                inputRef={pw2Ref}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                ref={alertRef}
-                label={alertRef.current}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
+    <>
+      <div
+        style={{
+          backgroundImage: `url(${globalImgs.signUp})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center center",
+          position: "absolute",
+          height: "100vh",
+          width: "100%",
+          filter: "blur(32px)",
+          zIndex: "-1",
+        }}
+        id="background"
+        ref={bgRef}
+      ></div>
+      <Container className={classes.container} component="main" maxWidth="xs">
+        {/* <CssBaseline /> */}
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
             회원가입
-          </Button>
-          <Grid container justify="center">
-            <Grid item>
-              <Link href="/" variant="body2">
-                이미 계정이 있습니까? 로그인하세요.
-              </Link>
+          </Typography>
+          <form className={classes.form} onSubmit={submitNewUser}>
+            <CSRFToken />
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  autoComplete="fname"
+                  name="username"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="username"
+                  label="username"
+                  autoFocus
+                  inputRef={nameRef}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  inputRef={emailRef}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password1"
+                  label="Password"
+                  type="password"
+                  id="password1"
+                  autoComplete="current-password"
+                  inputRef={pw1Ref}
+                  onInput={changBlur}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password2"
+                  label="Password_Confirm"
+                  type="password"
+                  id="password2"
+                  inputRef={pw2Ref}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
+                  ref={alertRef}
+                  label={alertRef.current}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
-    </Container>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              회원가입
+            </Button>
+            <Grid container justify="center">
+              <Grid item>
+                <Link href="/" variant="body2">
+                  이미 계정이 있습니까? 로그인하세요.
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </Container>
+    </>
   );
 }

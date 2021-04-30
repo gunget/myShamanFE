@@ -1,7 +1,6 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import axios from "axios";
 import CSRFToken from "./CSRFToken";
-import globalImgs from "../images/globalImgs";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -65,15 +64,7 @@ export default function SignIn({ history }) {
   const classes = useStyles();
   const nameRef = useRef();
   const pwRef = useRef();
-  const bgRef = useRef();
   const alertMessage = useRef();
-
-  const changBlur = (e) => {
-    const input = e.target.value;
-    const length = input.length;
-    const blurValue = 32 - length * 4;
-    bgRef.current.style.filter = `blur(${blurValue}px)`;
-  };
 
   const submit = (e) => {
     e.preventDefault();
@@ -146,53 +137,37 @@ export default function SignIn({ history }) {
   };
 
   return (
-    <>
-      <div
-        style={{
-          backgroundImage: `url(${globalImgs.signIn})`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center center",
-          position: "absolute",
-          height: "100vh",
-          width: "100%",
-          filter: "blur(32px)",
-          zIndex: "-1",
-        }}
-        id="background"
-        ref={bgRef}
-      ></div>
-      <div className="container">
-        <Container className={classes.container} component="main" maxWidth="xs">
-          {/* <CssBaseline /> */}
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              로그인
-            </Typography>
-            <form
-              className={classes.form}
-              noValidate
-              // action="http://localhost:8000/rest-auth/login/"
-              // method="post"
-            >
-              <CSRFToken />
-              {/* 장고의 CSRF방지 기능 활용 컴포넌트 */}
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="Username"
-                label="Username"
-                name="Username"
-                autoComplete="Username"
-                inputRef={nameRef}
-                autoFocus
-              />
-              {/* <TextField
+    <div className="container">
+      <Container className={classes.container} component="main" maxWidth="xs">
+        {/* <CssBaseline /> */}
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            로그인
+          </Typography>
+          <form
+            className={classes.form}
+            noValidate
+            // action="http://localhost:8000/rest-auth/login/"
+            // method="post"
+          >
+            <CSRFToken />
+            {/* 장고의 CSRF방지 기능 활용 컴포넌트 */}
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="Username"
+              label="Username"
+              name="Username"
+              autoComplete="Username"
+              inputRef={nameRef}
+              autoFocus
+            />
+            {/* <TextField
             variant="outlined"
             margin="normal"
             required
@@ -203,49 +178,47 @@ export default function SignIn({ history }) {
             name="Email"
             autoComplete="Email"
           /> */}
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                type="password"
-                name="Password"
-                label="Password"
-                id="Password"
-                inputRef={pwRef}
-                autoComplete="current-password"
-                onInput={changBlur}
-              />
-              {/* <FormControlLabel
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              type="password"
+              name="Password"
+              label="Password"
+              id="Password"
+              inputRef={pwRef}
+              autoComplete="current-password"
+            />
+            {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           /> */}
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                onClick={submit}
-              >
-                로그인
-              </Button>
-              <Grid container justify="center">
-                <Grid item>
-                  <Link href="/SignUp" variant="body2">
-                    <div ref={alertMessage}>
-                      "계정이 없습니까? 회원가입하세요."
-                    </div>
-                  </Link>
-                </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={submit}
+            >
+              로그인
+            </Button>
+            <Grid container justify="center">
+              <Grid item>
+                <Link href="/SignUp" variant="body2">
+                  <div ref={alertMessage}>
+                    "계정이 없습니까? 회원가입하세요."
+                  </div>
+                </Link>
               </Grid>
-            </form>
-          </div>
-          <Box mt={5}>
-            <Copyright />
-          </Box>
-        </Container>
-      </div>
-    </>
+            </Grid>
+          </form>
+        </div>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </Container>
+    </div>
   );
 }

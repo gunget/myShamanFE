@@ -17,6 +17,8 @@ const globalImgs = {
   nficPfImg: require("./nfic3.jpg").default,
   etc: require("./etc.jpg").default,
   loading: require("./loading.gif").default,
+  signIn: require("./signIn.jpg").default,
+  signUp: require("./signUp.jpg").default,
 };
 
 export default globalImgs;
