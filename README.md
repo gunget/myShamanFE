@@ -23,9 +23,9 @@
 
 1. director코드가 검색이 안될 때, 직접 입력하게 하는 모달창 개발
 
-1. sign in시 배경 그림이 흐려졌다 나타나는 효과 적용
+<!-- 1. sign in시 배경 그림이 흐려졌다 나타나는 효과 적용
 
-- sign in 상단에 myshaman logo 삽입. 무료 로고 서칭 필요
+- sign in 상단에 myshaman logo 삽입. 무료 로고 서칭 필요 -->
 
 1. SearchNnew파트의 디자인 수정
 

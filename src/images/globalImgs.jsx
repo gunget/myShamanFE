@@ -19,6 +19,7 @@ const globalImgs = {
   loading: require("./loading.gif").default,
   signIn: require("./signIn.jpg").default,
   signUp: require("./signUp.jpg").default,
+  logo_trp: require("./logo_trp.png").default,
 };
 
 export default globalImgs;

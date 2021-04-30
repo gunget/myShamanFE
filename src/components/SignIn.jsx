@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import axios from "axios";
 import CSRFToken from "./CSRFToken";
 import globalImgs from "../images/globalImgs";
@@ -166,12 +166,22 @@ export default function SignIn({ history }) {
         <Container className={classes.container} component="main" maxWidth="xs">
           {/* <CssBaseline /> */}
           <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
+            <img
+              src={globalImgs.logo_trp}
+              style={{
+                width: "65%",
+                height: "65%",
+                marginTop: "-5em",
+                marginBottom: "-1em",
+                color: "red",
+              }}
+            ></img>
+            {/* <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
               로그인
-            </Typography>
+            </Typography> */}
             <form
               className={classes.form}
               noValidate

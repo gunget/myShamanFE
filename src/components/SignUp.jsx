@@ -128,12 +128,22 @@ export default function SignUp({ history }) {
       <Container className={classes.container} component="main" maxWidth="xs">
         {/* <CssBaseline /> */}
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
+          <img
+            src={globalImgs.logo_trp}
+            style={{
+              width: "65%",
+              height: "65%",
+              marginTop: "-1em",
+              marginBottom: "-2em",
+              color: "red",
+            }}
+          ></img>
+          {/* <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             회원가입
-          </Typography>
+          </Typography> */}
           <form className={classes.form} onSubmit={submitNewUser}>
             <CSRFToken />
             <Grid container spacing={2}>
@@ -216,7 +226,7 @@ export default function SignUp({ history }) {
             </Grid>
           </form>
         </div>
-        <Box mt={5}>
+        <Box mt={1}>
           <Copyright />
         </Box>
       </Container>
