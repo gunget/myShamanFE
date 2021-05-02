@@ -83,6 +83,21 @@ const useStyles = makeStyles((theme) => ({
 // 실제 Home 컴포넌트
 const Home = ({ location, history }) => {
   const [username, setUserName] = useState("anonymous");
+  // const floatingText = document.querySelector("#floating-text");
+  // const docEl = document.documentElement;
+
+  // const docHeight = Math.max(docEl.scrollHeight, docEl.offsetHeight);
+  // const ref = docHeight !== "undefined" ? (docHeight / 5) * 3 : "";
+  // let scrollPos = docEl.scrollTop; //viewport의 top이 doument의 Top에서 얼마나 멀어졌나.
+
+  // window.addEventListener("scroll", () => {
+  //   scrollPos = docEl.scrollTop; //viewport의 top이 doument의 Top에서 얼마나 멀어졌나.
+  //   if (scrollPos > ref) {
+  //     floatingText.classList.add("visible");
+  //   } else {
+  //     floatingText.classList.remove("visible");
+  //   }
+  // });
 
   //초기 데이터 DB에서 불러오기
   const {
@@ -153,6 +168,11 @@ const Home = ({ location, history }) => {
       });
     }
     Scroll(e);
+  }
+
+  if (Math.round(window.scrollY) > 500) {
+    console.log("높이값 측정됨");
+    // floatingText.classList.toggle("visible");
   }
 
   useEffect(() => {
@@ -229,7 +249,7 @@ const Home = ({ location, history }) => {
             </section>
             {/* <!-- Section Intro--> */}
             <section>
-              <header className="major">
+              <header id="contents" className="major">
                 <h2>Main Contents</h2>
               </header>
               <div className="features">
@@ -354,6 +374,13 @@ const Home = ({ location, history }) => {
               </TabPanel>
               {/* </SwipeableViews> */}
             </div>
+          </div>
+          <div
+            id="floating-text"
+            class="floating-text"
+            onClick={() => handleAdd("contents")}
+          >
+            Change Catagory{" "}
           </div>
         </div>
         {/* <!-- Sidebar --> */}

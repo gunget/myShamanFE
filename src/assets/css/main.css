@@ -2779,6 +2779,24 @@ button:disabled,
 #main > .inner > section:first-of-type {
   border-top: 0 !important;
 }
+
+#main .floating-text {
+  background-color: #f56a6a;
+  /* background-color: #f5f6f7; */
+  border-radius: 10px 10px 0 0;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Muli";
+  font-weight: 800;
+  padding: 7px 15px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 998;
+}
+
 @media screen and (max-width: 1680px) {
   #main > .inner {
     padding: 0 5em 0.1em 5em;
