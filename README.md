@@ -4,9 +4,9 @@
 
 - 리액트 빌드해서 장고의 프론트로 만들기
 
-1. authorization 기능 만들기
+<!-- 1. authorization 기능 만들기
 
-- `input[type=text]:focus`로 붉은 border뺀 것 적용 고려
+- `input[type=text]:focus`로 붉은 border뺀 것 적용 고려 -->
 
 1. html에 사용한 js가 signIn화면 때 로드되어, 정작 signIn후엔 적용되지 않는 문제
 
@@ -31,14 +31,12 @@
 
 <!-- 1. 한글폰트 수정 -->
 
-1. scrollup기능이 화면이 작아지면 먹지않는 문제 보완
+<!-- 1. scrollup기능이 화면이 작아지면 먹지않는 문제 보완 -> react-scroll-up-button삭제. floating Text로 보완 -->
 
-- 화면 하단에 rollup버튼 만드는 것 고려
-
-1. Artvee서버가 복구되지 않으면, DirectorList의 그림 받아오는 과정 수정 필요
+<!-- 1. Artvee서버가 복구되지 않으면, DirectorList의 그림 받아오는 과정 수정 필요
 
 - 외부서버에 의존하는 방식은 서비스를 불안정하게 만듦
 - 궁극적으로 파일을 선택해야 하는 문제 존재
 - 보안상 input태그로 선택 시 특정폴더 선택불가능. 파일을 받아와 저장한다 해도 사용자가 어디있는지 알 수 없음.
 - 보다 근본적으로 앱의 기능상 이미지가 갖는 역할이 미미함. 데코레이션 역할 일 뿐, 아이템의 차별성을 나타내진 않음. 사족.
-- 결론적으로, static img를 활용하는 것이 깔끔
+- 결론적으로, static img를 활용하는 것이 깔끔 -->

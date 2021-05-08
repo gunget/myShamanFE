@@ -1573,10 +1573,11 @@ div .container.search2 {
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: rgba(239, 243, 240, 0.411);
+  border: 1px, solid, black;
+  background-color: rgba(239, 243, 240, 0.2);
   height: 28em;
   border-radius: 10px;
-  box-shadow: 1px 1px 1px rgba(153, 153, 153, 0.534);
+  /* box-shadow: 1px 1px 1px rgba(153, 153, 153, 0.534); */
 }
 div .container.search2 > form {
   width: 80%;
