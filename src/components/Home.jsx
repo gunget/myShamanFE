@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "re-carousel";
-import ScrollUpButton from "react-scroll-up-button";
 import axios from "axios";
 
 import MenuList from "./MenuList";
@@ -11,6 +10,7 @@ import SectionOthers from "./SectionOthers";
 import PageSearch from "./PageSearch";
 import useFetch from "./useFetch";
 import ImportScript from "./ImportScript";
+import FloatingText from "./FloatingText";
 
 import "../assets/css/main.css";
 import "../assets/css/fontawesome-all.min.css";
@@ -83,21 +83,6 @@ const useStyles = makeStyles((theme) => ({
 // 실제 Home 컴포넌트
 const Home = ({ location, history }) => {
   const [username, setUserName] = useState("anonymous");
-  // const floatingText = document.querySelector("#floating-text");
-  // const docEl = document.documentElement;
-
-  // const docHeight = Math.max(docEl.scrollHeight, docEl.offsetHeight);
-  // const ref = docHeight !== "undefined" ? (docHeight / 5) * 3 : "";
-  // let scrollPos = docEl.scrollTop; //viewport의 top이 doument의 Top에서 얼마나 멀어졌나.
-
-  // window.addEventListener("scroll", () => {
-  //   scrollPos = docEl.scrollTop; //viewport의 top이 doument의 Top에서 얼마나 멀어졌나.
-  //   if (scrollPos > ref) {
-  //     floatingText.classList.add("visible");
-  //   } else {
-  //     floatingText.classList.remove("visible");
-  //   }
-  // });
 
   //초기 데이터 DB에서 불러오기
   const {
@@ -175,6 +160,7 @@ const Home = ({ location, history }) => {
     // floatingText.classList.toggle("visible");
   }
 
+  // componetDidMount: data fetch 부분
   useEffect(() => {
     // 리액트에서 외부 스크립트 불러오는 방법.
     // 아래 두파일을 최초 index.html이 뜰때 같이 로딩되기는 하지만 적용될 엘러먼트가 없어 무용지물이 됨
@@ -192,6 +178,13 @@ const Home = ({ location, history }) => {
     fetchOthersInfo();
     console.log("Home component useEffect실행");
   }, []);
+
+  // componetDidMount: floating text 부분
+  // 렌더링 이전에 엘러먼트 할당을 하면 'undefined'나 null로 할당된다. 이를 막으려면 렌더링
+  // 이후에 엘러먼트 할당을 해야 하는데, 이를 위해 useEffect(cmpDidMount)사용
+  useEffect(() => {
+    FloatingText();
+  });
 
   return (
     <div className="container">
@@ -323,7 +316,7 @@ const Home = ({ location, history }) => {
                 </article>
               </div>
             </section>
-            {/* <!-- Section Director --> */}
+            {/* <!-- Section Content --> */}
             {/* material ui tap */}
             <div className={classes.root}>
               <AppBar position="static" className={classes.appBar}>
@@ -377,7 +370,7 @@ const Home = ({ location, history }) => {
           </div>
           <div
             id="floating-text"
-            class="floating-text"
+            className="floating-text"
             onClick={() => handleAdd("contents")}
           >
             Change Catagory{" "}
@@ -496,29 +489,6 @@ const Home = ({ location, history }) => {
                 </li>
               </ul>
             </nav>
-            {/* <!-- Section Contact--> */}
-            <section>
-              <header className="major">
-                <h2>Get in touch</h2>
-              </header>
-              <p>
-                &nbsp;불혹을 진즉 넘긴 코린이. 독학이라 아는 것도 없지만 행여
-                궁금하신게 있다면 메모 남겨주세요. 답변을 드릴 수 있을진
-                모르겠습니다.
-              </p>
-              <ul className="contact">
-                <li className="icon solid fa-envelope">
-                  <p>adminTravis@google.com</p>
-                </li>
-                <li className="icon solid fa-phone">(010) 0000-0000</li>
-                <li className="icon solid fa-home">
-                  1234 개발자의 길 #8254
-                  <br />
-                  경기도, 빛이 밝게 빛나는 도시 <br /> TN 00000-0000
-                </li>
-              </ul>
-            </section>
-
             {/* <!-- Section Change Content --> */}
             <section>
               <header className="major">
@@ -586,6 +556,28 @@ const Home = ({ location, history }) => {
                 </div>
               </div>
             </section>
+            {/* <!-- Section Contact--> */}
+            <section>
+              <header className="major">
+                <h2>Get in touch</h2>
+              </header>
+              <p>
+                &nbsp;불혹을 진즉 넘긴 코린이. 독학이라 아는 것도 없지만 행여
+                궁금하신게 있다면 메모 남겨주세요. 답변을 드릴 수 있을진
+                모르겠습니다.
+              </p>
+              <ul className="contact">
+                <li className="icon solid fa-envelope">
+                  <p>adminTravis@google.com</p>
+                </li>
+                <li className="icon solid fa-phone">(010) 0000-0000</li>
+                <li className="icon solid fa-home">
+                  1234 개발자의 길 #8254
+                  <br />
+                  경기도, 빛이 밝게 빛나는 도시 <br /> TN 00000-0000
+                </li>
+              </ul>
+            </section>
             {/* <!-- Footer --> */}
             <footer id="footer">
               <p className="copyright">
@@ -594,7 +586,7 @@ const Home = ({ location, history }) => {
                 <a href="https://html5up.net">HTML5 UP</a>.
               </p>
             </footer>
-            <ScrollUpButton
+            {/* <ScrollUpButton
               StopPosition={0}
               // 버튼을 누르면 멈출 y축 높이값
               ShowAtPosition={500}
@@ -609,7 +601,7 @@ const Home = ({ location, history }) => {
                 width: "30px",
               }}
               ToggledStyle={{}}
-            />
+            /> */}
           </div>
         </div>
       </div>
