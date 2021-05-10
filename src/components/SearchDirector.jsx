@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import SearchStep1 from "./SearchStep1";
 import SearchStep2 from "./SearchStep2";
-import SearchStep3 from "./SearchStep3";
+import SearchStepFinish from "./SearchStepFinish";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
   },
   backButton: {
     marginRight: theme.spacing(1),
+    marginLeft: "44%",
+  },
+  resetButton: {
+    marginLeft: "44%",
   },
   instructions: {
     marginTop: theme.spacing(1),
@@ -32,7 +36,7 @@ function getSteps() {
 function getStepContent([stepIndex, fetchDirectorInfo]) {
   switch (stepIndex) {
     case 0:
-      return <SearchStep1 fetchDirectorInfo={fetchDirectorInfo} />;
+      return <SearchStep1 />;
     case 1:
       return <SearchStep2 fetchDirectorInfo={fetchDirectorInfo} />;
     default:
@@ -71,10 +75,15 @@ export default function HorizontalLabelPositionBelowStepper({
       <div>
         {activeStep === steps.length ? (
           <div>
-            <Typography className={classes.instructions}>
-              All steps completed
-            </Typography>
-            <Button onClick={handleReset}>Reset</Button>
+            <SearchStepFinish />
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{ marginLeft: "46%" }}
+              onClick={handleReset}
+            >
+              Reset
+            </Button>
           </div>
         ) : (
           <div>

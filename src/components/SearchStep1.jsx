@@ -1,13 +1,12 @@
 import React, { useRef, useState, useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
+import { DispatchContext } from "../contexts/Contexts.jsx";
 
-const SearchStep1 = ({ fetchDirectorInfo }) => {
+const SearchStep1 = () => {
   const [peopleCode, setPeopleCode] = useState("Nothing Searched.");
-  const [ranAdvice, setRanAdvice] = useState(
-    "Life is the accumlations of 'Accidents and Variables and Irony "
-  );
   const states = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
 
   const inputRef = useRef();
 
@@ -31,8 +30,9 @@ const SearchStep1 = ({ fetchDirectorInfo }) => {
         config
       )
       .then((res) => {
-        console.log(res);
         setPeopleCode(res.data);
+        dispatch({ type: "SET_SEARCH_NAME", payload: inputRef.current.value });
+        dispatch({ type: "SET_PEOPLE_CODE", payload: res.data });
       })
       .then((res) => {
         axios
@@ -42,11 +42,9 @@ const SearchStep1 = ({ fetchDirectorInfo }) => {
             },
           })
           .then((respose) => {
-            // axios.get("https://api.adviceslip.com/advice").then((respose) => {
-            // console.log("dad joke:", respose.data);
             const temp = respose.data.joke;
             if (temp) {
-              setRanAdvice(temp);
+              dispatch({ type: "SET_RANDOM_JOKE", payload: temp });
             }
           });
       })
@@ -86,8 +84,10 @@ const SearchStep1 = ({ fetchDirectorInfo }) => {
           {peopleCode}
         </p>
         <blockquote>
-          - 0번은 검색결과가 없다는 의미입니다. <br />- 번호가 나오면 다음단계로
-          진행하세요.
+          - 0번은 검색결과가 없다는 의미입니다. <br /> &nbsp;&nbsp;다른 이름으로
+          검색하세요.
+          <br />- 직접번호를 입력하려면 <a href="#">여기</a>를 눌러주세요.
+          <br />- 번호가 나오면 다음단계로 진행하세요.
         </blockquote>
       </div>
     </div>

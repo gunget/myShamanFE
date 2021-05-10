@@ -66,12 +66,6 @@ function Reducer(states, { type, payload }) {
     // const array5 = {...array, b:{...array.b, val:8}
     case "SET_JWT":
       return { ...states, jwt: payload };
-    case "SET_SEARCH_NAME":
-      return { ...states, searchName: payload };
-    case "SET_PEOPLE_CODE":
-      return { ...states, peopleCode: payload };
-    case "SET_RANDOM_JOKE":
-      return { ...states, randJoke: payload };
 
     default:
       throw new Error("UnHandled Action!");
@@ -92,9 +86,6 @@ function Store({ children }) {
       generalLoading: true,
     },
     jwt: "",
-    searchName: "",
-    peopleCode: "",
-    randJoke: "Life is the accumlations of 'Accidents and Variables and Irony ",
   });
   return (
     <DispatchContext.Provider value={dispatch}>

@@ -1,18 +1,16 @@
 import React, { useRef, useState, useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
+import { DispatchContext } from "../contexts/Contexts.jsx";
 
 const SearchStep2 = ({ fetchDirectorInfo }) => {
-  const [peopleCode, setPeopleCode] = useState("You don't seach anything yet.");
-  const [ranAdvice, setRanAdvice] = useState(
-    "Life is the accumlations of 'Accidents and Variables and Irony "
-  );
   const [area, setArea] = useState("한국");
+  const [warning, setWarning] = useState(null);
 
   const states = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
 
   const inputRef = useRef();
-  let pickedFile = null;
 
   const config = {
     headers: {
@@ -24,10 +22,10 @@ const SearchStep2 = ({ fetchDirectorInfo }) => {
     e.preventDefault();
 
     let data = new FormData();
-    data.append("name", inputRef.current.value);
-    data.append("peopleCode", Number(peopleCode));
+    data.append("name", states.searchName);
+    data.append("peopleCode", Number(states.peopleCode));
     data.append("area", area);
-    data.append("wisesaying", ranAdvice);
+    data.append("wisesaying", states.randJoke);
     // let data2 = {
     //   // name: searchWord,
     //   name: inputRef.current.value,
@@ -39,55 +37,16 @@ const SearchStep2 = ({ fetchDirectorInfo }) => {
     await axios
       .post("http://127.0.0.1:8000/api/directorInfo/", data, config) // (url, data, 헤더정보)순
       .then(() => {
-        setPeopleCode("You don't seach anything yet.");
-        inputRef.current.value = "";
         fetchDirectorInfo();
-        setRanAdvice(
-          "Life is the combinations of 'Accidents and Variables and Irony "
-        );
+        dispatch({
+          type: "SET_RANDOM_JOKE",
+          payload:
+            "Life is the combinations of 'Accidents and Variables and Irony ",
+        });
       })
       .catch((error) => {
         console.log(error);
-        setPeopleCode("저장할 수 없습니다.");
-      });
-  };
-
-  const getPeopleCode = async (e) => {
-    e.preventDefault();
-    setPeopleCode("Now Searching...");
-    await axios
-      .get(
-        "http://127.0.0.1:8000/getPpMovie/",
-        {
-          params: {
-            searchDrt: inputRef.current.value,
-          },
-        },
-        config
-      )
-      .then((res) => {
-        console.log(res);
-        setPeopleCode(res.data);
-      })
-      .then((res) => {
-        axios
-          .get("https://icanhazdadjoke.com/", {
-            headers: {
-              Accept: "application/json",
-            },
-          })
-          .then((respose) => {
-            // axios.get("https://api.adviceslip.com/advice").then((respose) => {
-            // console.log("dad joke:", respose.data);
-            const temp = respose.data.joke;
-            if (temp) {
-              setRanAdvice(temp);
-            }
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-        setPeopleCode("검색 결과가 없습니다. 다시 검색하세요.");
+        setWarning("데이터베이스 문제로 저장할 수 없습니다!");
       });
   };
 
@@ -96,28 +55,22 @@ const SearchStep2 = ({ fetchDirectorInfo }) => {
     setArea(e.target.value);
   };
 
+  const message = () => {
+    if (warning) {
+      return <blockquote>{warning}</blockquote>;
+    } else {
+      return (
+        <blockquote>
+          - 감독의 출신지역을 선택하세요.
+          <br />- 저장버튼을 누르면 리스트에 자동으로 추가 됩니다.
+        </blockquote>
+      );
+    }
+  };
+
   return (
     <div className="container search2">
       <div id="search2" className="alt">
-        <form method="post" action="#" onSubmit={getPeopleCode}>
-          <input
-            type="text"
-            name="query"
-            id="query"
-            placeholder="감독 이름을 입력하세요."
-            ref={inputRef}
-          />
-          <div class="button" onClick={getPeopleCode}>
-            Search
-          </div>
-        </form>
-      </div>
-      <div className="alt2">
-        <h3 className="korean"> [ 네이버무비 감독코드 : {peopleCode} ] </h3>
-        <p className="korean">
-          1. 0번은 검색결과가 없다는 의미입니다. <br />
-          2. 검색완료 시, 출신지역을 선택한 후 DB에 저장하세요.
-        </p>
         <form method="post" action="#">
           <input
             id="fileAdd"
@@ -126,7 +79,7 @@ const SearchStep2 = ({ fetchDirectorInfo }) => {
           ></input>
           <select id="FicJobSelect" onChange={handelSelect}>
             <option value="" selected>
-              감독의 출신지역을 선택하세요.
+              출신 지역
             </option>
             <option value="한국">한국</option>
             <option value="북아메리카">북아메리카</option>
@@ -140,6 +93,7 @@ const SearchStep2 = ({ fetchDirectorInfo }) => {
           </div>
         </form>
       </div>
+      <div className="alt2">{message()}</div>
     </div>
   );
 };
