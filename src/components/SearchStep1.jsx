@@ -123,7 +123,7 @@ const SearchStep1 = () => {
             <br />
             3. 주소줄 끝부분의 'code='이후의 번호 기억하기
           </blockquote>
-          <form method="post" action="#" onSubmit={getPeopleCode}>
+          {/* <form method="post" action="#" onSubmit={getPeopleCode}>
             <input
               type="text"
               name="query"
@@ -134,7 +134,7 @@ const SearchStep1 = () => {
             <div class="button" onClick={getPeopleCode}>
               Search
             </div>
-          </form>
+          </form> */}
           <div class="button" id="close">
             Close
           </div>
