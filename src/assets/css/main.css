@@ -1605,8 +1605,50 @@ div .container.search2 .alt2 {
   width: 70%;
 }
 
-div .container.search2 form #fileAdd {
-  display: none;
+/* 직접입력용 modal */
+
+div .container.search2 .modal_container {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  /* modal container로 앞화면 전체를 가려버리기 위해 투명도를 0%로 설정 */
+  pointer-events: none;
+  /* 투명도는 0이지만 가리고 있기에 뒷화면의 클릭이 불가능. 이것을 none으로 해주면 포인터의 이벤트에 반응하지 않음.
+  곧 뒷화면의 포인터 이벤트를 쓸 수 있음 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+}
+
+div .container.search2 .modal_container.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+div .container.search2 .modal_container .modal {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  padding: 30px 50px;
+  width: 600px;
+  max-width: 100%;
+  text-align: center;
+  /* max width는 화면이 줄어들어도 내용이 다 표시되도록 자동으로 찌그러짐*/
+}
+
+div .container.search2 .modal_container .modal > h1 {
+  margin: 0;
+}
+
+div .container.search2 .modal_container .modal p {
+  opacity: 0.7;
+  font-size: 14px;
 }
 
 /* Form */
