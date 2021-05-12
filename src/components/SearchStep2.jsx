@@ -3,7 +3,7 @@ import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
 import { DispatchContext } from "../contexts/Contexts.jsx";
 
-const SearchStep2 = ({ fetchDirectorInfo }) => {
+const SearchStep2 = ({ fetchDirectorInfo, handleNext }) => {
   const [area, setArea] = useState("한국");
   const [warning, setWarning] = useState(null);
 
@@ -43,6 +43,7 @@ const SearchStep2 = ({ fetchDirectorInfo }) => {
           payload:
             "Life is the combinations of 'Accidents and Variables and Irony ",
         });
+        handleNext();
       })
       .catch((error) => {
         console.log(error);

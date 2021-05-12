@@ -33,12 +33,17 @@ function getSteps() {
   ];
 }
 
-function getStepContent([stepIndex, fetchDirectorInfo]) {
+function getStepContent([stepIndex, fetchDirectorInfo, handleNext]) {
   switch (stepIndex) {
     case 0:
       return <SearchStep1 />;
     case 1:
-      return <SearchStep2 fetchDirectorInfo={fetchDirectorInfo} />;
+      return (
+        <SearchStep2
+          fetchDirectorInfo={fetchDirectorInfo}
+          handleNext={handleNext}
+        />
+      );
     default:
       return "Unknown stepIndex";
   }
@@ -88,7 +93,7 @@ export default function HorizontalLabelPositionBelowStepper({
         ) : (
           <div>
             <Typography className={classes.instructions}>
-              {getStepContent([activeStep, fetchDirectorInfo])}
+              {getStepContent([activeStep, fetchDirectorInfo, handleNext])}
             </Typography>
             <div>
               <Button

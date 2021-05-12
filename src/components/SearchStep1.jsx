@@ -9,6 +9,9 @@ const SearchStep1 = () => {
   const dispatch = useContext(DispatchContext);
 
   const inputRef = useRef();
+  const inputModalName = useRef();
+  const inputModalCode = useRef();
+  const inputModalBtn = useRef();
 
   const config = {
     headers: {
@@ -54,6 +57,21 @@ const SearchStep1 = () => {
       });
   };
 
+  const handleModalSave = (e) => {
+    e.preventDefault();
+    setPeopleCode(inputModalCode.current.value);
+    dispatch({
+      type: "SET_SEARCH_NAME",
+      payload: inputModalName.current.value,
+    });
+    dispatch({
+      type: "SET_PEOPLE_CODE",
+      payload: inputModalCode.current.value,
+    });
+    inputModalBtn.current.click();
+    inputRef.current.value = String(inputModalName.current.value);
+  };
+
   //modal control
   useEffect(() => {
     const openBtn = document.querySelector("#open");
@@ -87,17 +105,7 @@ const SearchStep1 = () => {
       </div>
       <div className="alt2">
         <sup className="korean"> 네이버영화 감독코드</sup>
-        <p
-          className="korean"
-          style={{
-            color: "#f56a6a",
-            fontSize: "1.5em",
-            marginBottom: "1em",
-            fontWeight: "700",
-          }}
-        >
-          {peopleCode}
-        </p>
+        <p className="korean">{peopleCode}</p>
         <blockquote>
           - 0은 검색결과가 없다는 의미입니다. <br /> &nbsp;&nbsp;이름을 바꿔
           검색하세요.
@@ -111,32 +119,39 @@ const SearchStep1 = () => {
       </div>
       <div class="modal_container">
         <div class="modal">
-          <h3>직접 검색하기</h3>
+          <h3>Search Manually</h3>
           <blockquote>
             1.{" "}
             <a href="https://movie.naver.com/" target="_blank">
               네이버 영화
             </a>
-            &nbsp;-&nbsp;영화검색에서 '작품명'으로 검색, 감독 찾기
+            &nbsp;--&nbsp;영화검색에서 '영화제목'으로 검색, 감독 찾기
             <br />
             2. '감독정보'창으로 들어가면 브라우저의 주소줄 클릭하기
             <br />
-            3. 주소줄 끝부분의 'code='이후의 번호 기억하기
+            3. 주소줄 끝부분의 'code=XXX'에서 XXX 번호 기억하기
+            <br />
+            4. 감독이름과 번호를 입력하고 저장하기
           </blockquote>
-          {/* <form method="post" action="#" onSubmit={getPeopleCode}>
+          <form method="post" action="#" id="modal-form">
             <input
               type="text"
-              name="query"
-              id="query"
-              placeholder="감독 이름을 입력하세요."
-              ref={inputRef}
+              name="name"
+              placeholder="감독이름"
+              ref={inputModalName}
             />
-            <div class="button" onClick={getPeopleCode}>
-              Search
+            <input
+              type="number"
+              name="peopleCode"
+              placeholder="감독코드"
+              ref={inputModalCode}
+            />
+            <div class="button" onClick={handleModalSave}>
+              save
             </div>
-          </form> */}
-          <div class="button" id="close">
-            Close
+          </form>
+          <div id="close" ref={inputModalBtn}>
+            <i class="fas fa-times"></i>
           </div>
         </div>
       </div>

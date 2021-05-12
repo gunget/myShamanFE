@@ -1604,11 +1604,17 @@ div .container.search2 .alt2 {
   align-items: center;
   width: 70%;
 }
+div .container.search2 .alt2 p {
+  color: #f56a6a;
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  font-weight: 700;
+}
 
 /* 직접입력용 modal */
 
 div .container.search2 .modal_container {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1632,13 +1638,14 @@ div .container.search2 .modal_container.show {
 }
 
 div .container.search2 .modal_container .modal {
+  position: relative;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   padding: 30px 50px;
   width: 600px;
   max-width: 100%;
-  text-align: center;
+  /* text-align: center; */
   /* max width는 화면이 줄어들어도 내용이 다 표시되도록 자동으로 찌그러짐*/
 }
 
@@ -1649,6 +1656,24 @@ div .container.search2 .modal_container .modal > h1 {
 div .container.search2 .modal_container .modal p {
   opacity: 0.7;
   font-size: 14px;
+}
+
+div .container.search2 .modal_container .modal form {
+  display: flex;
+  justify-content: center;
+}
+
+div .container.search2 .modal_container .modal #close {
+  position: absolute;
+  top: 8%;
+  right: 8%;
+  font-size: 20px;
+  color: #f56a6a;
+  cursor: pointer;
+}
+
+div .container.search2 .modal_container .modal form input {
+  text-align: center;
 }
 
 /* Form */
@@ -1665,6 +1690,7 @@ label {
 }
 
 input[type="text"],
+input[type="number"],
 input[type="password"],
 input[type="email"],
 input[type="tel"],
@@ -1689,6 +1715,7 @@ textarea {
   width: 100%;
 }
 input[type="text"]:invalid,
+input[type="number"]:invalid,
 input[type="password"]:invalid,
 input[type="email"]:invalid,
 input[type="tel"]:invalid,
@@ -1735,6 +1762,7 @@ select::-ms-expand {
 }
 
 input[type="text"],
+input[type="number"],
 input[type="password"],
 input[type="email"],
 input[type="tel"],
