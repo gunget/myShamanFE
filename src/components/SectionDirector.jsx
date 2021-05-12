@@ -1,8 +1,10 @@
 import React from "react";
 import DirectorsList from "./DirectorsList";
-import SearchDirector from "./SearchDirector";
+// import SearchDirector from "./SearchDirector";
+import SearchTot from "./SearchTot";
 
 const SectionDirector = ({ fetchDirectorInfo, handleAdd }) => {
+  const sectionType = "drt";
   return (
     <>
       {" "}
@@ -24,7 +26,11 @@ const SectionDirector = ({ fetchDirectorInfo, handleAdd }) => {
           <h2>Search & Add New</h2>
         </header>
         <div className="searchNadd">
-          <SearchDirector fetchDirectorInfo={fetchDirectorInfo} />
+          {/* <SearchDirector fetchDirectorInfo={fetchDirectorInfo} /> */}
+          <SearchTot
+            fetchTotalInfo={fetchDirectorInfo}
+            sectionType={sectionType}
+          />
         </div>
       </section>
     </>

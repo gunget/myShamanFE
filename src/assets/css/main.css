@@ -1643,7 +1643,7 @@ div .container.search2 .modal_container .modal {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   padding: 30px 50px;
-  width: 600px;
+  width: auto;
   max-width: 100%;
   /* text-align: center; */
   /* max width는 화면이 줄어들어도 내용이 다 표시되도록 자동으로 찌그러짐*/

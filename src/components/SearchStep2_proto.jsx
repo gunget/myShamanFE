@@ -3,13 +3,12 @@ import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
 import { DispatchContext } from "../contexts/Contexts.jsx";
 
-const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
+const SearchStep2 = ({ fetchDirectorInfo, handleNext }) => {
   const [area, setArea] = useState("한국");
   const [job, setJob] = useState("드라마작가");
   const [warning, setWarning] = useState(null);
 
   const states = useContext(StateContext);
-  const sectionStates = states.searchDetails[sectionType];
   const dispatch = useContext(DispatchContext);
 
   // const inputRef = useRef();
@@ -44,19 +43,14 @@ const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
     // };
 
     await axios
-      .post(
-        `http://127.0.0.1:8000/api/${sectionStates.url.saveUrl}/`,
-        data,
-        config
-      ) // (url, data, 헤더정보)순
+      .post("http://127.0.0.1:8000/api/directorInfo/", data, config) // (url, data, 헤더정보)순
       .then(() => {
-        fetchTotalInfo();
-        if (sectionStates.useJoke) {
-          dispatch({
-            type: "SET_RANDOM_JOKE",
-            payload: "",
-          });
-        }
+        fetchDirectorInfo();
+        dispatch({
+          type: "SET_RANDOM_JOKE",
+          payload:
+            "Life is the combinations of 'Accidents and Variables and Irony ",
+        });
         handleNext();
       })
       .catch((error) => {
@@ -67,12 +61,7 @@ const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
 
   const handelSelect = (e) => {
     e.preventDefault();
-    if (sectionStates.useJoke) {
-      //감독검색일때만 joke를 사용하므로 이를 활용, 감독검색인 경우를 추출
-      setArea(e.target.value);
-    } else {
-      setJob(e.target.value);
-    }
+    setArea(e.target.value);
   };
 
   const message = () => {
@@ -81,14 +70,21 @@ const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
     } else {
       return (
         <blockquote>
-          - {sectionStates.texts.selectInfoText}을 선택하세요.
+          - 감독의 출신지역을 선택하세요.
           <br />- 저장버튼을 누르면 리스트에 자동으로 추가 됩니다.
         </blockquote>
       );
     }
   };
 
-  const optionList = sectionStates.optionList;
+  const optionList = [
+    "한국",
+    "북아메리카",
+    "남아메리카",
+    "유럽",
+    "아시아",
+    "기타",
+  ];
   const options = optionList.map((item) => {
     return <option value={item}>{item}</option>;
   });
@@ -99,7 +95,7 @@ const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
         <form method="post" action="#">
           <select id="FicJobSelect" onChange={handelSelect}>
             <option value="" selected>
-              {sectionStates.texts.selectText}
+              출신 지역
             </option>
             {options}
             {/* <option value="한국">한국</option>
