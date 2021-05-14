@@ -85,6 +85,10 @@ const SearchStep1 = ({ sectionType }) => {
     });
     inputModalBtn.current.click();
     inputRef.current.value = String(inputModalName.current.value);
+    dispatch({
+      type: "SET_RANDOM_JOKE",
+      payload: "Simple is always the best!",
+    });
   };
 
   //modal control

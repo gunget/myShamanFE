@@ -1,8 +1,11 @@
 import React from "react";
 import NonFicWriterList from "./NonFicWriterList";
-import SearchNonFictionWriter from "./SearchNonFicWtr";
+// import SearchNonFictionWriter from "./SearchNonFicWtr";
+import SearchTot from "./SearchTot";
 
 const SectionNonFicWtr = ({ fetchNonFicWriterInfo, handleAdd }) => {
+  const sectionType = "nwrt";
+
   return (
     <>
       {" "}
@@ -24,8 +27,12 @@ const SectionNonFicWtr = ({ fetchNonFicWriterInfo, handleAdd }) => {
           <h2>Search & Add New</h2>
         </header>
         <div className="searchNadd">
-          <SearchNonFictionWriter
+          {/* <SearchNonFictionWriter
             fetchNonFicWriterInfo={fetchNonFicWriterInfo}
+          /> */}
+          <SearchTot
+            fetchTotalInfo={fetchNonFicWriterInfo}
+            sectionType={sectionType}
           />
         </div>
       </section>

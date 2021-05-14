@@ -122,11 +122,11 @@ function Store({ children }) {
                 - 0은 검색결과가 없다는 의미입니다. <br /> &nbsp;&nbsp;이름을
                 바꿔 검색하세요.
                 <br />- 번호가 나오면 다음단계로 진행하세요.
-                <br />- 번호를 직접 입력하려면{" "}
+                <br />- 검색이 잘 안되면{" "}
                 <a id="open" style={{ cursor: "pointer" }}>
                   여기
                 </a>
-                를 눌러주세요.
+                를 눌러 직접 입력하세요.
               </blockquote>
             );
           },
@@ -172,11 +172,61 @@ function Store({ children }) {
                 <br />
                 - 0은 검색결과가 없다는 의미입니다.
                 <br />- 번호가 나오면 다음단계로 진행하세요.
-                <br />- 번호를 직접 입력하려면{" "}
+                <br />- 검색이 잘 안되면{" "}
                 <a id="open" style={{ cursor: "pointer" }}>
                   여기
                 </a>
-                를 눌러주세요.
+                를 눌러 직접 입력하세요.
+              </blockquote>
+            );
+          },
+          modalText: () => {
+            return (
+              <blockquote>
+                1.{" "}
+                <a href="https://people.search.naver.com/" target="_blank">
+                  네이버 인물검색
+                </a>
+                에서 작가 이름검색, 동명이인 중 해당인물 찾기
+                <br />
+                2. '인물정보'창으로 들어가면 브라우저의 주소줄 클릭하기
+                <br />
+                3. 주소줄 중간의 'query=이름&os=XXXX'에서 XXXX 번호 기억하기
+                <br />
+                4. 이름과 번호를 입력하고 저장하기
+              </blockquote>
+            );
+          },
+          selectText: "직업명",
+          selectInfoText: "작가의 직업",
+        },
+      },
+      nwrt: {
+        params: {
+          search: "searchWtr",
+          jobs: ["교수", "철학자", "작가"],
+        },
+        url: {
+          searchUrl: "getPpWriter",
+          saveUrl: "nonFicWriterInfo",
+        },
+        optionList: ["교수", "철학자", "작가", "기타"],
+        useJoke: false,
+        texts: {
+          subText: "네이버 인물검색 코드",
+          infoText: () => {
+            return (
+              <blockquote>
+                - 검색어 입력 시 직업까지 입력하면 결과가 정확해 집니다(ex.
+                홍길동교수)
+                <br />
+                - 0은 검색결과가 없다는 의미입니다.
+                <br />- 번호가 나오면 다음단계로 진행하세요.
+                <br />- 검색이 잘 안되면{" "}
+                <a id="open" style={{ cursor: "pointer" }}>
+                  여기
+                </a>
+                를 눌러 직접 입력하세요.
               </blockquote>
             );
           },

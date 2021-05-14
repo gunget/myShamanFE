@@ -21,17 +21,21 @@
 
 <!-- 1. list의 loading 글자를 이미지 나오게 수정 -->
 
-1. director코드가 검색이 안될 때, 직접 입력하게 하는 모달창 개발
+<!-- 1. director코드가 검색이 안될 때, 직접 입력하게 하는 모달창 개발 -->
 
 <!-- 1. sign in시 배경 그림이 흐려졌다 나타나는 효과 적용
 
 - sign in 상단에 myshaman logo 삽입. 무료 로고 서칭 필요 -->
 
-1. SearchNnew파트의 디자인 수정
+<!-- 1. SearchNnew파트의 디자인 수정 -->
 
 <!-- 1. 한글폰트 수정 -->
 
 <!-- 1. scrollup기능이 화면이 작아지면 먹지않는 문제 보완 -> react-scroll-up-button삭제. floating Text로 보완 -->
+
+1. menulist에서 직업부분이 이름옆에 나오도록 변경
+
+- 조건에 따라 엘러먼트를 통채로 바꾸는 방식 고려할 것
 
 <!-- 1. Artvee서버가 복구되지 않으면, DirectorList의 그림 받아오는 과정 수정 필요
 
