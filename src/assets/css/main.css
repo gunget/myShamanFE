@@ -1574,7 +1574,7 @@ div .container.search2 {
   align-items: center;
   width: 100%;
   border: 1px, solid, black;
-  background-color: rgba(239, 243, 240, 0.2);
+  background-color: rgba(239, 243, 240, 0.3);
   height: 28em;
   border-radius: 10px;
   /* box-shadow: 1px 1px 1px rgba(153, 153, 153, 0.534); */
@@ -2867,6 +2867,14 @@ button:disabled,
   text-align: center;
   z-index: 50;
   /* transition: ease 0.3s; */
+}
+#sidebar #sidebarInner.inner.fixed {
+  position: fixed;
+  bottom: 0%;
+  left: 0%;
+}
+#sidebar.inactive #sidebarInner.inner.fixed {
+  display: none;
 }
 
 @media screen and (max-width: 1680px) {

@@ -11,6 +11,7 @@ import PageSearch from "./PageSearch";
 import useFetch from "./useFetch";
 import ImportScript from "./ImportScript";
 import FloatingText from "./FloatingText";
+import FixedSidebar from "./FixedSidebar";
 
 import "../assets/css/main.css";
 import "../assets/css/fontawesome-all.min.css";
@@ -158,7 +159,7 @@ const Home = ({ location, history }) => {
   // componetDidMount: data fetch 부분
   useEffect(() => {
     // 리액트에서 외부 스크립트 불러오는 방법.
-    // 아래 두파일을 최초 index.html이 뜰때 같이 로딩되기는 하지만 적용될 엘러먼트가 없어 무용지물이 됨
+    // 아래 네 파일을 최초 index.html이 뜰때 같이 로딩되기는 하지만 적용될 엘러먼트가 없어 무용지물이 됨
     // Home 컴포넌트가 띄워지며 엘러먼트는 뜨지만 js가 적용안되는 걸 해결하려, 무효화된 js 다시 로딩
     // 대부분 되지만 sideBar의 scrollLocked기능은 여전히 안됨
     ImportScript("../assets/js/breakpoints.min.js");
@@ -177,7 +178,8 @@ const Home = ({ location, history }) => {
   // 렌더링 이전에 엘러먼트 할당을 하면 'undefined'나 null로 할당된다. 이를 막으려면 렌더링
   // 이후에 엘러먼트 할당을 해야 하는데, 이를 위해 useEffect(cmpDidMount)사용
   useEffect(() => {
-    FloatingText();
+    FloatingText(); //sidebar없을때 chageCat하기 위한 탭
+    FixedSidebar(); //sidebar를 고정시켜 chageCat 활성화하기
   });
 
   return (
@@ -483,8 +485,30 @@ const Home = ({ location, history }) => {
                 </li>
               </ul>
             </nav>
-            {/* <!-- Section Change Content --> */}
+            {/* <!-- Section Contact--> */}
             <section>
+              <header className="major">
+                <h2>Get in touch</h2>
+              </header>
+              <p>
+                &nbsp;불혹을 진즉 넘긴 코린이. 독학이라 아는 것도 없지만 행여
+                궁금하신게 있다면 메모 남겨주세요. 답변을 드릴 수 있을진
+                모르겠습니다.
+              </p>
+              <ul className="contact">
+                <li className="icon solid fa-envelope">
+                  <p>adminTravis@google.com</p>
+                </li>
+                <li className="icon solid fa-phone">(010) 0000-0000</li>
+                <li className="icon solid fa-home">
+                  1234 개발자의 길 #8254
+                  <br />
+                  경기도, 빛이 밝게 빛나는 도시 <br /> TN 00000-0000
+                </li>
+              </ul>
+            </section>
+            {/* <!-- Section Change Content --> */}
+            <section id="floating-cat">
               <header className="major">
                 <h2>Change CATs</h2>
               </header>
@@ -549,28 +573,6 @@ const Home = ({ location, history }) => {
                   </div>
                 </div>
               </div>
-            </section>
-            {/* <!-- Section Contact--> */}
-            <section>
-              <header className="major">
-                <h2>Get in touch</h2>
-              </header>
-              <p>
-                &nbsp;불혹을 진즉 넘긴 코린이. 독학이라 아는 것도 없지만 행여
-                궁금하신게 있다면 메모 남겨주세요. 답변을 드릴 수 있을진
-                모르겠습니다.
-              </p>
-              <ul className="contact">
-                <li className="icon solid fa-envelope">
-                  <p>adminTravis@google.com</p>
-                </li>
-                <li className="icon solid fa-phone">(010) 0000-0000</li>
-                <li className="icon solid fa-home">
-                  1234 개발자의 길 #8254
-                  <br />
-                  경기도, 빛이 밝게 빛나는 도시 <br /> TN 00000-0000
-                </li>
-              </ul>
             </section>
             {/* <!-- Footer --> */}
             <footer id="footer">

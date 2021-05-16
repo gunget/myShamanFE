@@ -102,16 +102,16 @@ export default function SignIn({ history }) {
         })
         //실제 data를 쓰진 않지만 이전 작업이 끝나고 실행되도록
         //data를 더미 용도로 사용함
-        .then((res) => {
-          window.location.reload();
-          // 리액트 로그인 템플릿을, 무료 html템플릿(js포함됨)으로 가져다 쓸때 생기는 문제점!!!!
-          // 첫째, 무료 템플릿 body태그에 적용되는 css들이 리액트 템플릿의 것으로 오버라이딩 된다.
-          // 둘째, 로그인 템플릿을 띄울때 무료 탬플릿용 js들이 로드되는데 엘러먼트들이 없으므로 무효화된다.
-          // 그결과, 로그인 후 Home으로 들어가보면 body용 css들이 안먹고, js도 로드되지 않는다
-          // 해결책은,
-          // 첫째, window.location.reload();해서 페이지를 다시열기. token을 state로 사용하는 방식 활용불가
-          // 둘째, 리액트 템플릿의 cssBaseline컴포넌트 제거. Home 컴포넌트가 열릴때 특정 js를 다시로드.
-        })
+        // .then((res) => {
+        //   window.location.reload();
+        //   // 리액트 로그인 템플릿을, 무료 html템플릿(js포함됨)으로 가져다 쓸때 생기는 문제점!!!!
+        //   // 첫째, 무료 템플릿 body태그에 적용되는 css들이 리액트 템플릿의 것으로 오버라이딩 된다.
+        //   // 둘째, 로그인 템플릿을 띄울때 무료 탬플릿용 js들이 로드되는데 엘러먼트들이 없으므로 무효화된다.
+        //   // 그결과, 로그인 후 Home으로 들어가보면 body용 css들이 안먹고, js도 로드되지 않는다
+        //   // 해결책은,
+        //   // 첫째, window.location.reload();해서 페이지를 다시열기. token을 state로 사용하는 방식 활용불가
+        //   // 둘째, 리액트 템플릿의 cssBaseline컴포넌트 제거. Home 컴포넌트가 열릴때 특정 js를 다시로드.
+        // })
         .catch((error) => error.response); //return글자를 안써야 error값이 리턴된다!!!!!
       //또 axios는 error라고만 하면 response데이터를 볼 수 없다. error.response라 해야 한다.
       //하나 더, 동기작업(시퀸스작업)을 하려면 반드시 'axios의 return값을 받는 변수명'으로 다음 작업을
