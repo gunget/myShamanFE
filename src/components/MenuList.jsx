@@ -9,22 +9,24 @@ const MenuList = ({ handleAdd, type }) => {
   // object의 key를 변수로 사용해야 할 경우 states.type처럼 사용하면 안된다. undefined
   // 반드시 states[변수명]을 써줘야 일반적인 obj.key와 같은 결과를 얻을 수 있다
 
-  // const details = states[type].area ? "area" : "job";
+  const menulist = states[type]; //객체가 담긴 array
 
-  const list = states
-    ? states[type].map((data) => {
+  const list = menulist
+    ? menulist.map((data) => {
+        const details = menulist[0].area ? "area" : "job";
         return (
           <li key={data.id}>
             <a onClick={() => handleAdd(data.name)}>
               <span className="korean">
-                📢 {data.name}
-                {/* 📢 {data.name} - [{data.details}] */}
+                {/* 📢 {data.name} */}
+                📢 {data.name} - [{data[details]}]
               </span>
             </a>
           </li>
         );
       })
     : "Lists are not Loaded.";
+
   return <>{list}</>;
 };
 

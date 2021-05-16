@@ -5,7 +5,7 @@ import RestrictedRoute from "./components/RestrictedRoute";
 import NotFound from "./components/NotFound";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 
-import CssBaseline from "@material-ui/core/CssBaseline";
+// import CssBaseline from "@material-ui/core/CssBaseline";
 
 function App() {
   return (

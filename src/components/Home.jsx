@@ -17,7 +17,7 @@ import "../assets/css/fontawesome-all.min.css";
 
 // material ui import
 import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
+// import SwipeableViews from "react-swipeable-views";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -129,7 +129,7 @@ const Home = ({ location, history }) => {
   const chageTaps = (e) => {
     e.preventDefault();
     const elemID = Number(e.target.dataset.id);
-    console.log("tap 전환 번호:", elemID, e);
+    // console.log("tap 전환 번호:", elemID, e);
     handleChange(null, elemID); //탭의 아이디를 직접 변경
     return e.target.dataset.name;
   };
@@ -155,11 +155,6 @@ const Home = ({ location, history }) => {
     Scroll(e);
   }
 
-  if (Math.round(window.scrollY) > 500) {
-    console.log("높이값 측정됨");
-    // floatingText.classList.toggle("visible");
-  }
-
   // componetDidMount: data fetch 부분
   useEffect(() => {
     // 리액트에서 외부 스크립트 불러오는 방법.
@@ -176,7 +171,6 @@ const Home = ({ location, history }) => {
     fetchFicWriterInfo();
     fetchNonFicWriterInfo();
     fetchOthersInfo();
-    console.log("Home component useEffect실행");
   }, []);
 
   // componetDidMount: floating text 부분

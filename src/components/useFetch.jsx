@@ -33,7 +33,7 @@ const useFetch = () => {
     axios
       .get("http://localhost:8000/api/ficWriterInfo/", config)
       .then((res) => {
-        console.log("Get list from DB:", res);
+        // console.log("Get list from DB:", res);
         dispatch({ type: "SET_FWRT_INIT_DATA", payload: res.data });
       })
       .then(() => {
@@ -49,7 +49,7 @@ const useFetch = () => {
     axios
       .get("http://localhost:8000/api/nonFicWriterInfo/", config)
       .then((res) => {
-        console.log("Get list from nonFic DB:", res);
+        // console.log("Get list from nonFic DB:", res);
         dispatch({ type: "SET_NFWRT_INIT_DATA", payload: res.data });
       })
       .then(() => {
@@ -64,7 +64,7 @@ const useFetch = () => {
     axios
       .get("http://localhost:8000/api/othersInfo/", config)
       .then((res) => {
-        console.log("Get list from nonFic DB:", res);
+        // console.log("Get list from others DB:", res);
         dispatch({ type: "SET_OTHERS_INIT_DATA", payload: res.data });
       })
       .then(() => {

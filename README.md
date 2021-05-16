@@ -33,9 +33,7 @@
 
 <!-- 1. scrollup기능이 화면이 작아지면 먹지않는 문제 보완 -> react-scroll-up-button삭제. floating Text로 보완 -->
 
-1. menulist에서 직업부분이 이름옆에 나오도록 변경
-
-- 조건에 따라 엘러먼트를 통채로 바꾸는 방식 고려할 것
+<!-- 1. menulist에서 직업부분이 이름옆에 나오도록 변경 -->
 
 <!-- 1. Artvee서버가 복구되지 않으면, DirectorList의 그림 받아오는 과정 수정 필요
 

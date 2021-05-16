@@ -29,15 +29,15 @@ const Loading = () => {
   return (
     <article className="loadingImg" style={styles.article}>
       <div style={styles.item}>
-        <img src={globalImgs.loading} style={styles.image} />
+        <img src={globalImgs.loading} style={styles.image} alt="loading" />
         <p style={styles.text}>&nbsp;</p>
       </div>
       <div style={styles.item}>
-        <img src={globalImgs.loading} style={styles.image} />
+        <img src={globalImgs.loading} style={styles.image} alt="loading" />
         <p style={styles.text}>LOADING...</p>
       </div>
       <div style={styles.item}>
-        <img src={globalImgs.loading} style={styles.image} />
+        <img src={globalImgs.loading} style={styles.image} alt="loading" />
         <p style={styles.text}>&nbsp;</p>
       </div>
     </article>
