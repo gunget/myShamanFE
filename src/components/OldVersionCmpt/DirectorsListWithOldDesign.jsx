@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import axios from "axios";
-import { StateContext } from "../contexts/Contexts.jsx";
+import { StateContext } from "../../contexts/Contexts.jsx";
 
 const DirectorsList = ({ fetchDirectorInfo }) => {
   const states = useContext(StateContext);

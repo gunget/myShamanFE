@@ -8,7 +8,7 @@
 
 - `input[type=text]:focus`로 붉은 border뺀 것 적용 고려 -->
 
-1. html에 사용한 js가 signIn화면 때 로드되어, 정작 signIn후엔 적용되지 않는 문제
+<!-- 1. html에 사용한 js가 signIn화면 때 로드되어, 정작 signIn후엔 적용되지 않는 문제
 
 - 일단은 signIn-전환 후 화면을 refresh하는 것으로 해결
 - mui의 cssBaseLine컴포넌트가 body태그의 css를 오버라이딩 한게 문제였음. 이를 제거하니 css문제는 사라짐
@@ -16,6 +16,7 @@
 - importScript.js로 javascript문제도 잡았으나, sidebar의 scroll Lock기능이 먹지 않음
 - 로딩과정에서 높이값을 측정하는 부분에 오류가 생겨, 강제로 style을 못 먹이는 듯
 - 직접 scroll Lock을 구현하거나, 높이값을 띄울 다른 방법을 찾아야 함. 템플릿 자바스크립트 변경 불가능 상태.
+- }}} 높이에 따라 메뉴가 고정되는 기능 간이로 구현. window reload 중지. 메뉴리스트 확장시 높이값이 달라져 완벽히 구현되지는 않음 -->
 
 <!-- 1. get it touch 문구 수정 -->
 

@@ -3305,6 +3305,10 @@ button:disabled,
 #menu ul span:hover {
   color: #f56a6a;
 }
+/* #menu ul li ul li {
+  display: none;
+}
+ */
 #menu ul a.opener,
 #menu ul span.opener {
   -moz-transition: color 0.2s ease-in-out;
@@ -3347,6 +3351,11 @@ button:disabled,
 #menu ul span.opener.active + ul {
   display: block;
 }
+
+/* #menu ul span.opener.active + ul li {
+  display: block;
+} */
+
 #menu ul a.opener.active:before,
 #menu ul span.opener.active:before {
   -moz-transform: rotate(-180deg);
