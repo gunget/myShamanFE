@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
 import { DispatchContext } from "../contexts/Contexts.jsx";
@@ -11,8 +11,6 @@ const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
   const states = useContext(StateContext);
   const sectionStates = states.searchDetails[sectionType];
   const dispatch = useContext(DispatchContext);
-
-  // const inputRef = useRef();
 
   const config = {
     headers: {

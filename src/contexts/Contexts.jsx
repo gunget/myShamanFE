@@ -134,7 +134,11 @@ function Store({ children }) {
             return (
               <blockquote>
                 1.{" "}
-                <a href="https://movie.naver.com/" target="_blank">
+                <a
+                  href="https://movie.naver.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   네이버 영화
                 </a>
                 &nbsp;-&nbsp;영화검색에서 '영화제목'으로 검색, 감독 찾기
@@ -184,7 +188,11 @@ function Store({ children }) {
             return (
               <blockquote>
                 1.{" "}
-                <a href="https://people.search.naver.com/" target="_blank">
+                <a
+                  href="https://people.search.naver.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   네이버 인물검색
                 </a>
                 에서 작가 이름검색, 동명이인 중 해당인물 찾기
@@ -234,7 +242,11 @@ function Store({ children }) {
             return (
               <blockquote>
                 1.{" "}
-                <a href="https://people.search.naver.com/" target="_blank">
+                <a
+                  href="https://people.search.naver.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   네이버 인물검색
                 </a>
                 에서 작가 이름검색, 동명이인 중 해당인물 찾기

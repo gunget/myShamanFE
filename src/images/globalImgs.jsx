@@ -1,5 +1,3 @@
-import React from "react";
-
 const globalImgs = {
   frontImage1: require("./frontImage1.jpg").default,
   frontImage2: require("./frontImage2.jpg").default,

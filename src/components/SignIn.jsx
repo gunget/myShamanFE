@@ -3,7 +3,6 @@ import axios from "axios";
 import CSRFToken from "./CSRFToken";
 import globalImgs from "../images/globalImgs";
 
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 // import CssBaseline from "@material-ui/core/CssBaseline";
 // 이게 있으면 mui의 body css가 우선적용 됨. 다른 css에서 body 항목을 쓴다면 deprecate됨.
@@ -11,7 +10,6 @@ import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -175,6 +173,7 @@ export default function SignIn({ history }) {
                 marginBottom: "-1em",
                 color: "red",
               }}
+              alt="login BG"
             ></img>
             {/* <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
