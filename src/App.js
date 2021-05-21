@@ -4,10 +4,13 @@ import SignUp from "./components/SignUp";
 import RestrictedRoute from "./components/RestrictedRoute";
 import NotFound from "./components/NotFound";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import ImportScript from "./components/ImportScript";
 
 // import CssBaseline from "@material-ui/core/CssBaseline";
 
 function App() {
+  ImportScript("./static/js/jquery.min.js"); //django용
+  // ImportScript(process.env.PUBLIC_URL + "./assets/js/jquery.min.js"); //react용
   return (
     <>
       {/* <CssBaseline /> */}

@@ -1,8 +1,12 @@
 # 해결해야할 과제
 
-1. 배포하기
+1. 배포하기1-리액트를 빌드해 장고의 프론트로 만들기
 
-- 리액트 빌드해서 장고의 프론트로 만들기
+- 리액트 빌드해서 장고의 프론트로 만들기. 빌드후 장고에서 실행 시 별도 삽입한 js파일이 실행 안되는 문제 발생
+- 검색결과, 장고는 CRA에서 build시 static/js로 빌드되지 않은 모든 파일은 'content_type: text/html'로 response하므로 브라우저에서 볼 때 MIME오류가 생겨 js 실행불가
+- 찾아낸 가장 간단한 해결책은, 리액트에서 테스트가 다 끝나면, js호출의 경로를 './static/js/~~.js'로 바꿔주고(이러면 리액트에서는 에러발생), npm run build 후, 외부 js파일을 수동으로 build/static/js 폴더로 옮겨준 뒤, 이 build폴더를 django에서 template로 바라보고(httpResponse)해주면 된다.
+
+1. 배포하기2-heroku등 무료서버에 띄우기
 
 <!-- 1. authorization 기능 만들기
 

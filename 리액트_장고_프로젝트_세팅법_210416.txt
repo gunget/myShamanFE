@@ -310,6 +310,64 @@ class UserSerializer(serializers.ModelSerializer):
 - 다 구현하긴 했으나, 기본 admin을 그대로 사용하는 경우 불필요한 기능.
 - jwt를 구현한 상태에선 로그인 없인 해당 부분 체크도 불가능
 
+3.리액트를 장고의 프론트로 사용하기 - 내용추가
+1) 리액트 build
+- npm run build하면 대부분 잘 되지만, css와 외부에서 삽입한 js가 정상적으로 동작하지 않는 경우가 생긴다.
+ . 이 build를 장고에서 그냥 실행 시 브라우저가 'MIME에러로 실행이 거부되었다'고 에러메시지 띄운다.
+- css : index.html에 link태그로 삽입된 css의 경우 type='css' or type='text/css'를 넣으면 해결 된다.
+- js : 그냥 build하면 삽입된 외부 js들은 build 폴더 내의 별도 폴더에 복사된다. 이 상태에서 
+django가 이를 템플릿으로 바라보게 하면, view - HttpResponse시 build/static폴더 외의 모든 파일을
+content_type='text/html'로 해서 보내버린다(defualt). 이러면 외부 js파일은 호출이 되긴 하지만 
+content_type(요게 결국 MIME)이 틀리므로 브라우저에서 실행이 거부된다.
+ . 해결책은 'django는 build/static/에 있는 파일들의 content_type은 자동으로 맞춰 보내준다'는데서
+  착안. 곧, 사용할 js파일을 수동으로 build/static폴더로 옮기고, 각 컴포넌트가 이를 바라보도록 경로 수정
+ . 리액트에서 모든 테스트가 끝나면, 1 컴포넌트에 있는 외부 js파일의 호출경로를 './static/js/~~.js'로
+  바꿔주고(이러면 리액트에서는 에러발생), 2 npm run build 후, 외부 js파일을 수동으로
+  build/static/js 폴더로 옮겨준 뒤, 3 이 build폴더를 django에서 template으로 
+  바라보도록(httpResponse)해주면 된다.
+ . settings.py에 import mimetypes, mimetypes.add_type("text/javascript", ".js", True)도 하긴 함
+ . CRA의 build 경로를 손본다거나, django의 HttpResponse의 content_type을 파일에 따라 다르게 주는
+   방법도 생각할 수 있겠으나, 공개된 자료도 없고, 배보다 배꼽이 더 커질 확률 높음
+2) django setting
+- 리액트 package.json에 proxy추가("proxy": "http://localhost:8000",) 프론트에서도 3000번에 url이 없을시 8000번으로 연결됨
+- npm run build를
+- 이 빌드된 폴더(static파일 포함)를 장고가 볼 수 있도록 세팅
+. settings.py에 아래 세팅 추가
+    //템플릿 위치
+    TEMPLATES = [ 
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [os.path.join(BASE_DIR,'myshaman', 'build')],
+            ......
+        },
+    ]
+    //static file 위치
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR,'myshaman', 'build', 'static'),
+    ] 
+
+    //CORS세팅
+    CORS_ORIGIN_WHITELIST = ( 'http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:8000', 'http://127.0.0.1:8000' ) 추가
+
+    //MIME오류 방지용도
+    import mimetypes
+    mimetypes.add_type("text/javascript", ".js", True)도 하긴 함
+
+. 루트 url 추가(바로 보이도록)
+  re_path(r'^(?:.*)/?$', views.ReactAppView.as_view()), #그외 모든 url을 리액트가 처리
+
+. 해당 뷰를 만들어 줌. 요청이 들어오면 HttpResponse로 프론트에서 빌드한 index.html을 리턴하는 뷰.
+    class ReactAppView(View): #리액트가 프론트로 기능하는 것 세팅
+        def get(self, request):
+            try:
+                with open(os.path.join(settings.BASE_DIR,'myshaman', 'build', 'index.html')) as file:
+                    return HttpResponse(file.read())
+            except:
+                return HttpResponse(status=501,)
+
+- 이렇게 하면 장고(8000번)를 열면 빌드된 리액트의 프론트 단이 보임
+
+
 
 
 

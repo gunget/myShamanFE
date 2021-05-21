@@ -161,11 +161,19 @@ const Home = ({ location, history }) => {
     // 리액트에서 외부 스크립트 불러오는 방법.
     // 아래 네 파일을 최초 index.html이 뜰때 같이 로딩되기는 하지만 적용될 엘러먼트가 없어 무용지물이 됨
     // Home 컴포넌트가 띄워지며 엘러먼트는 뜨지만 js가 적용안되는 걸 해결하려, 무효화된 js 다시 로딩
-    // 대부분 되지만 sideBar의 scrollLocked기능은 여전히 안됨
-    ImportScript("../assets/js/breakpoints.min.js");
-    ImportScript("../assets/js/browser.min.js");
-    ImportScript("../assets/js/main.js");
-    ImportScript("../assets/js/util.js");
+    // 대부분 되지만 sideBar의 scrollLocked기능은 안됨
+
+    // //react 테스트에서 js파일 부르기
+    // ImportScript("../assets/js/breakpoints.min.js");
+    // ImportScript("../assets/js/browser.min.js");
+    // ImportScript("../assets/js/main.js");
+    // ImportScript("../assets/js/util.js");
+
+    //build후 django에서 js파일 부를때 사용하는 구문(react에서 테스트시 에러발생)
+    ImportScript("./static/js/breakpoints.min.js");
+    ImportScript("./static/js/browser.min.js");
+    ImportScript("./static/js/main.js");
+    ImportScript("./static/js/util.js");
 
     setUserName(location.state.username); //jwt를 활용할때 관련 부분 수정할 것. 받아오는 username으로.
     fetchDirectorInfo();
