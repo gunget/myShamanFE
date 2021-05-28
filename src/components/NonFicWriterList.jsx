@@ -46,7 +46,7 @@ const NonFicWriterList = ({ fetchNonFicWriterInfo }) => {
     if (confirm) {
       axios
         .delete(
-          `http://myshaman.herokuapp.com/api/nonFicWriterInfo/${id}/`,
+          `https://myshaman.herokuapp.com/api/nonFicWriterInfo/${id}/`,
           config
         )
         .then(() => {

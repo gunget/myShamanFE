@@ -44,7 +44,10 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
     const confirm = window.confirm("정말 삭제하시겠습니까?");
     if (confirm) {
       axios
-        .delete(`http://myshaman.herokuapp.com/api/directorInfo/${id}/`, config)
+        .delete(
+          `https://myshaman.herokuapp.com/api/directorInfo/${id}/`,
+          config
+        )
         .then(() => {
           fetchDirectorInfo();
         })

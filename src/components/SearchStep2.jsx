@@ -43,7 +43,7 @@ const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
 
     await axios
       .post(
-        `http://myshaman.herokuapp.com/api/${sectionStates.url.saveUrl}/`,
+        `https://myshaman.herokuapp.com/api/${sectionStates.url.saveUrl}/`,
         data,
         config
       ) // (url, data, 헤더정보)순

@@ -26,7 +26,7 @@ const SearchStep1 = ({ sectionType }) => {
     setPeopleCode("Now Searching...");
     await axios
       .get(
-        `http://myshaman.herokuapp.com/${sectionStates.url.searchUrl}/`,
+        `https://myshaman.herokuapp.com/${sectionStates.url.searchUrl}/`,
         {
           params: {
             searchWtr: inputRef.current.value,

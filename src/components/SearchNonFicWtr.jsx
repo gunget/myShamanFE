@@ -23,7 +23,11 @@ const SearchNonFictionWriter = ({ fetchNonFicWriterInfo }) => {
     data.append("peopleCode", Number(peopleCode));
     data.append("job", job);
     await axios
-      .post("http://myshaman.herokuapp.com/api/nonFicWriterInfo/", data, config) // (url, data, 헤더정보)순
+      .post(
+        "https://myshaman.herokuapp.com/api/nonFicWriterInfo/",
+        data,
+        config
+      ) // (url, data, 헤더정보)순
       .then(() => {
         setPeopleCode("You don't seach anything yet.");
         inputRef.current.value = "";

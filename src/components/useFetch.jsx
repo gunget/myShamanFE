@@ -15,7 +15,7 @@ const useFetch = () => {
 
   const fetchDirectorInfo = () => {
     axios
-      .get("http://myshaman.herokuapp.com/api/directorInfo/", config)
+      .get("https://myshaman.herokuapp.com/api/directorInfo/", config)
       .then((res) => {
         // console.log("Get list from DB:", res);
         dispatch({ type: "SET_DRT_INIT_DATA", payload: res.data });
@@ -31,7 +31,7 @@ const useFetch = () => {
 
   const fetchFicWriterInfo = () => {
     axios
-      .get("http://myshaman.herokuapp.com/api/ficWriterInfo/", config)
+      .get("https://myshaman.herokuapp.com/api/ficWriterInfo/", config)
       .then((res) => {
         // console.log("Get list from DB:", res);
         dispatch({ type: "SET_FWRT_INIT_DATA", payload: res.data });
@@ -47,7 +47,7 @@ const useFetch = () => {
 
   const fetchNonFicWriterInfo = () => {
     axios
-      .get("http://myshaman.herokuapp.com/api/nonFicWriterInfo/", config)
+      .get("https://myshaman.herokuapp.com/api/nonFicWriterInfo/", config)
       .then((res) => {
         // console.log("Get list from nonFic DB:", res);
         dispatch({ type: "SET_NFWRT_INIT_DATA", payload: res.data });
@@ -62,7 +62,7 @@ const useFetch = () => {
   };
   const fetchOthersInfo = () => {
     axios
-      .get("http://myshaman.herokuapp.com/api/othersInfo/", config)
+      .get("https://myshaman.herokuapp.com/api/othersInfo/", config)
       .then((res) => {
         // console.log("Get list from others DB:", res);
         dispatch({ type: "SET_OTHERS_INIT_DATA", payload: res.data });

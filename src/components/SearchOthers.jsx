@@ -22,7 +22,7 @@ const SearchOthers = ({ fetchOthersInfo }) => {
     data.append("job", jobRef.current.value);
     data.append("description", descriptionRef.current.value);
     await axios
-      .post("http://myshaman.herokuapp.com/api/othersInfo/", data, config) // (url, data, 헤더정보)순
+      .post("https://myshaman.herokuapp.com/api/othersInfo/", data, config) // (url, data, 헤더정보)순
       .then(() => {
         nameRef.current.value = "";
         jobRef.current.value = "";

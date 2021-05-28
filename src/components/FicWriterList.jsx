@@ -46,7 +46,7 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
     if (confirm) {
       axios
         .delete(
-          `http://myshaman.herokuapp.com/api/ficWriterInfo/${id}/`,
+          `https://myshaman.herokuapp.com/api/ficWriterInfo/${id}/`,
           config
         )
         .then(() => {
