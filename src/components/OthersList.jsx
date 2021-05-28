@@ -22,7 +22,7 @@ const OthersList = ({ fetchOthersInfo }) => {
     const confirm = window.confirm("정말 삭제하시겠습니까?");
     if (confirm) {
       axios
-        .delete(`http://localhost:8000/api/othersInfo/${id}/`, config)
+        .delete(`http://myshaman.herokuapp.com/api/othersInfo/${id}/`, config)
         .then(() => {
           fetchOthersInfo();
         })

@@ -23,7 +23,7 @@ const SearchFictionWriter = ({ fetchFicWriterInfo }) => {
     data.append("peopleCode", Number(peopleCode));
     data.append("job", job);
     await axios
-      .post("http://127.0.0.1:8000/api/ficWriterInfo/", data, config) // (url, data, 헤더정보)순
+      .post("http://myshaman.herokuapp.com/api/ficWriterInfo/", data, config) // (url, data, 헤더정보)순
       .then(() => {
         setPeopleCode("You don't seach anything yet.");
         inputRef.current.value = "";

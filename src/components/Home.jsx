@@ -121,7 +121,7 @@ const Home = ({ location, history }) => {
       },
     };
     axios
-      .post("http://localhost:8000/rest-auth/logout/", config)
+      .post("http://myshaman.herokuapp.com/rest-auth/logout/", config)
       .then(localStorage.removeItem("jwt"))
       .then(history.push("/"));
   };

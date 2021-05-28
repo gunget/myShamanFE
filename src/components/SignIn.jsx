@@ -82,7 +82,7 @@ export default function SignIn({ history }) {
 
     function getSetJwt(nameFromServer) {
       axios
-        .post("http://127.0.0.1:8000/api-jwt-auth/", data)
+        .post("http://myshaman.herokuapp.com/api-jwt-auth/", data)
         .then((response) => {
           return response.data; //리턴값이 다음 then으로 넘겨짐
         })
@@ -118,7 +118,7 @@ export default function SignIn({ history }) {
 
     const checkUser = async () => {
       const userRsp = await axios
-        .post("http://localhost:8000/rest-auth/login/", data)
+        .post("http://myshaman.herokuapp.com/rest-auth/login/", data)
         .catch((error) => error.response); //return글자를 안써야 error값이 리턴된다!!!!!
       //또 axios는 error라고만 하면 response데이터를 볼 수 없다. error.response라 해야 한다.
       //하나 더, 동기작업(시퀸스작업)을 하려면 반드시 'axios의 return값을 받는 변수명'으로 다음 작업을

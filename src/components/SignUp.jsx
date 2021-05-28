@@ -89,7 +89,7 @@ export default function SignUp({ history }) {
     // console.log("등록시도 전 입력데이터", data);
 
     const regMsg = await axios
-      .post("http://127.0.0.1:8000/rest-auth/registration/", data)
+      .post("http://myshaman.herokuapp.com/rest-auth/registration/", data)
       .catch((error) => {
         alertRef.current.innerHTML =
           "Username 또는 Email이 중복되었거나, Password가 다릅니다.";
