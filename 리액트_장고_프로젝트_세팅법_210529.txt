@@ -1,4 +1,4 @@
-리액트 장고 프로젝트 세팅 방법 (201214현재)
+리액트 장고 프로젝트 세팅 방법 (210529현재)
 
 1. 장고 프로젝트 세팅하기
 1) 프로젝트 설치후 기본 설정
@@ -103,6 +103,11 @@
 - 이후 실제 배포는 장고의 배포 절차를 따라가면 될 듯
 3) React에서 DRF에 CRUD하기
 - Axios를 통해 간단하게 구현할 수 있음 : npm install axios 후 사용할 jsx에서 import axios from "axios";
+- 참고할 건, 여기서 url을 보통 '개발용 서버용'으로 하드코딩하게 되는데, 이렇게 해 놓으면 추후 실제 배포시
+  일일이 찾아서 '배포용 서버명'으로 바꿔줘야한다. 이런 번거로움을 줄이려면 별도의 파일로 주소를 뺀후
+  템플릿리터럴에서 이걸 호출하는 형식으로 애초에 작업해놓는게 좋다.
+ .  const response = await axios.get("http://127.0.0.1:8000/api/fbooks");를
+    const response = await axios.get(`http://${serverURL}/api/fbooks`);로
 - get //fetch와 다르게 axios가 JSON.parse작업을 다 처리해줌. 로그로 찍어가면서 필요한 값만 받아오면 된다.
   const response = await axios.get("http://127.0.0.1:8000/api/fbooks");
   const fbFromDJG = await response.data[0];
@@ -314,7 +319,7 @@ class UserSerializer(serializers.ModelSerializer):
 1) 리액트 build
 - npm run build하면 대부분 잘 되지만, css와 외부에서 삽입한 js가 정상적으로 동작하지 않는 경우가 생긴다.
  . 이 build를 장고에서 그냥 실행 시 브라우저가 'MIME에러로 실행이 거부되었다'고 에러메시지 띄운다.
-- css : index.html에 link태그로 삽입된 css의 경우 type='css' or type='text/css'를 넣으면 해결 된다.
+- css : index.html에 link태그로 삽입된 css의 경우 type='css'를 넣으면 해결 된다.
 - js : 그냥 build하면 삽입된 외부 js들은 build 폴더 내의 별도 폴더에 복사된다. 이 상태에서 
 django가 이를 템플릿으로 바라보게 하면, view - HttpResponse시 build/static폴더 외의 모든 파일을
 content_type='text/html'로 해서 보내버린다(defualt). 이러면 외부 js파일은 호출이 되긴 하지만 
@@ -367,18 +372,98 @@ content_type(요게 결국 MIME)이 틀리므로 브라우저에서 실행이 �
 
 - 이렇게 하면 장고(8000번)를 열면 빌드된 리액트의 프론트 단이 보임
 
+4. heroku로 배포하기
+- heroku는 PaaS로 OS나 runtime등을 고려할 필요 없이 개발자가 개발한 서비스를 그대로 올리면 된다.
+그러면 웹서버, wgsi서버, DB역할까지 특별한 설정없이 고루 해준다.
+ . wgsi는 gunicon을 쓰고, DB는 postgreSQL로 자동 변경된다.
+ . heroku cli를 통해 git에 올려진 파일을 간단히 끌어와 적용할 수 있다.
 
-
-
-
-
-
-
-
-
-
-
-
+1) staticfiles를 static_root로 몰아주기(옵션)
+- python manage.py collectstatic하면 app명/staticfiles라는 곳에 모든 staticfile들이 모임
+- cli로 heroku에 업로드할 때 헤로쿠가 자동으로 이 명령어를 실행하므로, 원래는 따로 할 필요 없음
+- 하지만 정상적으로 정적파일들이 불러와지지 않으면 django에서 먼저 실행한 뒤, 이것도 github에 올려
+  시도해볼 것
+2) setting.py 수정(직접 세팅하는 방식)
+- 출처 : https://zodlab.tistory.com/95
+- SECRET_KEY 부분을 아래의 코드와 같이 os.environ.get 을 삽입하고 수정을 해줘야 합니다.
+ . SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '기존의 시크릿키')
+- DEBUG 와 ALLOWED_HOSTS 부분을 수정합니다.
+ . DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
+ . ALLOWED_HOSTS = ['myshaman.herokuapp.com'] #이 호스트만 http request가능
+ . heroku cli 설치후 heroku create myshaman하면 위 url이 내 계정으로 주어짐
+- .gitignore파일을 만들어주고 불필요한 파일들이 깃헙에 등록되지 않도록합니다.
+ . manage.py가 있는 곳에 .gitignore파일을 만들어야 함
+ . 기존 프로젝트의 ignore파일 참조.
+ . myvenv는 필히 제외해야 함. 필요한 라이브러리는 requirements.txt로 해결
+- 헤로쿠 서버에 배포하기 위한 필요한 라이브러리들을 설치합니다.  (DB, 웹서버 등)
+ . pip install dj-database-url gunicorn psycopg2-binary whitenoise
+ . dj-data~~는 django의 기본 DB인 SQLLIte대신 heroku의 기본 서버인 postgreSQL을 쓰기위한 설정
+ . gunicorn은 wgsi서버
+ . whitenoise는 djnago의 staticfiles middleware대신 static파일들을 제공할 웹서버 역할 
+- INSTALLED_APPS, MIDDLEWEAR 부분에 설치한 라이브러리들을 등록하고 코드추가합니다.
+ . MIDDLEWARE = [
+	...	
+	'whitenoise.middleware.WhiteNoiseMiddleware', ]
+ . postgreSQL설정 
+   import dj_database_url                      # 최상단에 선언부분에 입력
+   db_from_env = dj_database_url.config(conn_max_age=500)   # DB 설정부분 아래에 입력
+   DATABASES['default'].update(db_from_env)    # DB 설정부분 아래에 입력
+- 웹서버 역할을 위한 static_root확인
+ . STATIC_URL = '/static/'
+ . STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+- cors를 위한 설정 추가
+ . CORS_ORIGIN_WHITELIST = ( 'myshaman.herokuapp.com' ) #개발용일때와 다르게 바꿔줘야 함
+ . CORS_ORIGIN_ALLOW_ALL = False #모두에게 열어줄것인가. false가 기본 설정
+ . CORS_ALLOW_CREDENTIALS = True
+2-1)heroku-django라이브러리를 통해 간접 설정하는 방법
+ - 출처: https://dev-yakuza.posstree.com/ko/django/heroku/
+ - 위 처럼 일일이 세팅하지 않고 관련 설정을 heroku-django app이 대신해주는 방식. 
+ - settings.py변경(static root나 cors설정은 더 해줘야함)
+   ...
+   import django_heroku
+   ...
+   DEBUG = False
+   ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+   ...
+   MIDDLEWARE = [
+       'whitenoise.middleware.WhiteNoiseMiddleware',
+       ...
+   ]
+   ...
+   # Activate Django-Heroku.
+   django_heroku.settings(locals())
+3) 설치한 라이브러리 리스트로 만듭니다. (필요한 라이브러리를 헤로쿠에 알려주기 위해)
+ . manage.py있는 위치에서 실행
+ . pip freeze > requirements.txt
+4) runtime.txt 파일 만들기 (파이썬 버전을 heroku에 알려주는 용도)
+ . # python --version 버전 확인후 runtime.txt 파일 생성 후 아래와 같이 버전 입력
+ . python-3.8.5      # 대소문자와 "-" 에 주의
+5) Procfile파일 생성(heroku의 자동실행 명령 정도)
+ - 확장자가 없는 파일임. 제일 위에 한줄만 일단 입력
+  . web: gunicorn myshaman.wsgi --log-file -
+6) github 에 push
+7) heroku cli로 프로젝트 업로드하기
+ -  heroku cli설치(devcenter.heroku.com/articles/heroku-cli)
+  . 설치시 path를 설정해놓으면 vscode에서 바로 배포할 수 있음
+ - heroku cli 설치가 완료 됐다면, 개발IDE 콘솔창에서 heroku 배포 명령어들을 입력합니다.
+  . heroku login    
+   # 헤로쿠에 로그인 
+   # 로그인 명령어 입력시 새로운 창이 뜨며 인터넷창에서 로그인을 요구합니다.    
+   # 로그인을 하면 자동으로 콘솔창에 로그인이 되었다고 뜹니다.
+  . heroku create "생성하고싶은 서버이름"  # 내 계정으로 해당이름의 서버(app)생성
+  . git push heroku master # git 에 올린 파일들을 헤로쿠에 push 
+   .. 이때 처음이면 requirements를 보고 각종 라이브러리들이 설치 됨
+   .. 두번째 부터는 같은 명령으로 변경사항만 update됨
+   .. 에러가 있으면 deploy rejected라고 뜸. 로그를 잘 읽어보면 어디서 문제 생겼는지 추정할 수 있음
+  . heroku run python manage.py migrate # 서버에 데이터베이스 등록을 위해 migrate
+  . heroku run python manage.py createsuperuser  # DB 관리자 아이디 등록
+ - heroku open # 어플리케이션 에러 라는 메세지가 없다면 배포성공
+6) 변경사항 발생 시
+ - git에 먼저 변경사항 push한 뒤,
+  . git push heroku master 로 다시 적용. 변경사항들만 update됨
+ - 완전히 새롭게 만들고 싶을때,
+  . heroku웹페이지-내 app선택 - settings 선택 - 제일 아래로 scroll하면 app을 delete할 수 있음
+  . 이러면 heroku create로 다시 만들어야 함
 
 
 
