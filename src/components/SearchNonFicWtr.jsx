@@ -2,6 +2,7 @@ import React, { useState, useRef, useContext } from "react";
 import axios from "axios";
 import QueryString from "qs";
 import { StateContext } from "../contexts/Contexts.jsx";
+import { url } from "./url.js";
 
 const SearchNonFictionWriter = ({ fetchNonFicWriterInfo }) => {
   const [peopleCode, setPeopleCode] = useState("You don't seach anything yet.");
@@ -23,11 +24,7 @@ const SearchNonFictionWriter = ({ fetchNonFicWriterInfo }) => {
     data.append("peopleCode", Number(peopleCode));
     data.append("job", job);
     await axios
-      .post(
-        "https://myshaman.herokuapp.com/api/nonFicWriterInfo/",
-        data,
-        config
-      ) // (url, data, 헤더정보)순
+      .post(`${url}/api/nonFicWriterInfo/`, data, config) // (url, data, 헤더정보)순
       .then(() => {
         setPeopleCode("You don't seach anything yet.");
         inputRef.current.value = "";

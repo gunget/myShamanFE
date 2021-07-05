@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import axios from "axios";
 import CSRFToken from "./CSRFToken";
 import globalImgs from "../images/globalImgs";
+import { url } from "./url";
 
 import Button from "@material-ui/core/Button";
 // import CssBaseline from "@material-ui/core/CssBaseline";
@@ -89,7 +90,7 @@ export default function SignUp({ history }) {
     // console.log("등록시도 전 입력데이터", data);
 
     const regMsg = await axios
-      .post("https://myshaman.herokuapp.com/rest-auth/registration/", data)
+      .post(`${url}/rest-auth/registration/`, data)
       .catch((error) => {
         alertRef.current.innerHTML =
           "Username 또는 Email이 중복되었거나, Password가 다릅니다.";

@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { DispatchContext } from "../contexts/Contexts.jsx";
 import axios from "axios";
+import { url } from "./url.js";
 
 const useFetch = () => {
   const dispatch = useContext(DispatchContext);
@@ -15,7 +16,7 @@ const useFetch = () => {
 
   const fetchDirectorInfo = () => {
     axios
-      .get("https://myshaman.herokuapp.com/api/directorInfo/", config)
+      .get(`${url}/api/directorInfo/`, config)
       .then((res) => {
         // console.log("Get list from DB:", res);
         dispatch({ type: "SET_DRT_INIT_DATA", payload: res.data });
@@ -31,7 +32,7 @@ const useFetch = () => {
 
   const fetchFicWriterInfo = () => {
     axios
-      .get("https://myshaman.herokuapp.com/api/ficWriterInfo/", config)
+      .get(`${url}/api/ficWriterInfo/`, config)
       .then((res) => {
         // console.log("Get list from DB:", res);
         dispatch({ type: "SET_FWRT_INIT_DATA", payload: res.data });
@@ -47,7 +48,7 @@ const useFetch = () => {
 
   const fetchNonFicWriterInfo = () => {
     axios
-      .get("https://myshaman.herokuapp.com/api/nonFicWriterInfo/", config)
+      .get(`${url}/api/nonFicWriterInfo/`, config)
       .then((res) => {
         // console.log("Get list from nonFic DB:", res);
         dispatch({ type: "SET_NFWRT_INIT_DATA", payload: res.data });
@@ -62,7 +63,7 @@ const useFetch = () => {
   };
   const fetchOthersInfo = () => {
     axios
-      .get("https://myshaman.herokuapp.com/api/othersInfo/", config)
+      .get(`${url}/api/othersInfo/`, config)
       .then((res) => {
         // console.log("Get list from others DB:", res);
         dispatch({ type: "SET_OTHERS_INIT_DATA", payload: res.data });

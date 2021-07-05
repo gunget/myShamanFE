@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
 import Loading from "./Loading";
+import { url } from "./url.js";
 
 // NonFicWriter Component
 const OthersList = ({ fetchOthersInfo }) => {
@@ -22,7 +23,7 @@ const OthersList = ({ fetchOthersInfo }) => {
     const confirm = window.confirm("정말 삭제하시겠습니까?");
     if (confirm) {
       axios
-        .delete(`https://myshaman.herokuapp.com/api/othersInfo/${id}/`, config)
+        .delete(`${url}/api/othersInfo/${id}/`, config)
         .then(() => {
           fetchOthersInfo();
         })

@@ -1,6 +1,7 @@
 import React, { useRef, useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
+import { url } from "./url.js";
 
 const SearchOthers = ({ fetchOthersInfo }) => {
   const nameRef = useRef("홍길동");
@@ -22,7 +23,7 @@ const SearchOthers = ({ fetchOthersInfo }) => {
     data.append("job", jobRef.current.value);
     data.append("description", descriptionRef.current.value);
     await axios
-      .post("https://myshaman.herokuapp.com/api/othersInfo/", data, config) // (url, data, 헤더정보)순
+      .post(`${url}/api/othersInfo/`, data, config) // (url, data, 헤더정보)순
       .then(() => {
         nameRef.current.value = "";
         jobRef.current.value = "";

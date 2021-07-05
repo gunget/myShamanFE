@@ -12,6 +12,7 @@ import useFetch from "./useFetch";
 import ImportScript from "./ImportScript";
 import FloatingText from "./FloatingText";
 import FixedSidebar from "./FixedSidebar";
+import { url } from "./url";
 
 import "../assets/css/main.css";
 import "../assets/css/fontawesome-all.min.css";
@@ -121,7 +122,7 @@ const Home = ({ location, history }) => {
       },
     };
     axios
-      .post("https://myshaman.herokuapp.com/rest-auth/logout/", config)
+      .post(`${url}/rest-auth/logout/`, config)
       .then(localStorage.removeItem("jwt"))
       .then(history.push("/"));
   };

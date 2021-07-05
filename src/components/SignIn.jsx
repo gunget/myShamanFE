@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import axios from "axios";
 import CSRFToken from "./CSRFToken";
 import globalImgs from "../images/globalImgs";
+import { url } from "./url";
 
 import Button from "@material-ui/core/Button";
 // import CssBaseline from "@material-ui/core/CssBaseline";
@@ -82,7 +83,7 @@ export default function SignIn({ history }) {
 
     function getSetJwt(nameFromServer) {
       axios
-        .post("https://myshaman.herokuapp.com/api-jwt-auth/", data)
+        .post(`${url}/api-jwt-auth/`, data)
         .then((response) => {
           return response.data; //리턴값이 다음 then으로 넘겨짐
         })
@@ -118,7 +119,7 @@ export default function SignIn({ history }) {
 
     const checkUser = async () => {
       const userRsp = await axios
-        .post("https://myshaman.herokuapp.com/rest-auth/login/", data)
+        .post(`${url}/rest-auth/login/`, data)
         .catch((error) => error.response); //return글자를 안써야 error값이 리턴된다!!!!!
       //또 axios는 error라고만 하면 response데이터를 볼 수 없다. error.response라 해야 한다.
       //하나 더, 동기작업(시퀸스작업)을 하려면 반드시 'axios의 return값을 받는 변수명'으로 다음 작업을

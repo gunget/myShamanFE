@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
 import { DispatchContext } from "../contexts/Contexts.jsx";
+import { url } from "./url.js";
 
 const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
   const [area, setArea] = useState("한국");
@@ -42,11 +43,7 @@ const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
     // };
 
     await axios
-      .post(
-        `https://myshaman.herokuapp.com/api/${sectionStates.url.saveUrl}/`,
-        data,
-        config
-      ) // (url, data, 헤더정보)순
+      .post(`${url}/api/${sectionStates.url.saveUrl}/`, data, config) // (url, data, 헤더정보)순
       .then(() => {
         fetchTotalInfo();
         if (sectionStates.useJoke) {

@@ -3,6 +3,7 @@ import axios from "axios";
 import QueryString from "qs"; //axios.get으로 array를 보낼때 사용하는 library
 import { StateContext } from "../contexts/Contexts.jsx";
 import { DispatchContext } from "../contexts/Contexts.jsx";
+import { url } from "./url.js";
 
 const SearchStep1 = ({ sectionType }) => {
   const [peopleCode, setPeopleCode] = useState("Nothing Searched.");
@@ -26,7 +27,7 @@ const SearchStep1 = ({ sectionType }) => {
     setPeopleCode("Now Searching...");
     await axios
       .get(
-        `https://myshaman.herokuapp.com/${sectionStates.url.searchUrl}/`,
+        `${url}/${sectionStates.url.searchUrl}/`,
         {
           params: {
             searchWtr: inputRef.current.value,
