@@ -101,8 +101,8 @@ const DirectorsList = ({ fetchDirectorInfo }) => {
                   <Typography variant="overline">[ {data.area} ]</Typography>
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  {data.wisesaying}&nbsp; &nbsp;
-                  <i class="far fa-grin-squint-tears"></i>
+                  대표작 : {data.majorWorks}&nbsp;&nbsp;
+                  <i class="fas fa-camera-retro"></i>
                 </Typography>
               </CardContent>
             </CardActionArea>

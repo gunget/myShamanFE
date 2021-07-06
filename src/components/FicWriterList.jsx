@@ -95,9 +95,8 @@ const FicWriterList = ({ fetchFicWriterInfo }) => {
                   <Typography variant="overline">[ {data.job} ]</Typography>
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  Fiction 생산에 탁월한 재능을 가진 작가들. '네이버 인물정보 '를
-                  통해 그들이 만들어온 작품들을 감상하고, 그들에게 당신의 시간을
-                  투자하세요.
+                  대표작 : {data.majorWorks}&nbsp;&nbsp;
+                  <i class="fas fa-pen-nib"></i>
                 </Typography>
               </CardContent>
             </CardActionArea>

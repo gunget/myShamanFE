@@ -1,13 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import axios from "axios";
 import { StateContext } from "../contexts/Contexts.jsx";
 import { DispatchContext } from "../contexts/Contexts.jsx";
 import { url } from "./url.js";
 
 const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
-  const [area, setArea] = useState("한국");
-  const [job, setJob] = useState("드라마작가");
+  const [area, setArea] = useState();
+  const [job, setJob] = useState();
   const [warning, setWarning] = useState(null);
+
+  const majorWorkRef = useRef();
 
   const states = useContext(StateContext);
   const sectionStates = states.searchDetails[sectionType];
@@ -25,15 +27,22 @@ const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
     let data = new FormData();
     data.append("name", states.searchName);
     data.append("peopleCode", Number(states.peopleCode));
+    if (majorWorkRef.current.value) {
+      data.append("majorWorks", majorWorkRef.current.value);
+    } else if (!majorWorkRef.current.value && states.randJoke) {
+      data.append("majorWorks", states.randJoke);
+    } else {
+      data.append("majorWorks", "매일매일이 당신의 베스트!");
+    }
     if (area) {
       data.append("area", area);
-    }
-    if (states.randJoke) {
-      data.append("wisesaying", states.randJoke);
     }
     if (job) {
       data.append("job", job);
     }
+    // if (states.randJoke) {
+    //   data.append("wisesaying", states.randJoke);
+    // }
     // let data2 = {
     //   // name: searchWord,
     //   name: inputRef.current.value,
@@ -77,6 +86,7 @@ const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
       return (
         <blockquote>
           - {sectionStates.texts.selectInfoText}을 선택하세요.
+          <br />- 대표작을 기록하세요.
           <br />- 저장버튼을 누르면 리스트에 자동으로 추가 됩니다.
         </blockquote>
       );
@@ -92,24 +102,35 @@ const SearchStep2 = ({ fetchTotalInfo, sectionType, handleNext }) => {
     <div className="container search2">
       <div id="search2" className="alt">
         <form method="post" action="#">
-          <select id="FicJobSelect" onChange={handelSelect}>
-            <option value="" selected>
-              {sectionStates.texts.selectText}
-            </option>
-            {options}
-            {/* <option value="한국">한국</option>
+          <div>
+            <select id="FicJobSelect" onChange={handelSelect}>
+              <option value="" selected>
+                {sectionStates.texts.selectText}
+              </option>
+              {options}
+              {/* <option value="한국">한국</option>
             <option value="북아메리카">북아메리카</option>
             <option value="남아메리카">남아메리카</option>
             <option value="유럽">유럽</option>
             <option value="아시아">아시아</option>
             <option value="기타">기타</option> */}
-          </select>
-          <div class="button" onClick={savePeopleCode}>
-            Save DB
+            </select>
           </div>
         </form>
+        <div className="majorWork">
+          <input
+            type="text"
+            name="demo-name"
+            id="demo-name"
+            ref={majorWorkRef}
+            placeholder="대표작을 기록해 두세요."
+          />
+        </div>
       </div>
       <div className="alt2">{message()}</div>
+      <div class="button" onClick={savePeopleCode}>
+        Save DB
+      </div>
     </div>
   );
 };

@@ -1585,7 +1585,7 @@ div .container.search2 > form {
 }
 
 div .container.search2 .alt {
-  width: 100%;
+  width: 420px;
   margin-bottom: 20px;
 }
 
@@ -1593,6 +1593,20 @@ div .container.search2 .alt form {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+div .container.search2 .alt .majorWork {
+  margin-top: -7%;
+  margin-bottom: 5%;
+}
+div .container.search2 .alt .majorWork input {
+  text-align: center;
+  color: #f56a6a;
+  font-weight: 500;
+}
+
+div .container.search2 .alt form select {
+  width: 420px;
 }
 
 div .container.search2 .alt2 {

@@ -96,9 +96,8 @@ const NonFicWriterList = ({ fetchNonFicWriterInfo }) => {
                   <Typography variant="overline">[ {data.job} ]</Typography>
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  각자의 분야에서 탁월한 식견을 보유한 작가들. '네이버
-                  인물정보'와 '네이버 책정보'를 통해 그들의 저작들을 확인하고,
-                  그들에게 당신의 시간을 투자하세요.
+                  대표작 : {data.majorWorks}&nbsp;&nbsp;
+                  <i class="fas fa-book"></i>
                 </Typography>
               </CardContent>
             </CardActionArea>
