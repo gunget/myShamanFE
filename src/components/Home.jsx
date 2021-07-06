@@ -12,7 +12,7 @@ import useFetch from "./useFetch";
 import ImportScript from "./ImportScript";
 import FloatingText from "./FloatingText";
 import FixedSidebar from "./FixedSidebar";
-import { url } from "./url";
+import { url, staticUrl } from "./url";
 
 import "../assets/css/main.css";
 import "../assets/css/fontawesome-all.min.css";
@@ -171,10 +171,10 @@ const Home = ({ location, history }) => {
     // ImportScript("../assets/js/util.js");
 
     //build후 django에서 js파일 부를때 사용하는 구문(react에서 테스트시 에러발생)
-    ImportScript("./static/js/breakpoints.min.js");
-    ImportScript("./static/js/browser.min.js");
-    ImportScript("./static/js/main.js");
-    ImportScript("./static/js/util.js");
+    ImportScript(`${staticUrl}/breakpoints.min.js`);
+    ImportScript(`${staticUrl}/browser.min.js`);
+    ImportScript(`${staticUrl}/main.js`);
+    ImportScript(`${staticUrl}/js/util.js`);
 
     setUserName(location.state.username); //jwt를 활용할때 관련 부분 수정할 것. 받아오는 username으로.
     fetchDirectorInfo();

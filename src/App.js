@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import "./App.css";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
@@ -5,12 +6,16 @@ import RestrictedRoute from "./components/RestrictedRoute";
 import NotFound from "./components/NotFound";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import ImportScript from "./components/ImportScript";
+import { staticUrlJq } from "./components/url";
 
 // import CssBaseline from "@material-ui/core/CssBaseline";
 
 function App() {
-  ImportScript("./static/js/jquery.min.js"); //django용
-  // ImportScript(process.env.PUBLIC_URL + "./assets/js/jquery.min.js"); //react용
+  useEffect(() => {
+    ImportScript(`${staticUrlJq}/jquery.min.js`); //django용
+    // ImportScript(process.env.PUBLIC_URL + "./assets/js/jquery.min.js"); //react용
+  }, []);
+
   return (
     <>
       {/* <CssBaseline /> */}
