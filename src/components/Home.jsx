@@ -174,7 +174,7 @@ const Home = ({ location, history }) => {
     ImportScript(`${staticUrl}/breakpoints.min.js`);
     ImportScript(`${staticUrl}/browser.min.js`);
     ImportScript(`${staticUrl}/main.js`);
-    ImportScript(`${staticUrl}/js/util.js`);
+    ImportScript(`${staticUrl}/util.js`);
 
     setUserName(location.state.username); //jwt를 활용할때 관련 부분 수정할 것. 받아오는 username으로.
     fetchDirectorInfo();
