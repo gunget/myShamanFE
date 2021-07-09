@@ -173,14 +173,16 @@ const Home = ({ location, history }) => {
     //build후 django에서 js파일 부를때 사용하는 구문(react에서 테스트시 에러발생)
     ImportScript(`${staticUrl}/breakpoints.min.js`);
     ImportScript(`${staticUrl}/browser.min.js`);
-    ImportScript(`${staticUrl}/main.js`);
-    ImportScript(`${staticUrl}/util.js`);
-
+    const id = setTimeout(() => {
+      ImportScript(`${staticUrl}/main.js`);
+      ImportScript(`${staticUrl}/util.js`);
+    }, 1000); //실제 배포시 생기는 에러를 막기 위해 1초 delay준 후 로딩
     setUserName(location.state.username); //jwt를 활용할때 관련 부분 수정할 것. 받아오는 username으로.
     fetchDirectorInfo();
     fetchFicWriterInfo();
     fetchNonFicWriterInfo();
     fetchOthersInfo();
+    // return clearTimeout(id);
   }, []);
 
   // componetDidMount: floating text 부분
